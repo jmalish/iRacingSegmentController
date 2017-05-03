@@ -1,0 +1,37 @@
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper-master\iRacingSdkWrapper\obj\Debug\iRacingSdkWrapper.csprojResolveAssemblyReference.cache
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper-master\iRacingSdkWrapper\bin\Debug\iRacingSdkWrapper.dll
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper-master\iRacingSdkWrapper\bin\Debug\iRacingSdkWrapper.pdb
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper-master\iRacingSdkWrapper\bin\Debug\iRSDKSharp.dll
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper-master\iRacingSdkWrapper\bin\Debug\YamlDotNet.dll
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper-master\iRacingSdkWrapper\bin\Debug\iRSDKSharp.pdb
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper-master\iRacingSdkWrapper\bin\Debug\YamlDotNet.pdb
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper-master\iRacingSdkWrapper\bin\Debug\YamlDotNet.xml
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper-master\iRacingSdkWrapper\obj\Debug\iRacingSdkWrapper.dll
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper-master\iRacingSdkWrapper\obj\Debug\iRacingSdkWrapper.pdb
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Debug\iRacingSdkWrapper.dll
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Debug\iRacingSdkWrapper.pdb
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Debug\iRSDKSharp.dll
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Debug\iRSDKSharp.pdb
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper\obj\Debug\iRacingSdkWrapper.csprojResolveAssemblyReference.cache
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper\obj\Debug\iRacingSdkWrapper.dll
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper\obj\Debug\iRacingSdkWrapper.pdb
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Debug\iRacingSdkWrapper.dll
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Debug\iRacingSdkWrapper.pdb
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Debug\iRSDKSharp.dll
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Debug\iRSDKSharp.pdb
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\obj\Debug\iRacingSdkWrapper.csprojResolveAssemblyReference.cache
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\obj\Debug\iRacingSdkWrapper.dll
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\obj\Debug\iRacingSdkWrapper.pdb
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Debug\YamlDotNet.dll
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Debug\YamlDotNet.pdb
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Debug\YamlDotNet.xml
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\bin\Debug\iRacingSdkWrapper.dll
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\bin\Debug\iRacingSdkWrapper.pdb
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\bin\Debug\iRSDKSharp.dll
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\bin\Debug\YamlDotNet.dll
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\bin\Debug\iRSDKSharp.pdb
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\bin\Debug\YamlDotNet.pdb
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\bin\Debug\YamlDotNet.xml
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\obj\Debug\iRacingSdkWrapper.csprojResolveAssemblyReference.cache
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\obj\Debug\iRacingSdkWrapper.dll
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\obj\Debug\iRacingSdkWrapper.pdb

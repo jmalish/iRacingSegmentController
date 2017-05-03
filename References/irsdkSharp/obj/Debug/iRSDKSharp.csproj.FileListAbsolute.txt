@@ -1,0 +1,23 @@
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper-master\irsdkSharp\bin\Debug\iRSDKSharp.dll
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper-master\irsdkSharp\bin\Debug\iRSDKSharp.pdb
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper-master\irsdkSharp\obj\Debug\iRSDKSharp.dll
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\iRacingSdkWrapper-master\irsdkSharp\obj\Debug\iRSDKSharp.pdb
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\irsdkSharp\bin\Debug\iRSDKSharp.dll
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\irsdkSharp\bin\Debug\iRSDKSharp.pdb
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\irsdkSharp\obj\Debug\iRSDKSharp.csprojResolveAssemblyReference.cache
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\irsdkSharp\obj\Debug\iRSDKSharp.dll
+E:\My Projects\iRacing_Caution_Clock\iRacing_Caution_Clock\References\irsdkSharp\obj\Debug\iRSDKSharp.pdb
+E:\My Projects\iRacing_Caution_Clock\References\irsdkSharp\bin\Debug\iRSDKSharp.dll
+E:\My Projects\iRacing_Caution_Clock\References\irsdkSharp\bin\Debug\iRSDKSharp.pdb
+E:\My Projects\iRacing_Caution_Clock\References\irsdkSharp\obj\Debug\iRSDKSharp.dll
+E:\My Projects\iRacing_Caution_Clock\References\irsdkSharp\obj\Debug\iRSDKSharp.pdb
+E:\My Projects\iRacing_Caution_Clock\References\irsdkSharp\bin\Debug\YamlDotNet.dll
+E:\My Projects\iRacing_Caution_Clock\References\irsdkSharp\bin\Debug\YamlDotNet.pdb
+E:\My Projects\iRacing_Caution_Clock\References\irsdkSharp\bin\Debug\YamlDotNet.xml
+D:\projects\iRacingSegmentController\References\irsdkSharp\bin\Debug\iRSDKSharp.dll
+D:\projects\iRacingSegmentController\References\irsdkSharp\bin\Debug\iRSDKSharp.pdb
+D:\projects\iRacingSegmentController\References\irsdkSharp\bin\Debug\YamlDotNet.dll
+D:\projects\iRacingSegmentController\References\irsdkSharp\bin\Debug\YamlDotNet.pdb
+D:\projects\iRacingSegmentController\References\irsdkSharp\bin\Debug\YamlDotNet.xml
+D:\projects\iRacingSegmentController\References\irsdkSharp\obj\Debug\iRSDKSharp.dll
+D:\projects\iRacingSegmentController\References\irsdkSharp\obj\Debug\iRSDKSharp.pdb

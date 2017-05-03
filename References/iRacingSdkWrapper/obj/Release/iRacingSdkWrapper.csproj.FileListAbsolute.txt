@@ -1,0 +1,10 @@
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\obj\Release\iRacingSdkWrapper.csprojResolveAssemblyReference.cache
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Release\iRacingSdkWrapper.dll
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Release\iRacingSdkWrapper.pdb
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Release\iRSDKSharp.dll
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Release\YamlDotNet.dll
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Release\iRSDKSharp.pdb
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Release\YamlDotNet.pdb
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Release\YamlDotNet.xml
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\obj\Release\iRacingSdkWrapper.dll
+E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\obj\Release\iRacingSdkWrapper.pdb
