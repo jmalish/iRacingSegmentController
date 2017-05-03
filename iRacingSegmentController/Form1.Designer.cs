@@ -30,9 +30,9 @@
         {
             this.lblIsConnected = new System.Windows.Forms.Label();
             this.lblCurrentFlag = new System.Windows.Forms.Label();
-            this.lblDriverInfo = new System.Windows.Forms.Label();
-            this.lstDriverList = new System.Windows.Forms.ListBox();
             this.lvlVersion = new System.Windows.Forms.Label();
+            this.dgvDriverList = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDriverList)).BeginInit();
             this.SuspendLayout();
             // 
             // lblIsConnected
@@ -53,23 +53,6 @@
             this.lblCurrentFlag.TabIndex = 1;
             this.lblCurrentFlag.Text = "Current Flag:";
             // 
-            // lblDriverInfo
-            // 
-            this.lblDriverInfo.AutoSize = true;
-            this.lblDriverInfo.Location = new System.Drawing.Point(30, 437);
-            this.lblDriverInfo.Name = "lblDriverInfo";
-            this.lblDriverInfo.Size = new System.Drawing.Size(35, 13);
-            this.lblDriverInfo.TabIndex = 1;
-            this.lblDriverInfo.Text = "Driver";
-            // 
-            // lstDriverList
-            // 
-            this.lstDriverList.FormattingEnabled = true;
-            this.lstDriverList.Location = new System.Drawing.Point(157, 9);
-            this.lstDriverList.Name = "lstDriverList";
-            this.lstDriverList.Size = new System.Drawing.Size(426, 381);
-            this.lstDriverList.TabIndex = 2;
-            // 
             // lvlVersion
             // 
             this.lvlVersion.AutoSize = true;
@@ -79,19 +62,31 @@
             this.lvlVersion.TabIndex = 3;
             this.lvlVersion.Text = "v.00";
             // 
+            // dgvDriverList
+            // 
+            this.dgvDriverList.AllowUserToAddRows = false;
+            this.dgvDriverList.AllowUserToDeleteRows = false;
+            this.dgvDriverList.AllowUserToOrderColumns = true;
+            this.dgvDriverList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDriverList.Location = new System.Drawing.Point(185, 9);
+            this.dgvDriverList.Name = "dgvDriverList";
+            this.dgvDriverList.ReadOnly = true;
+            this.dgvDriverList.Size = new System.Drawing.Size(406, 358);
+            this.dgvDriverList.TabIndex = 4;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(603, 514);
+            this.Controls.Add(this.dgvDriverList);
             this.Controls.Add(this.lvlVersion);
-            this.Controls.Add(this.lstDriverList);
-            this.Controls.Add(this.lblDriverInfo);
             this.Controls.Add(this.lblCurrentFlag);
             this.Controls.Add(this.lblIsConnected);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDriverList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -101,9 +96,8 @@
 
         private System.Windows.Forms.Label lblIsConnected;
         private System.Windows.Forms.Label lblCurrentFlag;
-        private System.Windows.Forms.Label lblDriverInfo;
-        private System.Windows.Forms.ListBox lstDriverList;
         private System.Windows.Forms.Label lvlVersion;
+        private System.Windows.Forms.DataGridView dgvDriverList;
     }
 }
 

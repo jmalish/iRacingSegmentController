@@ -11,25 +11,39 @@ namespace iRacingSegmentController
     public partial class Form1 : Form
     {
         #region Variables
-        private bool closing = false;
-        private readonly iRacingSdkWrapper.SdkWrapper wrapper;  // create sdk wrapper, used to connect to iRacing
-        private bool isYellowOut = false;
-        private string currentFlag = "";
-        private List<Driver> driversInSession;
-
-        private string driverCurrentLap = "0";
+        private bool isClosing = false;  // is the program closing?
+        private readonly iRacingSdkWrapper.SdkWrapper wrapper;  // sdk wrapper, used to connect to live iRacing API
+        private bool isYellowOut = false;  // is the yellow flag out?
+        private string currentFlag = "";  // current flag
+        private List<Driver> driversInSession; // list of all drivers in server
         #endregion
 
-
-        public Form1()
+        #region Form Stuff
+        public Form1()  // this is run when the program is first started, it's essentially the same as form load for the primary form
         {
-            InitializeComponent();
+            InitializeComponent();  // do magic stuff
+
+            #region DataGridView Setup
+            dgvDriverList.RowHeadersVisible = false;  // hide left margin
+
+            dgvDriverList.ColumnCount = 4; // set number of columns
+
+            // set column names
+            dgvDriverList.Columns[0].Name = "Pos.";
+            dgvDriverList.Columns[1].Name = "Car #";
+            dgvDriverList.Columns[2].Name = "Name";
+            dgvDriverList.Columns[3].Name = "Lap";
+
+            // set column widths
+            dgvDriverList.Columns[0].Width = 50;
+            dgvDriverList.Columns[1].Width = 56;
+            dgvDriverList.Columns[3].Width = 50;
+            #endregion
+
 
             #region wrapper stuff
             try
             {
-                Console.WriteLine("Starting wrapper.");
-
                 wrapper = new iRacingSdkWrapper.SdkWrapper();  // create wrapper instance
 
                 wrapper.TelemetryUpdated += OnTelemetryUpdated;  // listen to telemetry events
@@ -39,12 +53,12 @@ namespace iRacingSegmentController
             }
             catch (Exception exc)
             {
+                Console.WriteLine(exc.Message.ToString());
                 //WriteToLogFile("wrapper stuff", exc.Message.ToString());
             }
-
-
             #endregion
         }
+        #endregion  
 
         #region SDK Wrapper Stuff
         // Do things when Telemetry updates (supposed to be 60 times per second)
@@ -70,20 +84,15 @@ namespace iRacingSegmentController
             //Console.WriteLine("Session Info Updated");
             if (sessionArgs.SessionInfo.IsValidYaml)  // check if yaml is valid
             {
+                // TODO: Fix this since it's deprecated, I doubt this will cause me issue, but better safe than sorry
                 Deserializer deserializer = new Deserializer(namingConvention: new PascalCaseNamingConvention(), ignoreUnmatched: true);  // create a deserializer
                 var input = new StringReader(sessionArgs.SessionInfo.Yaml);  // read the yaml
                 var sessionInfo = deserializer.Deserialize<SDKReturn>(input);  // deserialize the yaml
 
                 #region Drivers Info
-                if ((driversInSession == null) || (driversInSession.Count != sessionInfo.DriverInfo.Drivers.Count))
+                if ((driversInSession == null) || (driversInSession.Count != sessionInfo.DriverInfo.Drivers.Count)) // if driver list is empty, or one of the lists is longer than the other
                 {
-                    driversInSession = sessionInfo.DriverInfo.Drivers; // get all drivers in session
-                
-                    lstDriverList.Items.Clear();
-                    foreach (Driver d in driversInSession)
-                    {
-                        lstDriverList.Items.Add($"{d.CarNumber} \t {d.UserName}");
-                    }
+                    driversInSession = sessionInfo.DriverInfo.Drivers; // set local driver list equal to drivers in the server
                 }
                 #endregion
 
@@ -95,17 +104,22 @@ namespace iRacingSegmentController
                     {
                         var racesession = session;  // the session we're dealing with is the race session, just using this to shorten the variable to less than 50 characters
                         int lapscomplete = Convert.ToInt32(racesession.ResultsLapsComplete);  // get the laps complete, this is helpful for when someone in top 10 is not on lead lap
-                    
 
-                        string newDriverLap = session.ResultsPositions[0].LapsComplete;
 
-                        if (newDriverLap != driverCurrentLap)
-                        {
-                            string driverOneName = sessionInfo.DriverInfo.Drivers[1].UserName;
 
-                            lblDriverInfo.Text = driverOneName + " is on lap " + newDriverLap;
-                            driverCurrentLap = newDriverLap;
-                        }
+
+                        //TODO: see below
+                        // Get everyone's current lap to set a baseline, this should happen at start of race, so long as it happens before segment end we're good
+                        // when session args updates, see who's lap counter incremented by 1, meaning they just crossed the line
+
+                        // Alternative, keep checking car who Postion: 9 (actually p10 due to 0 index)'s lap
+                            // if p10 = current lap (lapscomplete), segment ends
+                            // this doesn't work if not all of top 10 is on lead lap so I'll need to check to make sure all of top 10 is on lead lap
+                                // if not, need to throw caution when last car on lead lap crosses the line
+
+
+                        // if p10 is on lead lap, throw caution when p10 crosses line
+                        // else throw caution when last car on lead lap crosses line
                     }
                 }
                 #endregion
@@ -138,10 +152,10 @@ namespace iRacingSegmentController
             public string ResultsLapsComplete { get; set; }
             public string SessionLaps { get; set; }
             public string SessionType { get; set; }
-            public List<ResultsPositions> ResultsPositions { get; set; }
+            public List<Positions> ResultsPositions { get; set; }
         }
 
-        public class ResultsPositions
+        public class Positions
         {
             public string Position { get; set; }
             public string ClassPosition { get; set; }
@@ -225,12 +239,12 @@ namespace iRacingSegmentController
         }
         #endregion
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)  // when close button is clicked, stop wrapper and close the rest of the program 
         {
-            closing = true;
-            wrapper.Stop();  // stop the wrapper since the form is being closed, otherwise we have a wild wrapper running free TODO: make a joke about debris cautions here
+            isClosing = true;  // let everything else know program is closing
+            wrapper.Stop();  // stop the wrapper since the form is being closed, otherwise we have a wild wrapper running free
 
-            Application.Exit();
-        } // when close button is clicked, stop wrapper and close the rest of the program 
+            Application.Exit();  // close program
+        }
     }
 }
