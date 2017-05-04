@@ -16,6 +16,7 @@ namespace iRacingSegmentController
         private bool isYellowOut = false;  // is the yellow flag out?
         private string currentFlag = "";  // current flag
         private List<Driver> driversInSession; // list of all drivers in server
+        private List<Positions> currentPositions;
         #endregion
 
         #region Form Stuff
@@ -39,7 +40,6 @@ namespace iRacingSegmentController
             dgvDriverList.Columns[1].Width = 56;
             dgvDriverList.Columns[3].Width = 50;
             #endregion
-
 
             #region wrapper stuff
             try
@@ -102,10 +102,26 @@ namespace iRacingSegmentController
                 {
                     if (session.SessionType == "Race") // find the race part session (ignore qual and practice parts of the active server, if they exist)
                     {
-                        var racesession = session;  // the session we're dealing with is the race session, just using this to shorten the variable to less than 50 characters
-                        int lapscomplete = Convert.ToInt32(racesession.ResultsLapsComplete);  // get the laps complete, this is helpful for when someone in top 10 is not on lead lap
+                        var raceSession = session; // the session we're dealing with is the race session, just using this to shorten the variable to less than 50 characters
+                        var lapsComplete = Convert.ToInt32(raceSession.ResultsLapsComplete); // get the laps complete, this is helpful for when someone in top 10 is not on lead lap
+
+                        lblCurrentLap.Text = "Current Lap: " + lapsComplete;  // update current lap label
 
 
+                        if (currentPositions != null)  // make sure currentPositions list is not null, otherwise program crashes
+                        {
+                            
+                        }
+
+                        currentPositions = raceSession.ResultsPositions; // update positions to equal live results
+
+                        dgvDriverList.Rows.Clear();  // clear list so we don't have a bunch of duplicates
+                        foreach (Positions p in currentPositions)  // for each position in current positions
+                        {
+                            dgvDriverList.Rows.Add(p.Position, p.CarIdx, "", p.LapsComplete); // add position to datagridview
+                        }
+
+                        Console.WriteLine("Current positions updated");
 
 
                         //TODO: see below
@@ -113,9 +129,9 @@ namespace iRacingSegmentController
                         // when session args updates, see who's lap counter incremented by 1, meaning they just crossed the line
 
                         // Alternative, keep checking car who Postion: 9 (actually p10 due to 0 index)'s lap
-                            // if p10 = current lap (lapscomplete), segment ends
-                            // this doesn't work if not all of top 10 is on lead lap so I'll need to check to make sure all of top 10 is on lead lap
-                                // if not, need to throw caution when last car on lead lap crosses the line
+                        // if p10 = current lap (lapscomplete), segment ends
+                        // this doesn't work if not all of top 10 is on lead lap so I'll need to check to make sure all of top 10 is on lead lap
+                        // if not, need to throw caution when last car on lead lap crosses the line
 
 
                         // if p10 is on lead lap, throw caution when p10 crosses line

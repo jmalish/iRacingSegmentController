@@ -32,6 +32,7 @@
             this.lblCurrentFlag = new System.Windows.Forms.Label();
             this.lvlVersion = new System.Windows.Forms.Label();
             this.dgvDriverList = new System.Windows.Forms.DataGridView();
+            this.lblCurrentLap = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDriverList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,7 +57,7 @@
             // lvlVersion
             // 
             this.lvlVersion.AutoSize = true;
-            this.lvlVersion.Location = new System.Drawing.Point(562, 492);
+            this.lvlVersion.Location = new System.Drawing.Point(12, 618);
             this.lvlVersion.Name = "lvlVersion";
             this.lvlVersion.Size = new System.Drawing.Size(28, 13);
             this.lvlVersion.TabIndex = 3;
@@ -68,17 +69,27 @@
             this.dgvDriverList.AllowUserToDeleteRows = false;
             this.dgvDriverList.AllowUserToOrderColumns = true;
             this.dgvDriverList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDriverList.Location = new System.Drawing.Point(185, 9);
+            this.dgvDriverList.Location = new System.Drawing.Point(185, 31);
             this.dgvDriverList.Name = "dgvDriverList";
             this.dgvDriverList.ReadOnly = true;
-            this.dgvDriverList.Size = new System.Drawing.Size(406, 358);
+            this.dgvDriverList.Size = new System.Drawing.Size(406, 597);
             this.dgvDriverList.TabIndex = 4;
+            // 
+            // lblCurrentLap
+            // 
+            this.lblCurrentLap.AutoSize = true;
+            this.lblCurrentLap.Location = new System.Drawing.Point(185, 9);
+            this.lblCurrentLap.Name = "lblCurrentLap";
+            this.lblCurrentLap.Size = new System.Drawing.Size(74, 13);
+            this.lblCurrentLap.TabIndex = 5;
+            this.lblCurrentLap.Text = "Current Lap: 0";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(603, 514);
+            this.ClientSize = new System.Drawing.Size(603, 640);
+            this.Controls.Add(this.lblCurrentLap);
             this.Controls.Add(this.dgvDriverList);
             this.Controls.Add(this.lvlVersion);
             this.Controls.Add(this.lblCurrentFlag);
@@ -98,6 +109,7 @@
         private System.Windows.Forms.Label lblCurrentFlag;
         private System.Windows.Forms.Label lvlVersion;
         private System.Windows.Forms.DataGridView dgvDriverList;
+        private System.Windows.Forms.Label lblCurrentLap;
     }
 }
 
