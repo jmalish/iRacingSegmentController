@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -74,7 +75,7 @@ namespace iRacingSegmentController
             #region Flag stuff
             string newFlag = telemArgs.TelemetryInfo.SessionFlags.Value.ToString().Split(' ')[0];  // get the actual current flag according to the session, splits because it normally shows two states
 
-            lblCurrentFlag.Text = "Current Flag: " + currentFlag;
+            lblCurrentFlag.Text = "Current Flag: " + newFlag;
             #endregion
         }
 
@@ -103,26 +104,36 @@ namespace iRacingSegmentController
                     if (session.SessionType == "Race") // find the race part session (ignore qual and practice parts of the active server, if they exist)
                     {
                         var raceSession = session; // the session we're dealing with is the race session, just using this to shorten the variable to less than 50 characters
-                        var lapsComplete = Convert.ToInt32(raceSession.ResultsLapsComplete); // get the laps complete, this is helpful for when someone in top 10 is not on lead lap
+                        int lapsComplete = raceSession.ResultsLapsComplete; // get the laps complete, this is helpful for when someone in top 10 is not on lead lap
 
-                        lblCurrentLap.Text = "Current Lap: " + lapsComplete;  // update current lap label
+                        lblCurrentLap.Text = String.Format("Current Lap: {0}", lapsComplete + 1);  // update current lap label
 
-
-                        if (currentPositions != null)  // make sure currentPositions list is not null, otherwise program crashes
-                        {
-                            
-                        }
 
                         currentPositions = raceSession.ResultsPositions; // update positions to equal live results
 
-                        dgvDriverList.Rows.Clear();  // clear list so we don't have a bunch of duplicates
-                        foreach (Positions p in currentPositions)  // for each position in current positions
+                        if (currentPositions != null) // make sure currentPositions list is not null, otherwise program crashes
                         {
-                            dgvDriverList.Rows.Add(p.Position, p.CarIdx, "", p.LapsComplete); // add position to datagridview
+                            dgvDriverList.Rows.Clear(); // clear list so we don't have a bunch of duplicates
+                            foreach (Positions p in currentPositions) // for each position in current positions
+                            {
+                                dgvDriverList.Rows.Add(p.Position, p.CarIdx, driversInSession[p.CarIdx].UserName,
+                                    p.LapsComplete + 1); // add position to datagridview
+                            }
+
+
+                            // var positionTen = currentPositions[9]; // get p10
+
+                            // find how many cars are on lead lap
+                            IEnumerable<Positions> carsOnLeadLap =
+                                from position in currentPositions
+                                where position.LapsComplete == lapsComplete
+                                select position;
+
+                            lblCarsOnLead.Text = String.Format("Cars on Lead Lap: {0} of {1}", carsOnLeadLap.Count(), currentPositions.Count);
+
+
+                            Console.WriteLine(carsOnLeadLap.Count());
                         }
-
-                        Console.WriteLine("Current positions updated");
-
 
                         //TODO: see below
                         // Get everyone's current lap to set a baseline, this should happen at start of race, so long as it happens before segment end we're good
@@ -165,7 +176,7 @@ namespace iRacingSegmentController
 
         public class Session
         {
-            public string ResultsLapsComplete { get; set; }
+            public int ResultsLapsComplete { get; set; }
             public string SessionLaps { get; set; }
             public string SessionType { get; set; }
             public List<Positions> ResultsPositions { get; set; }
@@ -175,14 +186,14 @@ namespace iRacingSegmentController
         {
             public string Position { get; set; }
             public string ClassPosition { get; set; }
-            public string CarIdx { get; set; }
-            public string Lap { get; set; }
+            public int CarIdx { get; set; }
+            public int Lap { get; set; }
             public string Time { get; set; }
             public string FastestLap { get; set; }
             public string FastestTime { get; set; }
             public string LastTime { get; set; }
-            public string LapsLed { get; set; }
-            public string LapsComplete { get; set; }
+            public int LapsLed { get; set; }
+            public int LapsComplete { get; set; }
             public string LapsDriven { get; set; }
             public string Incidents { get; set; }
             public string ReasonOutId { get; set; }

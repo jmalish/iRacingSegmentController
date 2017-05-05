@@ -33,6 +33,7 @@
             this.lvlVersion = new System.Windows.Forms.Label();
             this.dgvDriverList = new System.Windows.Forms.DataGridView();
             this.lblCurrentLap = new System.Windows.Forms.Label();
+            this.lblCarsOnLead = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDriverList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,6 +69,8 @@
             this.dgvDriverList.AllowUserToAddRows = false;
             this.dgvDriverList.AllowUserToDeleteRows = false;
             this.dgvDriverList.AllowUserToOrderColumns = true;
+            this.dgvDriverList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvDriverList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDriverList.Location = new System.Drawing.Point(185, 31);
             this.dgvDriverList.Name = "dgvDriverList";
@@ -84,11 +87,21 @@
             this.lblCurrentLap.TabIndex = 5;
             this.lblCurrentLap.Text = "Current Lap: 0";
             // 
+            // lblCarsOnLead
+            // 
+            this.lblCarsOnLead.AutoSize = true;
+            this.lblCarsOnLead.Location = new System.Drawing.Point(25, 174);
+            this.lblCarsOnLead.Name = "lblCarsOnLead";
+            this.lblCarsOnLead.Size = new System.Drawing.Size(91, 13);
+            this.lblCarsOnLead.TabIndex = 6;
+            this.lblCarsOnLead.Text = "Cars on Lead Lap";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(603, 640);
+            this.Controls.Add(this.lblCarsOnLead);
             this.Controls.Add(this.lblCurrentLap);
             this.Controls.Add(this.dgvDriverList);
             this.Controls.Add(this.lvlVersion);
@@ -110,6 +123,7 @@
         private System.Windows.Forms.Label lvlVersion;
         private System.Windows.Forms.DataGridView dgvDriverList;
         private System.Windows.Forms.Label lblCurrentLap;
+        private System.Windows.Forms.Label lblCarsOnLead;
     }
 }
 
