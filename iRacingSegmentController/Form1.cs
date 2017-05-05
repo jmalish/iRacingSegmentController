@@ -17,7 +17,11 @@ namespace iRacingSegmentController
         private bool isYellowOut = false;  // is the yellow flag out?
         private string currentFlag = "";  // current flag
         private List<Driver> driversInSession; // list of all drivers in server
-        private List<Positions> currentPositions;
+        private List<Positions> currentPositions;  // Stores a list of the current standings
+        private int raceLapsComplete;  // what lap the race is on;
+
+        private int segmentEnd1, segmentEnd2;  // these store what laps the segments end
+        private bool isSegmentEnded1, isSegmentEnded2;  // these tell us if the segments are over yet, so we don't send the command twice
         #endregion
 
         #region Form Stuff
@@ -58,6 +62,26 @@ namespace iRacingSegmentController
                 //WriteToLogFile("wrapper stuff", exc.Message.ToString());
             }
             #endregion
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)  // when close button is clicked, stop wrapper and close the rest of the program 
+        {
+            isClosing = true;  // let everything else know program is closing
+            wrapper.Stop();  // stop the wrapper since the form is being closed, otherwise we have a wild wrapper running free
+
+            Application.Exit();  // close program
+        }
+
+        private void nudSegmentEnd1_ValueChanged(object sender, EventArgs e) // TODO: add comments to this section
+        {
+            nudSegmentEnd1.Value = RoundToNearestWhole(nudSegmentEnd1.Value);
+            segmentEnd1 = (int)nudSegmentEnd1.Value;
+        }
+
+        private void nudSegmentEnd2_ValueChanged(object sender, EventArgs e)
+        {
+            nudSegmentEnd2.Value = RoundToNearestWhole(nudSegmentEnd2.Value);
+            segmentEnd2 = (int)nudSegmentEnd2.Value;
         }
         #endregion  
 
@@ -104,9 +128,12 @@ namespace iRacingSegmentController
                     if (session.SessionType == "Race") // find the race part session (ignore qual and practice parts of the active server, if they exist)
                     {
                         var raceSession = session; // the session we're dealing with is the race session, just using this to shorten the variable to less than 50 characters
-                        int lapsComplete = raceSession.ResultsLapsComplete; // get the laps complete, this is helpful for when someone in top 10 is not on lead lap
 
-                        lblCurrentLap.Text = String.Format("Current Lap: {0}", lapsComplete + 1);  // update current lap label
+                        raceLapsComplete = raceSession.ResultsLapsComplete; // get the laps complete, this is helpful for when someone in top 10 is not on lead lap
+
+                        lblCurrentLap.Text = String.Format("Current Lap: {0}", raceLapsComplete + 1);  // update current lap label
+
+
 
 
                         currentPositions = raceSession.ResultsPositions; // update positions to equal live results
@@ -126,31 +153,69 @@ namespace iRacingSegmentController
                             // find how many cars are on lead lap
                             IEnumerable<Positions> carsOnLeadLap =
                                 from position in currentPositions
-                                where position.LapsComplete == lapsComplete
+                                where position.LapsComplete == raceLapsComplete
                                 select position;
 
                             lblCarsOnLead.Text = String.Format("Cars on Lead Lap: {0} of {1}", carsOnLeadLap.Count(), currentPositions.Count);
 
 
-                            Console.WriteLine(carsOnLeadLap.Count());
+                            CheckForSegmentEnd(carsOnLeadLap);
                         }
-
-                        //TODO: see below
-                        // Get everyone's current lap to set a baseline, this should happen at start of race, so long as it happens before segment end we're good
-                        // when session args updates, see who's lap counter incremented by 1, meaning they just crossed the line
-
-                        // Alternative, keep checking car who Postion: 9 (actually p10 due to 0 index)'s lap
-                        // if p10 = current lap (lapscomplete), segment ends
-                        // this doesn't work if not all of top 10 is on lead lap so I'll need to check to make sure all of top 10 is on lead lap
-                        // if not, need to throw caution when last car on lead lap crosses the line
-
-
-                        // if p10 is on lead lap, throw caution when p10 crosses line
-                        // else throw caution when last car on lead lap crosses line
                     }
                 }
                 #endregion
             }
+        }
+        #endregion
+
+        #region Functions
+        private void CheckForSegmentEnd(IEnumerable<Positions> _carsOnLeadLap)
+        {
+            if (_carsOnLeadLap.Count() >= 10)
+            {
+                // throw caution when p10 crosses line
+
+                // best way is probably going to be check laps of car in p10, if it equals the current lap then we know he crossed the line
+                // if p10 laps completed (or whatever the correct variable is) is less than the current lap, than others are on lead lap, 
+                // but p10 hasn't reached the line yet
+
+                if (currentPositions[9].LapsComplete == raceLapsComplete)
+                {
+
+                }
+            }
+            else
+            {
+                // throw caution when last car on lead lap crosses line
+
+                // should be able to just use carsOnLeadLap.Count() to find last car on lead lap since both lists are 0 indexed
+
+
+            }
+        }
+
+        private void ThrowCaution()
+        {
+            /* TODO: figure out caution section, using SendKeys might be a horribly bad decision, will need to test
+             *
+             * problem with SendKeys is that it sends the text to whatever window is open
+             * in a perfect world the user only ever has iracing as the active window when running this
+             * but if someone is adminning while swapping between other programs, this might cause issues
+             * 
+             * It might be best to just use the built in macros, as that's mostly guaranteed to work, it's what was used in the caution clock program
+             * being able to run this thing without making the user figure out how to set up macros would be amazing though.
+            */
+            
+            //wrapper.Chat.Activate(); // open chat
+            //SendKeys.Send("test");  // send text command to throw caution
+            //SendKeys.Send("{ENTER}");  // tell iracing to send the text command, throwing the caution
+
+            Console.WriteLine("Throw caution here!");
+        }
+
+        private int RoundToNearestWhole(decimal _input)
+        {
+            return (int)Math.Round(_input);
         }
         #endregion
 
@@ -184,7 +249,7 @@ namespace iRacingSegmentController
 
         public class Positions
         {
-            public string Position { get; set; }
+            public int Position { get; set; }
             public string ClassPosition { get; set; }
             public int CarIdx { get; set; }
             public int Lap { get; set; }
@@ -265,13 +330,5 @@ namespace iRacingSegmentController
             public string CanSquawk { get; set; }
         }
         #endregion
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)  // when close button is clicked, stop wrapper and close the rest of the program 
-        {
-            isClosing = true;  // let everything else know program is closing
-            wrapper.Stop();  // stop the wrapper since the form is being closed, otherwise we have a wild wrapper running free
-
-            Application.Exit();  // close program
-        }
     }
 }
