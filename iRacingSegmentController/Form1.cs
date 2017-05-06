@@ -18,10 +18,11 @@ namespace iRacingSegmentController
         private string currentFlag = "";  // current flag
         private List<Driver> driversInSession; // list of all drivers in server
         private List<Positions> currentPositions;  // Stores a list of the current standings
-        private int raceLapsComplete;  // what lap the race is on;
+        private int currentLapRace;  // what lap the race is on;
 
         private int segmentEnd1, segmentEnd2;  // these store what laps the segments end
         private bool isSegmentEnded1, isSegmentEnded2;  // these tell us if the segments are over yet, so we don't send the command twice
+        private bool isPitsClosed = false;
         #endregion
 
         #region Form Stuff
@@ -58,10 +59,15 @@ namespace iRacingSegmentController
             }
             catch (Exception exc)
             {
-                Console.WriteLine(exc.Message.ToString());
+                Console.WriteLine(exc.Message);
                 //WriteToLogFile("wrapper stuff", exc.Message.ToString());
             }
             #endregion
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // TODO: delete this if nothing is put here
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)  // when close button is clicked, stop wrapper and close the rest of the program 
@@ -129,10 +135,15 @@ namespace iRacingSegmentController
                     {
                         var raceSession = session; // the session we're dealing with is the race session, just using this to shorten the variable to less than 50 characters
 
-                        raceLapsComplete = raceSession.ResultsLapsComplete; // get the laps complete, this is helpful for when someone in top 10 is not on lead lap
+                        currentLapRace = raceSession.ResultsLapsComplete; // get the laps complete, this is helpful for when someone in top 10 is not on lead lap
 
-                        lblCurrentLap.Text = String.Format("Current Lap: {0}", raceLapsComplete + 1);  // update current lap label
+                        lblCurrentLap.Text = $"Current Lap: {currentLapRace + 1}";  // update current lap label
 
+
+                        if ((currentLapRace == segmentEnd1 - 5 || currentLapRace == segmentEnd2 - 5) && isPitsClosed)  // if 5 laps from segment end
+                        {                                   // TODO: make the 5 lap part set by user
+                            ClosePits(); // close pits   
+                        }
 
 
 
@@ -153,10 +164,10 @@ namespace iRacingSegmentController
                             // find how many cars are on lead lap
                             IEnumerable<Positions> carsOnLeadLap =
                                 from position in currentPositions
-                                where position.LapsComplete == raceLapsComplete
+                                where position.LapsComplete == currentLapRace
                                 select position;
 
-                            lblCarsOnLead.Text = String.Format("Cars on Lead Lap: {0} of {1}", carsOnLeadLap.Count(), currentPositions.Count);
+                            lblCarsOnLead.Text = $"Cars on Lead Lap: {carsOnLeadLap.Count()} of {currentPositions.Count}";
 
 
                             CheckForSegmentEnd(carsOnLeadLap);
@@ -179,9 +190,9 @@ namespace iRacingSegmentController
                 // if p10 laps completed (or whatever the correct variable is) is less than the current lap, than others are on lead lap, 
                 // but p10 hasn't reached the line yet
 
-                if (currentPositions[9].LapsComplete == raceLapsComplete)
+                if (currentPositions[9].LapsComplete == currentLapRace)
                 {
-
+                    ThrowCaution();
                 }
             }
             else
@@ -189,9 +200,18 @@ namespace iRacingSegmentController
                 // throw caution when last car on lead lap crosses line
 
                 // should be able to just use carsOnLeadLap.Count() to find last car on lead lap since both lists are 0 indexed
-
+                if (currentPositions[_carsOnLeadLap.Count()].LapsComplete == currentLapRace)
+                {
+                    ThrowCaution();
+                }
 
             }
+        }
+
+        private void ClosePits()
+        {
+            Console.WriteLine("Pits are closed!");
+            isPitsClosed = true;
         }
 
         private void ThrowCaution()
@@ -211,9 +231,10 @@ namespace iRacingSegmentController
             //SendKeys.Send("{ENTER}");  // tell iracing to send the text command, throwing the caution
 
             Console.WriteLine("Throw caution here!");
+            isPitsClosed = false;
         }
 
-        private int RoundToNearestWhole(decimal _input)
+        private static int RoundToNearestWhole(decimal _input)
         {
             return (int)Math.Round(_input);
         }
