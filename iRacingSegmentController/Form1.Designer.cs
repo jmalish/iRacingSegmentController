@@ -38,9 +38,15 @@
             this.nudSegmentEnd1 = new System.Windows.Forms.NumericUpDown();
             this.lblSegmentEnd2 = new System.Windows.Forms.Label();
             this.nudSegmentEnd2 = new System.Windows.Forms.NumericUpDown();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.lblSegment1Results = new System.Windows.Forms.Label();
+            this.lblSegment2Results = new System.Windows.Forms.Label();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDriverList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // lblIsConnected
@@ -78,16 +84,16 @@
             this.dgvDriverList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvDriverList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDriverList.Location = new System.Drawing.Point(185, 31);
+            this.dgvDriverList.Location = new System.Drawing.Point(233, 28);
             this.dgvDriverList.Name = "dgvDriverList";
             this.dgvDriverList.ReadOnly = true;
-            this.dgvDriverList.Size = new System.Drawing.Size(406, 597);
+            this.dgvDriverList.Size = new System.Drawing.Size(341, 590);
             this.dgvDriverList.TabIndex = 4;
             // 
             // lblCurrentLap
             // 
             this.lblCurrentLap.AutoSize = true;
-            this.lblCurrentLap.Location = new System.Drawing.Point(185, 9);
+            this.lblCurrentLap.Location = new System.Drawing.Point(14, 64);
             this.lblCurrentLap.Name = "lblCurrentLap";
             this.lblCurrentLap.Size = new System.Drawing.Size(74, 13);
             this.lblCurrentLap.TabIndex = 5;
@@ -96,7 +102,7 @@
             // lblCarsOnLead
             // 
             this.lblCarsOnLead.AutoSize = true;
-            this.lblCarsOnLead.Location = new System.Drawing.Point(25, 174);
+            this.lblCarsOnLead.Location = new System.Drawing.Point(14, 100);
             this.lblCarsOnLead.Name = "lblCarsOnLead";
             this.lblCarsOnLead.Size = new System.Drawing.Size(91, 13);
             this.lblCarsOnLead.TabIndex = 6;
@@ -122,6 +128,11 @@
             this.nudSegmentEnd1.Name = "nudSegmentEnd1";
             this.nudSegmentEnd1.Size = new System.Drawing.Size(58, 20);
             this.nudSegmentEnd1.TabIndex = 8;
+            this.nudSegmentEnd1.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
             this.nudSegmentEnd1.ValueChanged += new System.EventHandler(this.nudSegmentEnd1_ValueChanged);
             // 
             // lblSegmentEnd2
@@ -144,30 +155,87 @@
             this.nudSegmentEnd2.Name = "nudSegmentEnd2";
             this.nudSegmentEnd2.Size = new System.Drawing.Size(58, 20);
             this.nudSegmentEnd2.TabIndex = 8;
+            this.nudSegmentEnd2.Value = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
             this.nudSegmentEnd2.ValueChanged += new System.EventHandler(this.nudSegmentEnd2_ValueChanged);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToOrderColumns = true;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(597, 338);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(344, 280);
+            this.dataGridView1.TabIndex = 4;
+            // 
+            // lblSegment1Results
+            // 
+            this.lblSegment1Results.AutoSize = true;
+            this.lblSegment1Results.Location = new System.Drawing.Point(594, 9);
+            this.lblSegment1Results.Name = "lblSegment1Results";
+            this.lblSegment1Results.Size = new System.Drawing.Size(99, 13);
+            this.lblSegment1Results.TabIndex = 9;
+            this.lblSegment1Results.Text = "Segment 1 Results:";
+            // 
+            // lblSegment2Results
+            // 
+            this.lblSegment2Results.AutoSize = true;
+            this.lblSegment2Results.Location = new System.Drawing.Point(594, 320);
+            this.lblSegment2Results.Name = "lblSegment2Results";
+            this.lblSegment2Results.Size = new System.Drawing.Size(99, 13);
+            this.lblSegment2Results.TabIndex = 9;
+            this.lblSegment2Results.Text = "Segment 2 Results:";
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.AllowUserToOrderColumns = true;
+            this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Location = new System.Drawing.Point(597, 28);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ReadOnly = true;
+            this.dataGridView2.Size = new System.Drawing.Size(344, 280);
+            this.dataGridView2.TabIndex = 4;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(603, 640);
+            this.ClientSize = new System.Drawing.Size(953, 640);
+            this.Controls.Add(this.lblSegment2Results);
+            this.Controls.Add(this.lblSegment1Results);
             this.Controls.Add(this.nudSegmentEnd2);
             this.Controls.Add(this.lblSegmentEnd2);
             this.Controls.Add(this.nudSegmentEnd1);
             this.Controls.Add(this.lblSegmentEnd1);
             this.Controls.Add(this.lblCarsOnLead);
             this.Controls.Add(this.lblCurrentLap);
+            this.Controls.Add(this.dataGridView2);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.dgvDriverList);
             this.Controls.Add(this.lvlVersion);
             this.Controls.Add(this.lblCurrentFlag);
             this.Controls.Add(this.lblIsConnected);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "iRacing Segment Controller";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDriverList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -185,6 +253,10 @@
         private System.Windows.Forms.NumericUpDown nudSegmentEnd1;
         private System.Windows.Forms.Label lblSegmentEnd2;
         private System.Windows.Forms.NumericUpDown nudSegmentEnd2;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Label lblSegment1Results;
+        private System.Windows.Forms.Label lblSegment2Results;
+        private System.Windows.Forms.DataGridView dataGridView2;
     }
 }
 

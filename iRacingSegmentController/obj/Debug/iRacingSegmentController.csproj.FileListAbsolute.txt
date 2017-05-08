@@ -14,4 +14,3 @@ D:\projects\iRacingSegmentController\iRacingSegmentController\obj\Debug\iRacingS
 D:\projects\iRacingSegmentController\iRacingSegmentController\obj\Debug\iRacingSegmentController.csproj.GenerateResource.Cache
 D:\projects\iRacingSegmentController\iRacingSegmentController\obj\Debug\iRacingSegmentController.exe
 D:\projects\iRacingSegmentController\iRacingSegmentController\obj\Debug\iRacingSegmentController.pdb
-D:\projects\iRacingSegmentController\iRacingSegmentController\obj\Debug\iRacingSegmentController.SegmentEndForm.resources

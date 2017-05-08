@@ -16,14 +16,16 @@ namespace iRacingSegmentController
         private readonly iRacingSdkWrapper.SdkWrapper wrapper;  // sdk wrapper, used to connect to live iRacing API
         private bool isYellowOut = false;  // is the yellow flag out?
         private string currentFlag = "";  // current flag
-        private List<Driver> driversInSession; // list of all drivers in server
-        private List<Positions> currentPositions;  // Stores a list of the current standings
+        private List<Driver> driversInSession = new List<Driver>(); // list of all drivers in server
+        private List<Positions> currentPositions = new List<Positions>();  // Stores a list of the current standings
         private int currentLapRace;  // what lap the race is on;
-
         private int segmentEnd1, segmentEnd2;  // these store what laps the segments end
         private bool isSegmentEnded1, isSegmentEnded2;  // these tell us if the segments are over yet, so we don't send the command twice
-        private bool isPitsClosed = false;
+        private bool isPitsClosed = false;  // whether pits are closed or not
+        private List<Positions> segment1Top10 = new List<Positions>();
+        private List<Positions> segment2Top10 = new List<Positions>();
         #endregion
+
 
         #region Form Stuff
         public Form1()  // this is run when the program is first started, it's essentially the same as form load for the primary form
@@ -78,18 +80,19 @@ namespace iRacingSegmentController
             Application.Exit();  // close program
         }
 
-        private void nudSegmentEnd1_ValueChanged(object sender, EventArgs e) // TODO: add comments to this section
+        private void nudSegmentEnd1_ValueChanged(object sender, EventArgs e)  // when user changes value for segment 1
         {
-            nudSegmentEnd1.Value = RoundToNearestWhole(nudSegmentEnd1.Value);
-            segmentEnd1 = (int)nudSegmentEnd1.Value;
+            nudSegmentEnd1.Value = (int)Math.Round(nudSegmentEnd1.Value);  // round value to the nearest whole number
+            segmentEnd1 = (int)nudSegmentEnd1.Value - 1;  // store value, subtract one to make up for 0 index
         }
 
-        private void nudSegmentEnd2_ValueChanged(object sender, EventArgs e)
+        private void nudSegmentEnd2_ValueChanged(object sender, EventArgs e)  // when user changes value for segment 2
         {
-            nudSegmentEnd2.Value = RoundToNearestWhole(nudSegmentEnd2.Value);
-            segmentEnd2 = (int)nudSegmentEnd2.Value;
+            nudSegmentEnd2.Value = (int)Math.Round(nudSegmentEnd2.Value);  // round value to the nearest whole number
+            segmentEnd2 = (int)nudSegmentEnd2.Value - 1;  // store value
         }
         #endregion  
+
 
         #region SDK Wrapper Stuff
         // Do things when Telemetry updates (supposed to be 60 times per second)
@@ -140,12 +143,10 @@ namespace iRacingSegmentController
                         lblCurrentLap.Text = $"Current Lap: {currentLapRace + 1}";  // update current lap label
 
 
-                        if ((currentLapRace == segmentEnd1 - 5 || currentLapRace == segmentEnd2 - 5) && isPitsClosed)  // if 5 laps from segment end
+                        if ((currentLapRace == segmentEnd1 - 5 || currentLapRace == segmentEnd2 - 5) && !isPitsClosed)  // if 5 laps from segment end
                         {                                   // TODO: make the 5 lap part set by user
                             ClosePits(); // close pits   
                         }
-
-
 
                         currentPositions = raceSession.ResultsPositions; // update positions to equal live results
 
@@ -158,9 +159,6 @@ namespace iRacingSegmentController
                                     p.LapsComplete + 1); // add position to datagridview
                             }
 
-
-                            // var positionTen = currentPositions[9]; // get p10
-
                             // find how many cars are on lead lap
                             IEnumerable<Positions> carsOnLeadLap =
                                 from position in currentPositions
@@ -170,7 +168,10 @@ namespace iRacingSegmentController
                             lblCarsOnLead.Text = $"Cars on Lead Lap: {carsOnLeadLap.Count()} of {currentPositions.Count}";
 
 
-                            CheckForSegmentEnd(carsOnLeadLap);
+                            if (currentLapRace == segmentEnd1 || currentLapRace == segmentEnd2)
+                            {  // if we're on the lap of a segment end, start checking if we should throw caution
+                                CheckForSegmentEnd(carsOnLeadLap);
+                            }
                         }
                     }
                 }
@@ -179,33 +180,76 @@ namespace iRacingSegmentController
         }
         #endregion
 
+
         #region Functions
         private void CheckForSegmentEnd(IEnumerable<Positions> _carsOnLeadLap)
         {
-            if (_carsOnLeadLap.Count() >= 10)
+            #region All top 10 on lead lap
+            if (_carsOnLeadLap.Count() > 9)  // if there are more than 9 cars on the lead lap, we know p10 is on lead lap
             {
-                // throw caution when p10 crosses line
+                if (!isSegmentEnded1) // make sure segment 1 hasn't ended
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        if (segment1Top10[i] == null)
+                        {
+                            if (currentPositions[i].LapsComplete == currentLapRace)
+                            {
+                                segment1Top10.Add(currentPositions[i]);
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
 
-                // best way is probably going to be check laps of car in p10, if it equals the current lap then we know he crossed the line
-                // if p10 laps completed (or whatever the correct variable is) is less than the current lap, than others are on lead lap, 
-                // but p10 hasn't reached the line yet
+                    if (segment1Top10[9].CarIdx != 0)
+                    {
+                        isSegmentEnded1 = true;
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        if (segment2Top10[i] == null)
+                        {
+                            if (currentPositions[i].LapsComplete == currentLapRace)
+                            {
+                                segment2Top10.Add(currentPositions[i]);
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
 
-                if (currentPositions[9].LapsComplete == currentLapRace)
+                    if (segment2Top10[9].CarIdx != 0)
+                    {
+                        isSegmentEnded2 = true;
+                    }
+                }
+
+                // check if the car at index 9 (p10 on track) is on the lead lap, that means he's crossed the line
+                    if (currentPositions[9].LapsComplete == currentLapRace)
                 {
                     ThrowCaution();
                 }
             }
+            #endregion
+            #region Top 10 not on lead lap
             else
             {
                 // throw caution when last car on lead lap crosses line
-
                 // should be able to just use carsOnLeadLap.Count() to find last car on lead lap since both lists are 0 indexed
                 if (currentPositions[_carsOnLeadLap.Count()].LapsComplete == currentLapRace)
                 {
                     ThrowCaution();
                 }
-
             }
+            #endregion
         }
 
         private void ClosePits()
@@ -218,7 +262,7 @@ namespace iRacingSegmentController
         {
             /* TODO: figure out caution section, using SendKeys might be a horribly bad decision, will need to test
              *
-             * problem with SendKeys is that it sends the text to whatever window is open
+             * Problem with SendKeys is that it sends the text to whatever window is open
              * in a perfect world the user only ever has iracing as the active window when running this
              * but if someone is adminning while swapping between other programs, this might cause issues
              * 
@@ -232,11 +276,8 @@ namespace iRacingSegmentController
 
             Console.WriteLine("Throw caution here!");
             isPitsClosed = false;
-        }
 
-        private static int RoundToNearestWhole(decimal _input)
-        {
-            return (int)Math.Round(_input);
+            // TODO: need to "open" pits again
         }
         #endregion
 
@@ -331,9 +372,6 @@ namespace iRacingSegmentController
             public string ClubName { get; set; }
             public string DivisionName { get; set; }
         }
-
-
-
 
         public class RadioInfo
         {
