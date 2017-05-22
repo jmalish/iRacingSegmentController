@@ -19,7 +19,8 @@ namespace iRacingSegmentController
         private List<Driver> driversInSession = new List<Driver>(); // list of all drivers in server
         private List<Positions> currentPositions = new List<Positions>();  // Stores a list of the current standings
         private int currentLapRace;  // what lap the race is on;
-        private int segment1EndLap, segment2EndLap;  // these store what laps the segments end
+        private int segment1EndLap = 999999;
+        private int segment2EndLap = 999999;  // these store what laps the segments end
         private bool isSegment1Ended, isSegment2Ended;  // these tell us if the segments are over yet, so we don't send the command twice
         private bool isPitsClosed = false;  // whether pits are closed or not
         private List<Positions> segment1Top10 = new List<Positions>();
@@ -166,7 +167,7 @@ namespace iRacingSegmentController
 
                         if ((currentLapRace >= segment1EndLap - 5 || currentLapRace >= segment2EndLap - 5) && !isPitsClosed)  // if 5 laps from segment end
                         {
-                            // TODO: make the 5 lap part set by user
+                            // TODO: make the 5 lap part set by user, reenable this
                             // ClosePits(); // close pits
                         }
 
@@ -192,12 +193,20 @@ namespace iRacingSegmentController
 
                             carsOnLeadLap = carsOnLeadLapQuery.ToList();  // convert cars on lead query lap to list
 
+
+                            Console.WriteLine($"Segment 1 ended: {isSegment1Ended}");
+
                             if (!isSegment1Ended)
                             {
-                                if (segment1EndLap == currentLapRace)
+                                if (currentLapRace >= segment1EndLap + 1 && segment1Top10[9].CarIdx == -1)
                                 {  // if we're on the lap of a segment end, start checking if we should throw caution
-                                    CheckForSegmentEnd(carsOnLeadLap);
                                     Console.WriteLine("Checking segment");
+                                    CheckForSegmentEnd(carsOnLeadLap);
+                                }
+
+                                if (segment1Top10[9].CarIdx != -1)
+                                {
+                                    isSegment1Ended = true;
                                 }
                             }
                         }
@@ -225,38 +234,27 @@ namespace iRacingSegmentController
             #region All top 10 on lead lap
             if (_carsOnLeadLap.Count() > 9)  // if there are more than 9 cars on the lead lap, we know p10 is on lead lap
             {
-                if (!isSegment1Ended) // make sure segment 1 hasn't ended
+                for (int i = 0; i < 10; i++)
                 {
-                    for (int i = 0; i < 10; i++)
+                    if (segment1Top10[i].CarIdx == -1)  // TODO: need to make sure it's collecting cars as they cross the line, not when p10 crosses the line
                     {
-                        if (segment1Top10[i].CarIdx == -1)  // TODO: need to make sure it's collecting cars as they cross the line, not when p10 crosses the line
+                        if (currentPositions[i].LapsComplete == currentLapRace)
                         {
-                            Console.WriteLine($"Checking position {i}");
-                            if (currentPositions[i].LapsComplete == currentLapRace)
-                            {
-                                segment1Top10[i] = currentPositions[i];
-                                dgvSeg1Results.Rows.Add(segment1Top10[i].Position, segment1Top10[i].CarIdx, driversInSession[segment1Top10[i].CarIdx].UserName,
-                                    segment1Top10[i].LapsComplete + 1); // add position to datagridview
-                            }
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-
-                    // check if the car at index 9 (p10 on track) is on the lead lap, that means he's crossed the line
-                    if (currentPositions[9].LapsComplete == currentLapRace)
-                    {
-                        isSegment1Ended = true;  // end the segment
-
-                        if (!isYellowOut)  // make sure yellow isn't out
-                        {
-                            ThrowCaution();  // throw caution
+                            segment1Top10[i] = currentPositions[i];
+                            UpdateDataGridView(1);
                         }
                     }
                 }
-                // TODO: Add segment 2
+
+                // check if the car at index 9 (p10 on track) is on the lead lap, that means he's crossed the line
+                if (segment1Top10[9].CarIdx != -1)
+                {
+                    if (!isYellowOut)  // make sure yellow isn't out
+                    {
+                        isSegment1Ended = true;
+                        ThrowCaution();  // throw caution
+                    }
+                }  // TODO: Add segment 2
             }
             #endregion
             #region P10 not on lead lap
@@ -283,6 +281,22 @@ namespace iRacingSegmentController
                 //}
 
                 isSegment1Ended = true;
+            }
+        }
+
+        private void UpdateDataGridView(int _segment)
+        {
+            if (_segment == 1)
+            {
+                dgvSeg1Results.Rows.Clear();
+                for (int i = 0; i < 10; i++)
+                {
+                    if (segment1Top10[i].CarIdx != -1)
+                    {
+                        dgvSeg1Results.Rows.Add(segment1Top10[i].Position, segment1Top10[i].CarIdx, driversInSession[segment1Top10[i].CarIdx].UserName,
+                            segment1Top10[i].LapsComplete + 1); // add position to datagridview
+                    }
+                }
             }
         }
 
@@ -435,5 +449,14 @@ namespace iRacingSegmentController
             public string CanSquawk { get; set; }
         }
         #endregion
+
+
+        private void btnSetToNextLap_Click(object sender, EventArgs e)  // debug thing, TODO: delete before release
+        {
+            nudSegmentEnd1.Value = (currentLapRace + 2);  // round value to the nearest whole number
+            // segment1EndLap = (int)nudSegmentEnd1.Value - 1;  // store value, subtract one to make up for 0 index
+
+            Console.WriteLine("Lap set");
+        }
     }
 }

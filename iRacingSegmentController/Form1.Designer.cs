@@ -42,6 +42,7 @@
             this.lblSegment1Results = new System.Windows.Forms.Label();
             this.lblSegment2Results = new System.Windows.Forms.Label();
             this.dgvSeg1Results = new System.Windows.Forms.DataGridView();
+            this.btnSetToNextLap = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDriverList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd2)).BeginInit();
@@ -119,7 +120,7 @@
             // 
             this.nudSegmentEnd1.Location = new System.Drawing.Point(108, 293);
             this.nudSegmentEnd1.Maximum = new decimal(new int[] {
-            500,
+            1000,
             0,
             0,
             0});
@@ -127,7 +128,7 @@
             this.nudSegmentEnd1.Size = new System.Drawing.Size(58, 20);
             this.nudSegmentEnd1.TabIndex = 8;
             this.nudSegmentEnd1.Value = new decimal(new int[] {
-            7,
+            999,
             0,
             0,
             0});
@@ -146,7 +147,7 @@
             // 
             this.nudSegmentEnd2.Location = new System.Drawing.Point(108, 319);
             this.nudSegmentEnd2.Maximum = new decimal(new int[] {
-            500,
+            1000,
             0,
             0,
             0});
@@ -154,7 +155,7 @@
             this.nudSegmentEnd2.Size = new System.Drawing.Size(58, 20);
             this.nudSegmentEnd2.TabIndex = 8;
             this.nudSegmentEnd2.Value = new decimal(new int[] {
-            15,
+            999,
             0,
             0,
             0});
@@ -202,11 +203,22 @@
             this.dgvSeg1Results.Size = new System.Drawing.Size(280, 242);
             this.dgvSeg1Results.TabIndex = 4;
             // 
+            // btnSetToNextLap
+            // 
+            this.btnSetToNextLap.Location = new System.Drawing.Point(17, 266);
+            this.btnSetToNextLap.Name = "btnSetToNextLap";
+            this.btnSetToNextLap.Size = new System.Drawing.Size(149, 23);
+            this.btnSetToNextLap.TabIndex = 10;
+            this.btnSetToNextLap.Text = "Set to Next Lap";
+            this.btnSetToNextLap.UseVisualStyleBackColor = true;
+            this.btnSetToNextLap.Click += new System.EventHandler(this.btnSetToNextLap_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(795, 542);
+            this.Controls.Add(this.btnSetToNextLap);
             this.Controls.Add(this.lblSegment2Results);
             this.Controls.Add(this.lblSegment1Results);
             this.Controls.Add(this.nudSegmentEnd2);
@@ -251,6 +263,7 @@
         private System.Windows.Forms.Label lblSegment1Results;
         private System.Windows.Forms.Label lblSegment2Results;
         private System.Windows.Forms.DataGridView dgvSeg1Results;
+        private System.Windows.Forms.Button btnSetToNextLap;
     }
 }
 
