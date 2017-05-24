@@ -193,20 +193,13 @@ namespace iRacingSegmentController
 
                             carsOnLeadLap = carsOnLeadLapQuery.ToList();  // convert cars on lead query lap to list
 
+                            Console.WriteLine(isSegment1Ended);
 
-                            Console.WriteLine($"Segment 1 ended: {isSegment1Ended}");
-
-                            if (!isSegment1Ended)
+                            if (!isSegment1Ended)  // if segment 1 is not ended
                             {
                                 if (currentLapRace >= segment1EndLap + 1 && segment1Top10[9].CarIdx == -1)
                                 {  // if we're on the lap of a segment end, start checking if we should throw caution
-                                    Console.WriteLine("Checking segment");
-                                    CheckForSegmentEnd(carsOnLeadLap);
-                                }
-
-                                if (segment1Top10[9].CarIdx != -1)
-                                {
-                                    isSegment1Ended = true;
+                                    CheckForSegmentEnd();
                                 }
                             }
                         }
@@ -229,14 +222,14 @@ namespace iRacingSegmentController
             }
         }
 
-        private void CheckForSegmentEnd(List<Positions> _carsOnLeadLap)
+        private void CheckForSegmentEnd()
         {
-            #region All top 10 on lead lap
-            if (_carsOnLeadLap.Count() > 9)  // if there are more than 9 cars on the lead lap, we know p10 is on lead lap
+            #region P10 on lead lap
+            if (carsOnLeadLap.Count() > 9)  // if there are more than 9 cars on the lead lap, we know p10 is on lead lap
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    if (segment1Top10[i].CarIdx == -1)  // TODO: need to make sure it's collecting cars as they cross the line, not when p10 crosses the line
+                    if (segment1Top10[i].CarIdx == -1)
                     {
                         if (currentPositions[i].LapsComplete == currentLapRace)
                         {
@@ -251,37 +244,44 @@ namespace iRacingSegmentController
                 {
                     if (!isYellowOut)  // make sure yellow isn't out
                     {
-                        isSegment1Ended = true;
                         ThrowCaution();  // throw caution
                     }
                 }  // TODO: Add segment 2
             }
             #endregion
             #region P10 not on lead lap
-            else
+            else  // if there are less than 10 cars on the lead lap
             {
-                Console.WriteLine("P10 not on lead lap.");
+                for (int i = 0; i < carsOnLeadLap.Count; i++)
+                {
+                    if (segment1Top10[i].CarIdx == -1)
+                    {
+                        if (currentPositions[i].LapsComplete == currentLapRace)
+                        {
+                            segment1Top10[i] = currentPositions[i];
+                            UpdateDataGridView(1);
+                        }
+                    }
+                }
 
-                //// throw caution when last car on lead lap crosses line
-                //// should be able to just use carsOnLeadLap.Count() to find last car on lead lap since both lists are 0 indexed
-                //if (currentPositions[_carsOnLeadLap.Count()].LapsComplete == currentLapRace)
-                //{
-                //    ThrowCaution();
-                //}
+                // check if the last car on the lead lap has completed his lap
+                if (segment1Top10[carsOnLeadLap.Count - 1].CarIdx != -1)
+                {
+                    for (int i = carsOnLeadLap.Count + 1; i < 9; i++)  // get all the positions between last car on lead lap + 1 and p10.
+                    {
+                        segment1Top10[i] = currentPositions[i];
+                        UpdateDataGridView(1);
+                    }
+
+                    if (!isYellowOut)  // make sure yellow isn't out
+                    {
+                        isSegment1Ended = true;
+                        nudSegmentEnd1.Enabled = false;
+                        ThrowCaution();  // throw caution
+                    }
+                }  // TODO: Add segment 2
             }
             #endregion
-
-
-            if (segment1Top10[9].CarIdx != -1)
-            {
-                //foreach (Positions p in segment1Top10)
-                //{
-                //    dgvSeg1Results.Rows.Add(p.Position, p.CarIdx, driversInSession[p.CarIdx].UserName,
-                //        p.LapsComplete + 1); // add position to datagridview
-                //}
-
-                isSegment1Ended = true;
-            }
         }
 
         private void UpdateDataGridView(int _segment)
@@ -294,7 +294,7 @@ namespace iRacingSegmentController
                     if (segment1Top10[i].CarIdx != -1)
                     {
                         dgvSeg1Results.Rows.Add(segment1Top10[i].Position, segment1Top10[i].CarIdx, driversInSession[segment1Top10[i].CarIdx].UserName,
-                            segment1Top10[i].LapsComplete + 1); // add position to datagridview
+                            segment1Top10[i].ReasonOutStr); // add position to datagridview
                     }
                 }
             }
@@ -402,7 +402,7 @@ namespace iRacingSegmentController
             public string UserID { get; set; }
             public string TeamID { get; set; }
             public string TeamName { get; set; }
-            public string CarNumber { get; set; }
+            public int CarNumber { get; set; }
             public string CarNumberRaw { get; set; }
             public string CarPath { get; set; }
             public string CarClassID { get; set; }
@@ -451,12 +451,20 @@ namespace iRacingSegmentController
         #endregion
 
 
+        private void btnGoToP10_Click(object sender, EventArgs e)
+        {
+            wrapper.Camera.SwitchToPosition(10);
+        }
+
+        private void dgvDriverList_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            wrapper.Camera.SwitchToCar(driversInSession[currentPositions[e.RowIndex].CarIdx].CarNumber);  // TODO: make this work so it jumps to the driver, not the position
+        }
+
         private void btnSetToNextLap_Click(object sender, EventArgs e)  // debug thing, TODO: delete before release
         {
             nudSegmentEnd1.Value = (currentLapRace + 2);  // round value to the nearest whole number
             // segment1EndLap = (int)nudSegmentEnd1.Value - 1;  // store value, subtract one to make up for 0 index
-
-            Console.WriteLine("Lap set");
         }
     }
 }

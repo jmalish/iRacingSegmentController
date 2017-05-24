@@ -43,6 +43,7 @@
             this.lblSegment2Results = new System.Windows.Forms.Label();
             this.dgvSeg1Results = new System.Windows.Forms.DataGridView();
             this.btnSetToNextLap = new System.Windows.Forms.Button();
+            this.btnGoToP10 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDriverList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd2)).BeginInit();
@@ -88,6 +89,7 @@
             this.dgvDriverList.ReadOnly = true;
             this.dgvDriverList.Size = new System.Drawing.Size(260, 509);
             this.dgvDriverList.TabIndex = 4;
+            this.dgvDriverList.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDriverList_CellContentDoubleClick);
             // 
             // lblCurrentLap
             // 
@@ -213,11 +215,22 @@
             this.btnSetToNextLap.UseVisualStyleBackColor = true;
             this.btnSetToNextLap.Click += new System.EventHandler(this.btnSetToNextLap_Click);
             // 
+            // btnGoToP10
+            // 
+            this.btnGoToP10.Location = new System.Drawing.Point(17, 201);
+            this.btnGoToP10.Name = "btnGoToP10";
+            this.btnGoToP10.Size = new System.Drawing.Size(149, 23);
+            this.btnGoToP10.TabIndex = 11;
+            this.btnGoToP10.Text = "Go to P10";
+            this.btnGoToP10.UseVisualStyleBackColor = true;
+            this.btnGoToP10.Click += new System.EventHandler(this.btnGoToP10_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(795, 542);
+            this.Controls.Add(this.btnGoToP10);
             this.Controls.Add(this.btnSetToNextLap);
             this.Controls.Add(this.lblSegment2Results);
             this.Controls.Add(this.lblSegment1Results);
@@ -264,6 +277,7 @@
         private System.Windows.Forms.Label lblSegment2Results;
         private System.Windows.Forms.DataGridView dgvSeg1Results;
         private System.Windows.Forms.Button btnSetToNextLap;
+        private System.Windows.Forms.Button btnGoToP10;
     }
 }
 
