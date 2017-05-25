@@ -69,6 +69,22 @@ namespace iRacingSegmentController
             dgvSeg1Results.Columns[0].Width = 50;
             dgvSeg1Results.Columns[1].Width = 56;
             dgvSeg1Results.Columns[3].Width = 50;
+
+
+
+            dgvSeg2Results.RowHeadersVisible = false;  // hide left margin
+            dgvSeg2Results.ColumnCount = 4; // set number of columns
+
+            // set column names
+            dgvSeg2Results.Columns[0].Name = "Pos.";
+            dgvSeg2Results.Columns[1].Name = "Car #";
+            dgvSeg2Results.Columns[2].Name = "Name";
+            dgvSeg2Results.Columns[3].Name = "Lap";
+
+            // set column widths
+            dgvSeg2Results.Columns[0].Width = 50;
+            dgvSeg2Results.Columns[1].Width = 56;
+            dgvSeg2Results.Columns[3].Width = 50;
             #endregion
 
             #region wrapper stuff
@@ -124,9 +140,7 @@ namespace iRacingSegmentController
             {
                 lblIsConnected.Text = "Connected: True";
             }
-
-            //Console.WriteLine("Telemetry Updated");
-
+            
             #region Flag stuff
             string newFlag = telemArgs.TelemetryInfo.SessionFlags.Value.ToString().Split(' ')[0];  // get the actual current flag according to the session, splits because it normally shows two states
 
@@ -137,7 +151,6 @@ namespace iRacingSegmentController
         // Do things when session info updates
         private void OnSessionInfoUpdated(object sender, iRacingSdkWrapper.SdkWrapper.SessionInfoUpdatedEventArgs sessionArgs)
         {
-            //Console.WriteLine("Session Info Updated");
             if (sessionArgs.SessionInfo.IsValidYaml)  // check if yaml is valid
             {
                 // TODO: Fix this since it's deprecated, I doubt this will cause me issue, but better safe than sorry
@@ -193,15 +206,21 @@ namespace iRacingSegmentController
 
                             carsOnLeadLap = carsOnLeadLapQuery.ToList();  // convert cars on lead query lap to list
 
-                            Console.WriteLine(isSegment1Ended);
-
-                            if (!isSegment1Ended)  // if segment 1 is not ended
+                            if (!isSegment1Ended || isSegment1Ended && !isSegment2Ended)  // if segment 1 is not ended
                             {
-                                if (currentLapRace >= segment1EndLap + 1 && segment1Top10[9].CarIdx == -1)
+                                if (currentLapRace >= segment1EndLap + 1 && segment1Top10[9].CarIdx == -1 || currentLapRace >= segment2EndLap + 1 && segment2Top10[9].CarIdx == -1)
                                 {  // if we're on the lap of a segment end, start checking if we should throw caution
                                     CheckForSegmentEnd();
                                 }
                             }
+
+                            //if (isSegment1Ended && !isSegment2Ended)  // if segment 1 is not ended
+                            //{
+                            //    if (currentLapRace >= segment2EndLap + 1 && segment2Top10[9].CarIdx == -1)
+                            //    {  // if we're on the lap of a segment end, start checking if we should throw caution
+                            //        CheckForSegmentEnd();
+                            //    }
+                            //}
                         }
                     }
                 }
@@ -227,59 +246,121 @@ namespace iRacingSegmentController
             #region P10 on lead lap
             if (carsOnLeadLap.Count() > 9)  // if there are more than 9 cars on the lead lap, we know p10 is on lead lap
             {
-                for (int i = 0; i < 10; i++)
+                if (!isSegment1Ended) // seg 1
                 {
-                    if (segment1Top10[i].CarIdx == -1)
+                    for (int i = 0; i < 10; i++)
                     {
-                        if (currentPositions[i].LapsComplete == currentLapRace)
+                        if (segment1Top10[i].CarIdx == -1)
                         {
-                            segment1Top10[i] = currentPositions[i];
-                            UpdateDataGridView(1);
+                            if (currentPositions[i].LapsComplete == currentLapRace)
+                            {
+                                segment1Top10[i] = currentPositions[i];
+                                UpdateDataGridView(1);
+                            }
+                        }
+                    }
+
+                    // check if the car at index 9 (p10 on track) is on the lead lap, that means he's crossed the line
+                    if (segment1Top10[9].CarIdx != -1)
+                    {
+                        if (!isYellowOut)  // make sure yellow isn't out
+                        {
+                            ThrowCaution();  // throw caution
                         }
                     }
                 }
-
-                // check if the car at index 9 (p10 on track) is on the lead lap, that means he's crossed the line
-                if (segment1Top10[9].CarIdx != -1)
+                else  // seg 2
                 {
-                    if (!isYellowOut)  // make sure yellow isn't out
+                    for (int i = 0; i < 10; i++)
                     {
-                        ThrowCaution();  // throw caution
+                        if (segment2Top10[i].CarIdx == -1)
+                        {
+                            if (currentPositions[i].LapsComplete == currentLapRace)
+                            {
+                                segment2Top10[i] = currentPositions[i];
+                                UpdateDataGridView(2);
+                            }
+                        }
                     }
-                }  // TODO: Add segment 2
+
+                    // check if the car at index 9 (p10 on track) is on the lead lap, that means he's crossed the line
+                    if (segment2Top10[9].CarIdx != -1)
+                    {
+                        if (!isYellowOut)  // make sure yellow isn't out
+                        {
+                            ThrowCaution();  // throw caution
+                        }
+                    }
+                }
             }
             #endregion
             #region P10 not on lead lap
             else  // if there are less than 10 cars on the lead lap
             {
-                for (int i = 0; i < carsOnLeadLap.Count; i++)
+                if (!isSegment1Ended)
                 {
-                    if (segment1Top10[i].CarIdx == -1)
+                    for (int i = 0; i < carsOnLeadLap.Count; i++)
                     {
-                        if (currentPositions[i].LapsComplete == currentLapRace)
+                        if (segment1Top10[i].CarIdx == -1)
+                        {
+                            if (currentPositions[i].LapsComplete == currentLapRace)
+                            {
+                                segment1Top10[i] = currentPositions[i];
+                                UpdateDataGridView(1);
+                            }
+                        }
+                    }
+
+                    // check if the last car on the lead lap has completed his lap
+                    if (segment1Top10[carsOnLeadLap.Count - 1].CarIdx != -1)
+                    {
+                        for (int i = carsOnLeadLap.Count + 1;
+                            i < 9;
+                            i++) // get all the positions between last car on lead lap + 1 and p10.
                         {
                             segment1Top10[i] = currentPositions[i];
                             UpdateDataGridView(1);
                         }
+
+                        if (!isYellowOut) // make sure yellow isn't out
+                        {
+                            ThrowCaution(); // throw caution
+                        }
                     }
                 }
-
-                // check if the last car on the lead lap has completed his lap
-                if (segment1Top10[carsOnLeadLap.Count - 1].CarIdx != -1)
+                else  // else segment1ended is false, so we're looking at segment 2 results
                 {
-                    for (int i = carsOnLeadLap.Count + 1; i < 9; i++)  // get all the positions between last car on lead lap + 1 and p10.
+                    for (int i = 0; i < carsOnLeadLap.Count; i++)
                     {
-                        segment1Top10[i] = currentPositions[i];
-                        UpdateDataGridView(1);
+                        if (segment2Top10[i].CarIdx == -1)
+                        {
+                            if (currentPositions[i].LapsComplete == currentLapRace)
+                            {
+                                segment2Top10[i] = currentPositions[i];
+                                UpdateDataGridView(2);
+                            }
+                        }
                     }
 
-                    if (!isYellowOut)  // make sure yellow isn't out
+                    // check if the last car on the lead lap has completed his lap
+                    if (segment2Top10[carsOnLeadLap.Count - 1].CarIdx != -1)
                     {
-                        isSegment1Ended = true;
-                        nudSegmentEnd1.Enabled = false;
-                        ThrowCaution();  // throw caution
+                        for (int i = carsOnLeadLap.Count + 1;
+                            i < 9;
+                            i++) // get all the positions between last car on lead lap + 1 and p10.
+                        {
+                            segment2Top10[i] = currentPositions[i];
+                            UpdateDataGridView(2);
+                        }
+
+                        if (!isYellowOut) // make sure yellow isn't out
+                        {
+                            isSegment1Ended = true;
+                            nudSegmentEnd1.Enabled = false;
+                            ThrowCaution(); // throw caution
+                        }
                     }
-                }  // TODO: Add segment 2
+                }
             }
             #endregion
         }
@@ -293,8 +374,21 @@ namespace iRacingSegmentController
                 {
                     if (segment1Top10[i].CarIdx != -1)
                     {
-                        dgvSeg1Results.Rows.Add(segment1Top10[i].Position, segment1Top10[i].CarIdx, driversInSession[segment1Top10[i].CarIdx].UserName,
+                        dgvSeg1Results.Rows.Add(segment1Top10[i].Position, segment1Top10[i].CarIdx,
+                            driversInSession[segment1Top10[i].CarIdx].UserName,
                             segment1Top10[i].ReasonOutStr); // add position to datagridview
+                    }
+                }
+            }
+            else
+            {
+                dgvSeg2Results.Rows.Clear();
+                for (int i = 0; i < 10; i++)
+                {
+                    if (segment2Top10[i].CarIdx != -1)
+                    {
+                        dgvSeg2Results.Rows.Add(segment2Top10[i].Position, segment2Top10[i].CarIdx, driversInSession[segment2Top10[i].CarIdx].UserName,
+                            segment2Top10[i].ReasonOutStr); // add position to datagridview
                     }
                 }
             }
@@ -302,7 +396,7 @@ namespace iRacingSegmentController
 
         private void ClosePits()
         {
-            if (isPitsClosed)
+            if (isPitsClosed) // TODO: setup sendkeys (see ThrowCaution())
             {
                 Console.WriteLine("Pits are closed!");
                 isPitsClosed = true;
@@ -315,6 +409,17 @@ namespace iRacingSegmentController
 
         private void ThrowCaution()
         {
+            if (segment1Top10[9].CarIdx != -1)
+            {
+                isSegment1Ended = true;
+                nudSegmentEnd1.Enabled = false;
+            }
+            else if (segment2Top10[9].CarIdx != -1)
+            {
+                isSegment2Ended = true;
+                nudSegmentEnd2.Enabled = false;
+            }
+
             /* TODO: figure out caution section, using SendKeys might be a horribly bad decision, will need to test
              *
              * Problem with SendKeys is that it sends the text to whatever window is open
@@ -339,7 +444,7 @@ namespace iRacingSegmentController
 
 
         #region Classes for YAML Parsing
-        public class SDKReturn
+        public class SDKReturn  // TODO: move these off into their own file
         {
             public SessionInfo SessionInfo { get; set; }
             public DriverInfo DriverInfo { get; set; }
@@ -372,18 +477,18 @@ namespace iRacingSegmentController
                 CarIdx = -1;  // pace car is always CarIdx 0, -1 will never be used by iracing
             }
             public int Position { get; set; }
-            public string ClassPosition { get; set; }
+            public int ClassPosition { get; set; }
             public int CarIdx { get; set; }
             public int Lap { get; set; }
-            public string Time { get; set; }
-            public string FastestLap { get; set; }
-            public string FastestTime { get; set; }
-            public string LastTime { get; set; }
+            public decimal Time { get; set; }
+            public decimal FastestLap { get; set; }
+            public decimal FastestTime { get; set; }
+            public decimal LastTime { get; set; }
             public int LapsLed { get; set; }
             public int LapsComplete { get; set; }
             public decimal LapsDriven { get; set; }
-            public string Incidents { get; set; }
-            public string ReasonOutId { get; set; }
+            public int Incidents { get; set; }
+            public int ReasonOutId { get; set; }
             public string ReasonOutStr { get; set; }
         }
 
@@ -395,31 +500,31 @@ namespace iRacingSegmentController
 
         public class Driver // probably don't need every item, can delete stuff later if I really need to
         {
-            public string CarIdx { get; set; }
+            public int CarIdx { get; set; }
             public string UserName { get; set; }
             public string AbbrevName { get; set; }
             public string Initials { get; set; }
-            public string UserID { get; set; }
-            public string TeamID { get; set; }
+            public int UserID { get; set; }
+            public int TeamID { get; set; }
             public string TeamName { get; set; }
             public int CarNumber { get; set; }
-            public string CarNumberRaw { get; set; }
+            public int CarNumberRaw { get; set; }
             public string CarPath { get; set; }
-            public string CarClassID { get; set; }
-            public string CarID { get; set; }
-            public string CarIsPaceCar { get; set; }
-            public string CarIsAI { get; set; }
+            public int CarClassID { get; set; }
+            public int CarID { get; set; }
+            public int CarIsPaceCar { get; set; }
+            public int CarIsAI { get; set; }
             public string CarScreenName { get; set; }
             public string CarScreenNameShort { get; set; }
             public string CarClassShortName { get; set; }
-            public string CarClassRelSpeed { get; set; }
+            public int CarClassRelSpeed { get; set; }
             public string CarClassLicenseLevel { get; set; }
             public string CarClassMaxFuelPct { get; set; }
             public string CarClassWeightPenalty { get; set; }
             public string CarClassColor { get; set; }
-            public string IRating { get; set; }
-            public string LicLevel { get; set; }
-            public string LicSubLevel { get; set; }
+            public int IRating { get; set; }
+            public int LicLevel { get; set; }
+            public int LicSubLevel { get; set; }
             public string LicString { get; set; }
             public string LicColor { get; set; }
             public string IsSpectator { get; set; }
@@ -461,10 +566,22 @@ namespace iRacingSegmentController
             wrapper.Camera.SwitchToCar(driversInSession[currentPositions[e.RowIndex].CarIdx].CarNumber);  // TODO: make this work so it jumps to the driver, not the position
         }
 
+        private void btnSeg1End_Click(object sender, EventArgs e)
+        {
+            isSegment1Ended = true;
+            nudSegmentEnd1.Enabled = true;
+
+            for (var i = 0; i < 10; i++)
+            {
+                segment1Top10[i].CarIdx = 0;
+            }
+        }
+
         private void btnSetToNextLap_Click(object sender, EventArgs e)  // debug thing, TODO: delete before release
         {
             nudSegmentEnd1.Value = (currentLapRace + 2);  // round value to the nearest whole number
-            // segment1EndLap = (int)nudSegmentEnd1.Value - 1;  // store value, subtract one to make up for 0 index
+
+            nudSegmentEnd2.Value = (currentLapRace + 3);  // round value to the nearest whole number
         }
     }
 }
