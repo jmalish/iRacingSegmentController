@@ -39,15 +39,11 @@ namespace iRacingSegmentController
 
             InitializeSegmentTop10s();
 
-            
-            dgvDriverList.RowHeadersVisible = false;  // hide left margin
-
-            dgvDriverList.ColumnCount = 4; // set number of columns
-
-            // TODO: clean this area up
-
             #region Data Grid Views setup
             #region dgvDriverList
+            dgvDriverList.RowHeadersVisible = false;  // hide left margin
+            dgvDriverList.ColumnCount = 4; // set number of columns
+
             // set column names
             dgvDriverList.Columns[0].Name = "Pos.";
             dgvDriverList.Columns[1].Name = "Car #";
@@ -58,38 +54,34 @@ namespace iRacingSegmentController
             dgvDriverList.Columns[0].Width = 50;
             dgvDriverList.Columns[1].Width = 56;
             dgvDriverList.Columns[3].Width = 50;
-
-            dgvSeg1Results.RowHeadersVisible = false;  // hide left margin
-            dgvSeg1Results.ColumnCount = 4; // set number of columns
             #endregion
 
             #region dgvSeg1Results
+            dgvSeg1Results.RowHeadersVisible = false;  // hide left margin
+            dgvSeg1Results.ColumnCount = 3; // set number of columns
+
             // set column names
             dgvSeg1Results.Columns[0].Name = "Pos.";
             dgvSeg1Results.Columns[1].Name = "Car #";
             dgvSeg1Results.Columns[2].Name = "Name";
-            dgvSeg1Results.Columns[3].Name = "Lap";
 
             // set column widths
             dgvSeg1Results.Columns[0].Width = 50;
             dgvSeg1Results.Columns[1].Width = 56;
-            dgvSeg1Results.Columns[3].Width = 50;
-
-            dgvSeg2Results.RowHeadersVisible = false;  // hide left margin
-            dgvSeg2Results.ColumnCount = 4; // set number of columns
             #endregion
 
             #region dgvSeg2Results
+            dgvSeg2Results.RowHeadersVisible = false;  // hide left margin
+            dgvSeg2Results.ColumnCount = 3; // set number of columns
+
             // set column names
             dgvSeg2Results.Columns[0].Name = "Pos.";
             dgvSeg2Results.Columns[1].Name = "Car #";
             dgvSeg2Results.Columns[2].Name = "Name";
-            dgvSeg2Results.Columns[3].Name = "Lap";
 
             // set column widths
             dgvSeg2Results.Columns[0].Width = 50;
             dgvSeg2Results.Columns[1].Width = 56;
-            dgvSeg2Results.Columns[3].Width = 50;
             #endregion
             #endregion
 
@@ -389,9 +381,7 @@ namespace iRacingSegmentController
                 {
                     if (segment1Top10[i].CarIdx != -1)
                     {
-                        dgvSeg1Results.Rows.Add(segment1Top10[i].Position, segment1Top10[i].CarIdx,
-                            driversInSession[segment1Top10[i].CarIdx].UserName,
-                            segment1Top10[i].ReasonOutStr); // add position to datagridview
+                        dgvSeg1Results.Rows.Add(segment1Top10[i].Position, segment1Top10[i].CarIdx, driversInSession[segment1Top10[i].CarIdx].UserName); // add position to datagridview
                     }
                 }
             }
@@ -402,8 +392,7 @@ namespace iRacingSegmentController
                 {
                     if (segment2Top10[i].CarIdx != -1)
                     {
-                        dgvSeg2Results.Rows.Add(segment2Top10[i].Position, segment2Top10[i].CarIdx, driversInSession[segment2Top10[i].CarIdx].UserName,
-                            segment2Top10[i].ReasonOutStr); // add position to datagridview
+                        dgvSeg2Results.Rows.Add(segment2Top10[i].Position, segment2Top10[i].CarIdx, driversInSession[segment2Top10[i].CarIdx].UserName); // add position to datagridview
                     }
                 }
             }
