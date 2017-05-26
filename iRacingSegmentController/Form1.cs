@@ -26,6 +26,7 @@ namespace iRacingSegmentController
         private List<Positions> segment1Top10 = new List<Positions>();
         private List<Positions> segment2Top10 = new List<Positions>();
         private List<Positions> carsOnLeadLap = new List<Positions>();
+        private bool isAdmin = false;
         #endregion
 
 
@@ -38,11 +39,15 @@ namespace iRacingSegmentController
 
             InitializeSegmentTop10s();
 
-            #region DataGridView Setup
+            
             dgvDriverList.RowHeadersVisible = false;  // hide left margin
 
             dgvDriverList.ColumnCount = 4; // set number of columns
 
+            // TODO: clean this area up
+
+            #region Data Grid Views setup
+            #region dgvDriverList
             // set column names
             dgvDriverList.Columns[0].Name = "Pos.";
             dgvDriverList.Columns[1].Name = "Car #";
@@ -54,11 +59,11 @@ namespace iRacingSegmentController
             dgvDriverList.Columns[1].Width = 56;
             dgvDriverList.Columns[3].Width = 50;
 
-
             dgvSeg1Results.RowHeadersVisible = false;  // hide left margin
-
             dgvSeg1Results.ColumnCount = 4; // set number of columns
+            #endregion
 
+            #region dgvSeg1Results
             // set column names
             dgvSeg1Results.Columns[0].Name = "Pos.";
             dgvSeg1Results.Columns[1].Name = "Car #";
@@ -70,11 +75,11 @@ namespace iRacingSegmentController
             dgvSeg1Results.Columns[1].Width = 56;
             dgvSeg1Results.Columns[3].Width = 50;
 
-
-
             dgvSeg2Results.RowHeadersVisible = false;  // hide left margin
             dgvSeg2Results.ColumnCount = 4; // set number of columns
+            #endregion
 
+            #region dgvSeg2Results
             // set column names
             dgvSeg2Results.Columns[0].Name = "Pos.";
             dgvSeg2Results.Columns[1].Name = "Car #";
@@ -85,6 +90,7 @@ namespace iRacingSegmentController
             dgvSeg2Results.Columns[0].Width = 50;
             dgvSeg2Results.Columns[1].Width = 56;
             dgvSeg2Results.Columns[3].Width = 50;
+            #endregion
             #endregion
 
             #region wrapper stuff
@@ -103,11 +109,6 @@ namespace iRacingSegmentController
                 //WriteToLogFile("wrapper stuff", exc.Message.ToString());
             }
             #endregion
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            // TODO: delete this if nothing is put here
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)  // when close button is clicked, stop wrapper and close the rest of the program 
@@ -136,27 +137,46 @@ namespace iRacingSegmentController
         // Do things when Telemetry updates (supposed to be 60 times per second)
         private void OnTelemetryUpdated(object sender, iRacingSdkWrapper.SdkWrapper.TelemetryUpdatedEventArgs telemArgs)
         {
+            if (isClosing) return;  // if program is closing, just return so we don't waste time doing this stuff
+
             if (wrapper.IsConnected)
             {
                 lblIsConnected.Text = "Connected: True";
             }
-            
+
             #region Flag stuff
-            string newFlag = telemArgs.TelemetryInfo.SessionFlags.Value.ToString().Split(' ')[0];  // get the actual current flag according to the session, splits because it normally shows two states
+
+            string newFlag =
+                telemArgs.TelemetryInfo.SessionFlags.Value.ToString()
+                    .Split(' ')[
+                        0]; // get the actual current flag according to the session, splits because it normally shows two states
 
             lblCurrentFlag.Text = "Current Flag: " + newFlag;
+
             #endregion
         }
 
         // Do things when session info updates
         private void OnSessionInfoUpdated(object sender, iRacingSdkWrapper.SdkWrapper.SessionInfoUpdatedEventArgs sessionArgs)
         {
+            if (isClosing) return;  // if program is closing, just return so we don't waste time doing this stuff
+
             if (sessionArgs.SessionInfo.IsValidYaml)  // check if yaml is valid
             {
                 // TODO: Fix this since it's deprecated, I doubt this will cause me issue, but better safe than sorry
                 Deserializer deserializer = new Deserializer(namingConvention: new PascalCaseNamingConvention(), ignoreUnmatched: true);  // create a deserializer
                 var input = new StringReader(sessionArgs.SessionInfo.Yaml);  // read the yaml
                 var sessionInfo = deserializer.Deserialize<SDKReturn>(input);  // deserialize the yaml
+
+                #region Radios
+                lblIsAdmin.Text = $"User is Admin: {isAdmin}"; // update label
+
+                foreach (Frequencies r in sessionInfo.RadioInfo.Radios[0].Frequencies)
+                {
+                    if (r.FrequencyName == "@ADMIN") isAdmin = true;  // if user has the ADMIN radio channel, we can safely assume they're an admin in the session
+                }
+                #endregion
+
 
                 #region Drivers Info
                 if ((driversInSession == null) || (driversInSession.Count != sessionInfo.DriverInfo.Drivers.Count)) // if driver list is empty, or one of the lists is longer than the other
@@ -195,8 +215,11 @@ namespace iRacingSegmentController
                                     p.LapsComplete + 1); // add position to datagridview
                             }
 
-                            // find how many cars are on lead lap
-                            // I have it looking for current lap, and current lap - 1 to make up for when the leader crosses the line
+                            /*
+                             * find how many cars are on lead lap
+                             * I have it looking for current lap, and current lap - 1 to make up for when the leader crosses the line
+                             * This works, but if someone is one lap down, they're counted, I don't know how to fix this TODO: fix this?
+                             */
                             IEnumerable<Positions> carsOnLeadLapQuery =
                                 from position in currentPositions
                                 where position.LapsComplete == currentLapRace || position.LapsComplete == currentLapRace - 1
@@ -213,14 +236,6 @@ namespace iRacingSegmentController
                                     CheckForSegmentEnd();
                                 }
                             }
-
-                            //if (isSegment1Ended && !isSegment2Ended)  // if segment 1 is not ended
-                            //{
-                            //    if (currentLapRace >= segment2EndLap + 1 && segment2Top10[9].CarIdx == -1)
-                            //    {  // if we're on the lap of a segment end, start checking if we should throw caution
-                            //        CheckForSegmentEnd();
-                            //    }
-                            //}
                         }
                     }
                 }
@@ -443,119 +458,6 @@ namespace iRacingSegmentController
         #endregion
 
 
-        #region Classes for YAML Parsing
-        public class SDKReturn  // TODO: move these off into their own file
-        {
-            public SessionInfo SessionInfo { get; set; }
-            public DriverInfo DriverInfo { get; set; }
-            public RadioInfo RadioInfo { get; set; }
-            public WeekendInfo WeekendInfo { get; set; }
-        }
-
-        public class SessionInfo
-        {
-            public List<Session> Sessions { get; set; }
-        }
-
-        public class WeekendInfo
-        {
-            public string TrackDisplayName { get; set; }
-        }
-
-        public class Session
-        {
-            public int ResultsLapsComplete { get; set; }
-            public string SessionLaps { get; set; }
-            public string SessionType { get; set; }
-            public List<Positions> ResultsPositions { get; set; }
-        }
-
-        public class Positions
-        {
-            public Positions()
-            {
-                CarIdx = -1;  // pace car is always CarIdx 0, -1 will never be used by iracing
-            }
-            public int Position { get; set; }
-            public int ClassPosition { get; set; }
-            public int CarIdx { get; set; }
-            public int Lap { get; set; }
-            public decimal Time { get; set; }
-            public decimal FastestLap { get; set; }
-            public decimal FastestTime { get; set; }
-            public decimal LastTime { get; set; }
-            public int LapsLed { get; set; }
-            public int LapsComplete { get; set; }
-            public decimal LapsDriven { get; set; }
-            public int Incidents { get; set; }
-            public int ReasonOutId { get; set; }
-            public string ReasonOutStr { get; set; }
-        }
-
-
-        public class DriverInfo
-        {
-            public List<Driver> Drivers { get; set; }
-        }
-
-        public class Driver // probably don't need every item, can delete stuff later if I really need to
-        {
-            public int CarIdx { get; set; }
-            public string UserName { get; set; }
-            public string AbbrevName { get; set; }
-            public string Initials { get; set; }
-            public int UserID { get; set; }
-            public int TeamID { get; set; }
-            public string TeamName { get; set; }
-            public int CarNumber { get; set; }
-            public int CarNumberRaw { get; set; }
-            public string CarPath { get; set; }
-            public int CarClassID { get; set; }
-            public int CarID { get; set; }
-            public int CarIsPaceCar { get; set; }
-            public int CarIsAI { get; set; }
-            public string CarScreenName { get; set; }
-            public string CarScreenNameShort { get; set; }
-            public string CarClassShortName { get; set; }
-            public int CarClassRelSpeed { get; set; }
-            public string CarClassLicenseLevel { get; set; }
-            public string CarClassMaxFuelPct { get; set; }
-            public string CarClassWeightPenalty { get; set; }
-            public string CarClassColor { get; set; }
-            public int IRating { get; set; }
-            public int LicLevel { get; set; }
-            public int LicSubLevel { get; set; }
-            public string LicString { get; set; }
-            public string LicColor { get; set; }
-            public string IsSpectator { get; set; }
-            public string CarDesignStr { get; set; }
-            public string HelmetDesignStr { get; set; }
-            public string SuitDesignStr { get; set; }
-            public string CarNumberDesignStr { get; set; }
-            public string CarSponsor_1 { get; set; }
-            public string CarSponsor_2 { get; set; }
-            public string ClubName { get; set; }
-            public string DivisionName { get; set; }
-        }
-
-        public class RadioInfo
-        {
-            public List<Radios> Radios { get; set; }
-        }
-
-        public class Radios
-        {
-            public List<Frequencies> Frequencies { get; set; }
-        }
-
-        public class Frequencies
-        {
-            public string FrequencyName { get; set; }
-            public string CanSquawk { get; set; }
-        }
-        #endregion
-
-
         private void btnGoToP10_Click(object sender, EventArgs e)
         {
             wrapper.Camera.SwitchToPosition(10);
@@ -563,7 +465,7 @@ namespace iRacingSegmentController
 
         private void dgvDriverList_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            wrapper.Camera.SwitchToCar(driversInSession[currentPositions[e.RowIndex].CarIdx].CarNumber);  // TODO: make this work so it jumps to the driver, not the position
+            wrapper.Camera.SwitchToCar(driversInSession[currentPositions[e.RowIndex].CarIdx].CarNumber); 
         }
 
         private void btnSeg1End_Click(object sender, EventArgs e)
@@ -579,9 +481,9 @@ namespace iRacingSegmentController
 
         private void btnSetToNextLap_Click(object sender, EventArgs e)  // debug thing, TODO: delete before release
         {
-            nudSegmentEnd1.Value = (currentLapRace + 2);  // round value to the nearest whole number
+            nudSegmentEnd1.Value = (currentLapRace + 1);  // round value to the nearest whole number
 
-            nudSegmentEnd2.Value = (currentLapRace + 3);  // round value to the nearest whole number
+            nudSegmentEnd2.Value = (currentLapRace + 2);  // round value to the nearest whole number
         }
     }
 }

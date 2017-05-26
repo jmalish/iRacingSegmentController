@@ -45,6 +45,7 @@
             this.btnSetToNextLap = new System.Windows.Forms.Button();
             this.btnGoToP10 = new System.Windows.Forms.Button();
             this.btnSeg1End = new System.Windows.Forms.Button();
+            this.lblIsAdmin = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDriverList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd2)).BeginInit();
@@ -64,7 +65,7 @@
             // lblCurrentFlag
             // 
             this.lblCurrentFlag.AutoSize = true;
-            this.lblCurrentFlag.Location = new System.Drawing.Point(12, 31);
+            this.lblCurrentFlag.Location = new System.Drawing.Point(14, 71);
             this.lblCurrentFlag.Name = "lblCurrentFlag";
             this.lblCurrentFlag.Size = new System.Drawing.Size(67, 13);
             this.lblCurrentFlag.TabIndex = 1;
@@ -95,7 +96,7 @@
             // lblCurrentLap
             // 
             this.lblCurrentLap.AutoSize = true;
-            this.lblCurrentLap.Location = new System.Drawing.Point(14, 64);
+            this.lblCurrentLap.Location = new System.Drawing.Point(14, 111);
             this.lblCurrentLap.Name = "lblCurrentLap";
             this.lblCurrentLap.Size = new System.Drawing.Size(74, 13);
             this.lblCurrentLap.TabIndex = 5;
@@ -104,7 +105,7 @@
             // lblCarsOnLead
             // 
             this.lblCarsOnLead.AutoSize = true;
-            this.lblCarsOnLead.Location = new System.Drawing.Point(14, 100);
+            this.lblCarsOnLead.Location = new System.Drawing.Point(14, 147);
             this.lblCarsOnLead.Name = "lblCarsOnLead";
             this.lblCarsOnLead.Size = new System.Drawing.Size(91, 13);
             this.lblCarsOnLead.TabIndex = 6;
@@ -236,11 +237,21 @@
             this.btnSeg1End.UseVisualStyleBackColor = true;
             this.btnSeg1End.Click += new System.EventHandler(this.btnSeg1End_Click);
             // 
+            // lblIsAdmin
+            // 
+            this.lblIsAdmin.AutoSize = true;
+            this.lblIsAdmin.Location = new System.Drawing.Point(12, 28);
+            this.lblIsAdmin.Name = "lblIsAdmin";
+            this.lblIsAdmin.Size = new System.Drawing.Size(102, 13);
+            this.lblIsAdmin.TabIndex = 13;
+            this.lblIsAdmin.Text = "User is Admin: False";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(795, 542);
+            this.Controls.Add(this.lblIsAdmin);
             this.Controls.Add(this.btnSeg1End);
             this.Controls.Add(this.btnGoToP10);
             this.Controls.Add(this.btnSetToNextLap);
@@ -261,7 +272,6 @@
             this.Name = "Form1";
             this.Text = "iRacing Segment Controller";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDriverList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd2)).EndInit();
@@ -291,6 +301,7 @@
         private System.Windows.Forms.Button btnSetToNextLap;
         private System.Windows.Forms.Button btnGoToP10;
         private System.Windows.Forms.Button btnSeg1End;
+        private System.Windows.Forms.Label lblIsAdmin;
     }
 }
 
