@@ -1,0 +1,7 @@
+send keys
+make sure we're using a fresh chat window
+things to send:
+	close pits with 5 to go  ("/all Pits are closed!")
+	throw caution
+
+also need to figure out what to do if a caution comes out a few laps before segment ends

@@ -122,6 +122,23 @@ namespace iRacingSegmentController
             nudSegmentEnd2.Value = (int)Math.Round(nudSegmentEnd2.Value);  // round value to the nearest whole number
             segment2EndLap = (int)nudSegmentEnd2.Value - 1;  // store value
         }
+
+        private void btnGoToP10_Click(object sender, EventArgs e)
+        {
+            wrapper.Camera.SwitchToPosition(10);
+        }
+
+        private void dgvDriverList_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            wrapper.Camera.SwitchToCar(driversInSession[currentPositions[e.RowIndex].CarIdx].CarNumber);
+        }
+
+        private void btnSetToNextLap_Click(object sender, EventArgs e)  // debug thing, TODO: delete before release
+        {
+            nudSegmentEnd1.Value = (currentLapRace + 1);  // round value to the nearest whole number
+
+            nudSegmentEnd2.Value = (currentLapRace + 2);  // round value to the nearest whole number
+        }
         #endregion  
 
 
@@ -187,7 +204,7 @@ namespace iRacingSegmentController
 
                         currentLapRace = raceSession.ResultsLapsComplete; // get the laps complete, this is helpful for when someone in top 10 is not on lead lap
 
-                        lblCurrentLap.Text = $"Current Lap: {currentLapRace + 1}";  // update current lap label
+                        lblCurrentLap.Text = $"Current Lap: {currentLapRace + 1} of {raceSession.SessionLaps}";  // update current lap label
 
 
                         if ((currentLapRace >= segment1EndLap - 5 || currentLapRace >= segment2EndLap - 5) && !isPitsClosed)  // if 5 laps from segment end
@@ -238,7 +255,6 @@ namespace iRacingSegmentController
 
 
         #region Functions
-
         private void InitializeSegmentTop10s()
         {
             for (int i = 0; i < 10; i++)
@@ -304,6 +320,7 @@ namespace iRacingSegmentController
             #region P10 not on lead lap
             else  // if there are less than 10 cars on the lead lap
             {
+                Console.WriteLine("less than 10 on lead lap");
                 if (!isSegment1Ended)
                 {
                     for (int i = 0; i < carsOnLeadLap.Count; i++)
@@ -312,8 +329,11 @@ namespace iRacingSegmentController
                         {
                             if (currentPositions[i].LapsComplete == currentLapRace)
                             {
-                                segment1Top10[i] = currentPositions[i];
-                                UpdateDataGridView(1);
+                                if (segment1Top10[i].CarIdx != -1)
+                                {
+                                    segment1Top10[i] = currentPositions[i];
+                                    UpdateDataGridView(1);
+                                }
                             }
                         }
                     }
@@ -321,9 +341,7 @@ namespace iRacingSegmentController
                     // check if the last car on the lead lap has completed his lap
                     if (segment1Top10[carsOnLeadLap.Count - 1].CarIdx != -1)
                     {
-                        for (int i = carsOnLeadLap.Count + 1;
-                            i < 9;
-                            i++) // get all the positions between last car on lead lap + 1 and p10.
+                        for (int i = carsOnLeadLap.Count + 1; i < 10; i++) // get all the positions between last car on lead lap + 1 and p10.
                         {
                             segment1Top10[i] = currentPositions[i];
                             UpdateDataGridView(1);
@@ -339,7 +357,7 @@ namespace iRacingSegmentController
                 {
                     for (int i = 0; i < carsOnLeadLap.Count; i++)
                     {
-                        if (segment2Top10[i].CarIdx == -1)
+                        if (segment2Top10[i].CarIdx != -1)
                         {
                             if (currentPositions[i].LapsComplete == currentLapRace)
                             {
@@ -352,12 +370,13 @@ namespace iRacingSegmentController
                     // check if the last car on the lead lap has completed his lap
                     if (segment2Top10[carsOnLeadLap.Count - 1].CarIdx != -1)
                     {
-                        for (int i = carsOnLeadLap.Count + 1;
-                            i < 9;
-                            i++) // get all the positions between last car on lead lap + 1 and p10.
+                        for (int i = carsOnLeadLap.Count + 1; i < 10; i++) // get all the positions between last car on lead lap + 1 and p10.
                         {
-                            segment2Top10[i] = currentPositions[i];
-                            UpdateDataGridView(2);
+                            if (segment2Top10[i].CarIdx == -1)
+                            {
+                                segment2Top10[i] = currentPositions[i];
+                                UpdateDataGridView(2);
+                            }
                         }
 
                         if (!isYellowOut) // make sure yellow isn't out
@@ -445,34 +464,5 @@ namespace iRacingSegmentController
             // TODO: need to "open" pits again
         }
         #endregion
-
-
-        private void btnGoToP10_Click(object sender, EventArgs e)
-        {
-            wrapper.Camera.SwitchToPosition(10);
-        }
-
-        private void dgvDriverList_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            wrapper.Camera.SwitchToCar(driversInSession[currentPositions[e.RowIndex].CarIdx].CarNumber); 
-        }
-
-        private void btnSeg1End_Click(object sender, EventArgs e)
-        {
-            isSegment1Ended = true;
-            nudSegmentEnd1.Enabled = true;
-
-            for (var i = 0; i < 10; i++)
-            {
-                segment1Top10[i].CarIdx = 0;
-            }
-        }
-
-        private void btnSetToNextLap_Click(object sender, EventArgs e)  // debug thing, TODO: delete before release
-        {
-            nudSegmentEnd1.Value = (currentLapRace + 1);  // round value to the nearest whole number
-
-            nudSegmentEnd2.Value = (currentLapRace + 2);  // round value to the nearest whole number
-        }
     }
 }
