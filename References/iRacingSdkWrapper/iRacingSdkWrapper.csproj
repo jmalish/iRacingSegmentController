@@ -74,7 +74,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="telemetry_11_23_15.pdf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\irsdkSharp\iRSDKSharp.csproj">

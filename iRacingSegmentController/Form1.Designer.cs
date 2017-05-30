@@ -45,11 +45,15 @@
             this.btnSetToNextLap = new System.Windows.Forms.Button();
             this.btnGoToP10 = new System.Windows.Forms.Button();
             this.lblIsAdmin = new System.Windows.Forms.Label();
+            this.nudClosePits = new System.Windows.Forms.NumericUpDown();
+            this.lblClosePits1 = new System.Windows.Forms.Label();
+            this.lblClosePits2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDriverList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSeg2Results)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSeg1Results)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudClosePits)).BeginInit();
             this.SuspendLayout();
             // 
             // lblIsConnected
@@ -235,11 +239,50 @@
             this.lblIsAdmin.TabIndex = 13;
             this.lblIsAdmin.Text = "User is Admin: False";
             // 
+            // nudClosePits
+            // 
+            this.nudClosePits.Location = new System.Drawing.Point(68, 409);
+            this.nudClosePits.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudClosePits.Name = "nudClosePits";
+            this.nudClosePits.Size = new System.Drawing.Size(32, 20);
+            this.nudClosePits.TabIndex = 15;
+            this.nudClosePits.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.nudClosePits.ValueChanged += new System.EventHandler(this.nudClosePits_ValueChanged);
+            // 
+            // lblClosePits1
+            // 
+            this.lblClosePits1.AutoSize = true;
+            this.lblClosePits1.Location = new System.Drawing.Point(14, 411);
+            this.lblClosePits1.Name = "lblClosePits1";
+            this.lblClosePits1.Size = new System.Drawing.Size(53, 13);
+            this.lblClosePits1.TabIndex = 14;
+            this.lblClosePits1.Text = "Close Pits";
+            // 
+            // lblClosePits2
+            // 
+            this.lblClosePits2.AutoSize = true;
+            this.lblClosePits2.Location = new System.Drawing.Point(102, 411);
+            this.lblClosePits2.Name = "lblClosePits2";
+            this.lblClosePits2.Size = new System.Drawing.Size(100, 13);
+            this.lblClosePits2.TabIndex = 16;
+            this.lblClosePits2.Text = "laps before seg end";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(795, 542);
+            this.Controls.Add(this.lblClosePits2);
+            this.Controls.Add(this.nudClosePits);
+            this.Controls.Add(this.lblClosePits1);
             this.Controls.Add(this.lblIsAdmin);
             this.Controls.Add(this.btnGoToP10);
             this.Controls.Add(this.btnSetToNextLap);
@@ -265,6 +308,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSeg2Results)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSeg1Results)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudClosePits)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -289,6 +333,9 @@
         private System.Windows.Forms.Button btnSetToNextLap;
         private System.Windows.Forms.Button btnGoToP10;
         private System.Windows.Forms.Label lblIsAdmin;
+        private System.Windows.Forms.NumericUpDown nudClosePits;
+        private System.Windows.Forms.Label lblClosePits1;
+        private System.Windows.Forms.Label lblClosePits2;
     }
 }
 

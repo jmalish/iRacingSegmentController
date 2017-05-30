@@ -21,3 +21,4 @@ D:\projects\iRacingSegmentController\References\irsdkSharp\bin\Debug\YamlDotNet.
 D:\projects\iRacingSegmentController\References\irsdkSharp\bin\Debug\YamlDotNet.xml
 D:\projects\iRacingSegmentController\References\irsdkSharp\obj\Debug\iRSDKSharp.dll
 D:\projects\iRacingSegmentController\References\irsdkSharp\obj\Debug\iRSDKSharp.pdb
+D:\projects\iRacingSegmentController\References\irsdkSharp\obj\Debug\iRSDKSharp.csprojResolveAssemblyReference.cache
