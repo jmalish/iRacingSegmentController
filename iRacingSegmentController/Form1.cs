@@ -252,7 +252,7 @@ namespace iRacingSegmentController
 
                             carsOnLeadLap = carsOnLeadLapQuery.ToList();  // convert cars on lead query lap to list
 
-                            if (!isSegment1Ended || isSegment1Ended && !isSegment2Ended)  // if segment 1 is not ended
+                            if (!isSegment1Ended || (isSegment1Ended && !isSegment2Ended))  // if segment 1 is not ended
                             {
                                 if (currentLapRace >= segment1EndLap + 1 && segment1Top10[9].CarIdx == -1 || currentLapRace >= segment2EndLap + 1 && segment2Top10[9].CarIdx == -1)
                                 {  // if we're on the lap of a segment end, start checking if we should throw caution
@@ -334,7 +334,6 @@ namespace iRacingSegmentController
             #region P10 not on lead lap
             else  // if there are less than 10 cars on the lead lap
             {
-                Console.WriteLine("less than 10 on lead lap");
                 if (!isSegment1Ended)
                 {
                     for (int i = 0; i < carsOnLeadLap.Count + 1; i++)
@@ -353,7 +352,7 @@ namespace iRacingSegmentController
                     }
 
                     // check if the last car on the lead lap has completed his lap
-                    if (segment1Top10[carsOnLeadLap.Count - 2].CarIdx != -1)
+                    if (segment1Top10[carsOnLeadLap.Count - 1].CarIdx != -1)
                     {
                         // if he has, get positions x through 10, where x = cars on lead lap + 1
                         for (int i = carsOnLeadLap.Count; i < 10; i++) // get all the positions between last car on lead lap + 1 and p10.
@@ -370,14 +369,17 @@ namespace iRacingSegmentController
                 }
                 else  // else segment1ended is false, so we're looking at segment 2 results
                 {
-                    for (int i = 0; i < carsOnLeadLap.Count; i++)
+                    for (int i = 0; i < carsOnLeadLap.Count + 1; i++)
                     {
-                        if (segment2Top10[i].CarIdx != -1)
+                        if (segment2Top10[i].CarIdx == -1)
                         {
                             if (currentPositions[i].LapsComplete == currentLapRace)
                             {
-                                segment2Top10[i] = currentPositions[i];
-                                UpdateDataGridView(2);
+                                if (segment2Top10[i].CarIdx == -1)
+                                {
+                                    segment2Top10[i] = currentPositions[i];
+                                    UpdateDataGridView(2);
+                                }
                             }
                         }
                     }
@@ -385,19 +387,15 @@ namespace iRacingSegmentController
                     // check if the last car on the lead lap has completed his lap
                     if (segment2Top10[carsOnLeadLap.Count - 1].CarIdx != -1)
                     {
-                        for (int i = carsOnLeadLap.Count + 1; i < 10; i++) // get all the positions between last car on lead lap + 1 and p10.
+                        // if he has, get positions x through 10, where x = cars on lead lap + 1
+                        for (int i = carsOnLeadLap.Count; i < 10; i++) // get all the positions between last car on lead lap + 1 and p10.
                         {
-                            if (segment2Top10[i].CarIdx == -1)
-                            {
-                                segment2Top10[i] = currentPositions[i];
-                                UpdateDataGridView(2);
-                            }
+                            segment2Top10[i] = currentPositions[i];
+                            UpdateDataGridView(2);
                         }
 
                         if (!isYellowOut) // make sure yellow isn't out
                         {
-                            isSegment1Ended = true;
-                            nudSegmentEnd1.Enabled = false;
                             ThrowCaution(); // throw caution
                         }
                     }

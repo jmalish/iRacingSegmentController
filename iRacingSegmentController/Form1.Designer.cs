@@ -92,7 +92,7 @@
             this.dgvDriverList.Location = new System.Drawing.Point(233, 28);
             this.dgvDriverList.Name = "dgvDriverList";
             this.dgvDriverList.ReadOnly = true;
-            this.dgvDriverList.Size = new System.Drawing.Size(260, 509);
+            this.dgvDriverList.Size = new System.Drawing.Size(260, 532);
             this.dgvDriverList.TabIndex = 4;
             this.dgvDriverList.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDriverList_CellContentDoubleClick);
             // 
@@ -174,10 +174,10 @@
             this.dgvSeg2Results.AllowUserToDeleteRows = false;
             this.dgvSeg2Results.AllowUserToOrderColumns = true;
             this.dgvSeg2Results.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSeg2Results.Location = new System.Drawing.Point(503, 295);
+            this.dgvSeg2Results.Location = new System.Drawing.Point(503, 306);
             this.dgvSeg2Results.Name = "dgvSeg2Results";
             this.dgvSeg2Results.ReadOnly = true;
-            this.dgvSeg2Results.Size = new System.Drawing.Size(280, 242);
+            this.dgvSeg2Results.Size = new System.Drawing.Size(280, 253);
             this.dgvSeg2Results.TabIndex = 4;
             // 
             // lblSegment1Results
@@ -192,7 +192,7 @@
             // lblSegment2Results
             // 
             this.lblSegment2Results.AutoSize = true;
-            this.lblSegment2Results.Location = new System.Drawing.Point(500, 277);
+            this.lblSegment2Results.Location = new System.Drawing.Point(500, 288);
             this.lblSegment2Results.Name = "lblSegment2Results";
             this.lblSegment2Results.Size = new System.Drawing.Size(99, 13);
             this.lblSegment2Results.TabIndex = 9;
@@ -207,7 +207,7 @@
             this.dgvSeg1Results.Location = new System.Drawing.Point(503, 28);
             this.dgvSeg1Results.Name = "dgvSeg1Results";
             this.dgvSeg1Results.ReadOnly = true;
-            this.dgvSeg1Results.Size = new System.Drawing.Size(280, 242);
+            this.dgvSeg1Results.Size = new System.Drawing.Size(280, 253);
             this.dgvSeg1Results.TabIndex = 4;
             // 
             // btnSetToNextLap
@@ -279,7 +279,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(795, 542);
+            this.ClientSize = new System.Drawing.Size(795, 572);
             this.Controls.Add(this.lblClosePits2);
             this.Controls.Add(this.nudClosePits);
             this.Controls.Add(this.lblClosePits1);
