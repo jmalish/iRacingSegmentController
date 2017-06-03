@@ -31,7 +31,6 @@
             this.lblIsConnected = new System.Windows.Forms.Label();
             this.lblCurrentFlag = new System.Windows.Forms.Label();
             this.lvlVersion = new System.Windows.Forms.Label();
-            this.dgvDriverList = new System.Windows.Forms.DataGridView();
             this.lblCurrentLap = new System.Windows.Forms.Label();
             this.lblCarsOnLead = new System.Windows.Forms.Label();
             this.lblSegmentEnd1 = new System.Windows.Forms.Label();
@@ -42,8 +41,6 @@
             this.lblSegment1Results = new System.Windows.Forms.Label();
             this.lblSegment2Results = new System.Windows.Forms.Label();
             this.dgvSeg1Results = new System.Windows.Forms.DataGridView();
-            this.btnSetToNextLap = new System.Windows.Forms.Button();
-            this.btnGoToP10 = new System.Windows.Forms.Button();
             this.lblIsAdmin = new System.Windows.Forms.Label();
             this.nudClosePits = new System.Windows.Forms.NumericUpDown();
             this.lblClosePits1 = new System.Windows.Forms.Label();
@@ -52,8 +49,7 @@
             this.lblClosePitsMacro = new System.Windows.Forms.Label();
             this.nudThrowCautionMacro = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.lblCurrentResults = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDriverList)).BeginInit();
+            this.btnTestMacros = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSeg2Results)).BeginInit();
@@ -66,7 +62,7 @@
             // lblIsConnected
             // 
             this.lblIsConnected.AutoSize = true;
-            this.lblIsConnected.Location = new System.Drawing.Point(12, 9);
+            this.lblIsConnected.Location = new System.Drawing.Point(10, 10);
             this.lblIsConnected.Name = "lblIsConnected";
             this.lblIsConnected.Size = new System.Drawing.Size(90, 13);
             this.lblIsConnected.TabIndex = 0;
@@ -75,7 +71,7 @@
             // lblCurrentFlag
             // 
             this.lblCurrentFlag.AutoSize = true;
-            this.lblCurrentFlag.Location = new System.Drawing.Point(14, 71);
+            this.lblCurrentFlag.Location = new System.Drawing.Point(10, 45);
             this.lblCurrentFlag.Name = "lblCurrentFlag";
             this.lblCurrentFlag.Size = new System.Drawing.Size(67, 13);
             this.lblCurrentFlag.TabIndex = 0;
@@ -84,29 +80,16 @@
             // lvlVersion
             // 
             this.lvlVersion.AutoSize = true;
-            this.lvlVersion.Location = new System.Drawing.Point(12, 546);
+            this.lvlVersion.Location = new System.Drawing.Point(16, 267);
             this.lvlVersion.Name = "lvlVersion";
             this.lvlVersion.Size = new System.Drawing.Size(28, 13);
             this.lvlVersion.TabIndex = 3;
             this.lvlVersion.Text = "v.01";
             // 
-            // dgvDriverList
-            // 
-            this.dgvDriverList.AllowUserToAddRows = false;
-            this.dgvDriverList.AllowUserToDeleteRows = false;
-            this.dgvDriverList.AllowUserToOrderColumns = true;
-            this.dgvDriverList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvDriverList.Location = new System.Drawing.Point(233, 28);
-            this.dgvDriverList.Name = "dgvDriverList";
-            this.dgvDriverList.ReadOnly = true;
-            this.dgvDriverList.Size = new System.Drawing.Size(260, 532);
-            this.dgvDriverList.TabIndex = 8;
-            this.dgvDriverList.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDriverList_CellContentDoubleClick);
-            // 
             // lblCurrentLap
             // 
             this.lblCurrentLap.AutoSize = true;
-            this.lblCurrentLap.Location = new System.Drawing.Point(14, 111);
+            this.lblCurrentLap.Location = new System.Drawing.Point(10, 60);
             this.lblCurrentLap.Name = "lblCurrentLap";
             this.lblCurrentLap.Size = new System.Drawing.Size(74, 13);
             this.lblCurrentLap.TabIndex = 0;
@@ -115,7 +98,7 @@
             // lblCarsOnLead
             // 
             this.lblCarsOnLead.AutoSize = true;
-            this.lblCarsOnLead.Location = new System.Drawing.Point(14, 147);
+            this.lblCarsOnLead.Location = new System.Drawing.Point(10, 75);
             this.lblCarsOnLead.Name = "lblCarsOnLead";
             this.lblCarsOnLead.Size = new System.Drawing.Size(91, 13);
             this.lblCarsOnLead.TabIndex = 0;
@@ -124,7 +107,7 @@
             // lblSegmentEnd1
             // 
             this.lblSegmentEnd1.AutoSize = true;
-            this.lblSegmentEnd1.Location = new System.Drawing.Point(14, 295);
+            this.lblSegmentEnd1.Location = new System.Drawing.Point(10, 102);
             this.lblSegmentEnd1.Name = "lblSegmentEnd1";
             this.lblSegmentEnd1.Size = new System.Drawing.Size(88, 13);
             this.lblSegmentEnd1.TabIndex = 7;
@@ -132,7 +115,7 @@
             // 
             // nudSegmentEnd1
             // 
-            this.nudSegmentEnd1.Location = new System.Drawing.Point(108, 293);
+            this.nudSegmentEnd1.Location = new System.Drawing.Point(98, 98);
             this.nudSegmentEnd1.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -151,7 +134,7 @@
             // lblSegmentEnd2
             // 
             this.lblSegmentEnd2.AutoSize = true;
-            this.lblSegmentEnd2.Location = new System.Drawing.Point(14, 321);
+            this.lblSegmentEnd2.Location = new System.Drawing.Point(10, 123);
             this.lblSegmentEnd2.Name = "lblSegmentEnd2";
             this.lblSegmentEnd2.Size = new System.Drawing.Size(88, 13);
             this.lblSegmentEnd2.TabIndex = 7;
@@ -159,7 +142,7 @@
             // 
             // nudSegmentEnd2
             // 
-            this.nudSegmentEnd2.Location = new System.Drawing.Point(108, 319);
+            this.nudSegmentEnd2.Location = new System.Drawing.Point(98, 120);
             this.nudSegmentEnd2.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -181,16 +164,16 @@
             this.dgvSeg2Results.AllowUserToDeleteRows = false;
             this.dgvSeg2Results.AllowUserToOrderColumns = true;
             this.dgvSeg2Results.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSeg2Results.Location = new System.Drawing.Point(503, 306);
+            this.dgvSeg2Results.Location = new System.Drawing.Point(496, 28);
             this.dgvSeg2Results.Name = "dgvSeg2Results";
             this.dgvSeg2Results.ReadOnly = true;
-            this.dgvSeg2Results.Size = new System.Drawing.Size(280, 253);
+            this.dgvSeg2Results.Size = new System.Drawing.Size(290, 253);
             this.dgvSeg2Results.TabIndex = 10;
             // 
             // lblSegment1Results
             // 
             this.lblSegment1Results.AutoSize = true;
-            this.lblSegment1Results.Location = new System.Drawing.Point(500, 9);
+            this.lblSegment1Results.Location = new System.Drawing.Point(198, 9);
             this.lblSegment1Results.Name = "lblSegment1Results";
             this.lblSegment1Results.Size = new System.Drawing.Size(99, 13);
             this.lblSegment1Results.TabIndex = 9;
@@ -199,7 +182,7 @@
             // lblSegment2Results
             // 
             this.lblSegment2Results.AutoSize = true;
-            this.lblSegment2Results.Location = new System.Drawing.Point(500, 288);
+            this.lblSegment2Results.Location = new System.Drawing.Point(493, 9);
             this.lblSegment2Results.Name = "lblSegment2Results";
             this.lblSegment2Results.Size = new System.Drawing.Size(99, 13);
             this.lblSegment2Results.TabIndex = 9;
@@ -211,36 +194,16 @@
             this.dgvSeg1Results.AllowUserToDeleteRows = false;
             this.dgvSeg1Results.AllowUserToOrderColumns = true;
             this.dgvSeg1Results.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSeg1Results.Location = new System.Drawing.Point(503, 28);
+            this.dgvSeg1Results.Location = new System.Drawing.Point(201, 28);
             this.dgvSeg1Results.Name = "dgvSeg1Results";
             this.dgvSeg1Results.ReadOnly = true;
-            this.dgvSeg1Results.Size = new System.Drawing.Size(280, 253);
+            this.dgvSeg1Results.Size = new System.Drawing.Size(290, 253);
             this.dgvSeg1Results.TabIndex = 9;
-            // 
-            // btnSetToNextLap
-            // 
-            this.btnSetToNextLap.Location = new System.Drawing.Point(17, 266);
-            this.btnSetToNextLap.Name = "btnSetToNextLap";
-            this.btnSetToNextLap.Size = new System.Drawing.Size(149, 23);
-            this.btnSetToNextLap.TabIndex = 2;
-            this.btnSetToNextLap.Text = "Set to Next Lap";
-            this.btnSetToNextLap.UseVisualStyleBackColor = true;
-            this.btnSetToNextLap.Click += new System.EventHandler(this.btnSetToNextLap_Click);
-            // 
-            // btnGoToP10
-            // 
-            this.btnGoToP10.Location = new System.Drawing.Point(17, 201);
-            this.btnGoToP10.Name = "btnGoToP10";
-            this.btnGoToP10.Size = new System.Drawing.Size(149, 23);
-            this.btnGoToP10.TabIndex = 1;
-            this.btnGoToP10.Text = "Go to P10";
-            this.btnGoToP10.UseVisualStyleBackColor = true;
-            this.btnGoToP10.Click += new System.EventHandler(this.btnGoToP10_Click);
             // 
             // lblIsAdmin
             // 
             this.lblIsAdmin.AutoSize = true;
-            this.lblIsAdmin.Location = new System.Drawing.Point(12, 28);
+            this.lblIsAdmin.Location = new System.Drawing.Point(10, 25);
             this.lblIsAdmin.Name = "lblIsAdmin";
             this.lblIsAdmin.Size = new System.Drawing.Size(102, 13);
             this.lblIsAdmin.TabIndex = 0;
@@ -248,7 +211,7 @@
             // 
             // nudClosePits
             // 
-            this.nudClosePits.Location = new System.Drawing.Point(71, 354);
+            this.nudClosePits.Location = new System.Drawing.Point(63, 147);
             this.nudClosePits.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -267,7 +230,7 @@
             // lblClosePits1
             // 
             this.lblClosePits1.AutoSize = true;
-            this.lblClosePits1.Location = new System.Drawing.Point(17, 356);
+            this.lblClosePits1.Location = new System.Drawing.Point(10, 150);
             this.lblClosePits1.Name = "lblClosePits1";
             this.lblClosePits1.Size = new System.Drawing.Size(53, 13);
             this.lblClosePits1.TabIndex = 14;
@@ -276,7 +239,7 @@
             // lblClosePits2
             // 
             this.lblClosePits2.AutoSize = true;
-            this.lblClosePits2.Location = new System.Drawing.Point(105, 356);
+            this.lblClosePits2.Location = new System.Drawing.Point(95, 150);
             this.lblClosePits2.Name = "lblClosePits2";
             this.lblClosePits2.Size = new System.Drawing.Size(100, 13);
             this.lblClosePits2.TabIndex = 16;
@@ -284,7 +247,7 @@
             // 
             // nudClosePitsMacro
             // 
-            this.nudClosePitsMacro.Location = new System.Drawing.Point(129, 407);
+            this.nudClosePitsMacro.Location = new System.Drawing.Point(128, 178);
             this.nudClosePitsMacro.Maximum = new decimal(new int[] {
             15,
             0,
@@ -308,7 +271,7 @@
             // lblClosePitsMacro
             // 
             this.lblClosePitsMacro.AutoSize = true;
-            this.lblClosePitsMacro.Location = new System.Drawing.Point(17, 412);
+            this.lblClosePitsMacro.Location = new System.Drawing.Point(10, 180);
             this.lblClosePitsMacro.Name = "lblClosePitsMacro";
             this.lblClosePitsMacro.Size = new System.Drawing.Size(89, 13);
             this.lblClosePitsMacro.TabIndex = 17;
@@ -316,7 +279,7 @@
             // 
             // nudThrowCautionMacro
             // 
-            this.nudThrowCautionMacro.Location = new System.Drawing.Point(129, 428);
+            this.nudThrowCautionMacro.Location = new System.Drawing.Point(128, 200);
             this.nudThrowCautionMacro.Maximum = new decimal(new int[] {
             15,
             0,
@@ -340,27 +303,28 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 430);
+            this.label2.Location = new System.Drawing.Point(10, 202);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(112, 13);
             this.label2.TabIndex = 19;
             this.label2.Text = "Throw Caution Macro:";
             // 
-            // lblCurrentResults
+            // btnTestMacros
             // 
-            this.lblCurrentResults.AutoSize = true;
-            this.lblCurrentResults.Location = new System.Drawing.Point(230, 9);
-            this.lblCurrentResults.Name = "lblCurrentResults";
-            this.lblCurrentResults.Size = new System.Drawing.Size(82, 13);
-            this.lblCurrentResults.TabIndex = 21;
-            this.lblCurrentResults.Text = "Current Results:";
+            this.btnTestMacros.Location = new System.Drawing.Point(19, 233);
+            this.btnTestMacros.Name = "btnTestMacros";
+            this.btnTestMacros.Size = new System.Drawing.Size(146, 23);
+            this.btnTestMacros.TabIndex = 22;
+            this.btnTestMacros.Text = "Test Macro Keys";
+            this.btnTestMacros.UseVisualStyleBackColor = true;
+            this.btnTestMacros.Click += new System.EventHandler(this.btnTestMacros_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(795, 572);
-            this.Controls.Add(this.lblCurrentResults);
+            this.ClientSize = new System.Drawing.Size(795, 292);
+            this.Controls.Add(this.btnTestMacros);
             this.Controls.Add(this.nudThrowCautionMacro);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.nudClosePitsMacro);
@@ -369,8 +333,6 @@
             this.Controls.Add(this.nudClosePits);
             this.Controls.Add(this.lblClosePits1);
             this.Controls.Add(this.lblIsAdmin);
-            this.Controls.Add(this.btnGoToP10);
-            this.Controls.Add(this.btnSetToNextLap);
             this.Controls.Add(this.lblSegment2Results);
             this.Controls.Add(this.lblSegment1Results);
             this.Controls.Add(this.nudSegmentEnd2);
@@ -381,14 +343,12 @@
             this.Controls.Add(this.lblCurrentLap);
             this.Controls.Add(this.dgvSeg1Results);
             this.Controls.Add(this.dgvSeg2Results);
-            this.Controls.Add(this.dgvDriverList);
             this.Controls.Add(this.lvlVersion);
             this.Controls.Add(this.lblCurrentFlag);
             this.Controls.Add(this.lblIsConnected);
             this.Name = "Form1";
             this.Text = "iRacing Segment Controller";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDriverList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSeg2Results)).EndInit();
@@ -406,7 +366,6 @@
         private System.Windows.Forms.Label lblIsConnected;
         private System.Windows.Forms.Label lblCurrentFlag;
         private System.Windows.Forms.Label lvlVersion;
-        private System.Windows.Forms.DataGridView dgvDriverList;
         private System.Windows.Forms.Label lblCurrentLap;
         private System.Windows.Forms.Label lblCarsOnLead;
         private System.Windows.Forms.Label lblSegmentEnd1;
@@ -417,8 +376,6 @@
         private System.Windows.Forms.Label lblSegment1Results;
         private System.Windows.Forms.Label lblSegment2Results;
         private System.Windows.Forms.DataGridView dgvSeg1Results;
-        private System.Windows.Forms.Button btnSetToNextLap;
-        private System.Windows.Forms.Button btnGoToP10;
         private System.Windows.Forms.Label lblIsAdmin;
         private System.Windows.Forms.NumericUpDown nudClosePits;
         private System.Windows.Forms.Label lblClosePits1;
@@ -427,7 +384,7 @@
         private System.Windows.Forms.Label lblClosePitsMacro;
         private System.Windows.Forms.NumericUpDown nudThrowCautionMacro;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label lblCurrentResults;
+        private System.Windows.Forms.Button btnTestMacros;
     }
 }
 

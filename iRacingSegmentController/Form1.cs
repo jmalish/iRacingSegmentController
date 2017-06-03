@@ -26,6 +26,7 @@ namespace iRacingSegmentController
         private List<Positions> segment2Top10 = new List<Positions>();  // contains top 10 of segment 2
         private List<Positions> carsOnLeadLap = new List<Positions>();  // contains all cars on lead lap
         private bool isAdmin = false;  // if user is admin or not
+        private Properties.Settings userSettings = Properties.Settings.Default;
         #endregion
 
 
@@ -39,28 +40,28 @@ namespace iRacingSegmentController
             InitializeSegmentTop10S();
 
             #region Set Defaults
-            nudClosePitsMacro.Value = Properties.Settings.Default.ClosePitsMacro;
-            nudThrowCautionMacro.Value = Properties.Settings.Default.ThrowCautionMacro;
-            nudClosePits.Value = Properties.Settings.Default.ClosePitsLap;
+            nudClosePitsMacro.Value = userSettings.ClosePitsMacro;
+            nudThrowCautionMacro.Value = userSettings.ThrowCautionMacro;
+            nudClosePits.Value = userSettings.ClosePitsLap;
             #endregion
 
 
             #region Data Grid Views setup
-            #region dgvDriverList
-            dgvDriverList.RowHeadersVisible = false;  // hide left margin
-            dgvDriverList.ColumnCount = 4; // set number of columns
+            //#region dgvDriverList
+            //dgvDriverList.RowHeadersVisible = false;  // hide left margin
+            //dgvDriverList.ColumnCount = 4; // set number of columns
 
-            // set column names
-            dgvDriverList.Columns[0].Name = "Pos.";
-            dgvDriverList.Columns[1].Name = "Car #";
-            dgvDriverList.Columns[2].Name = "Name";
-            dgvDriverList.Columns[3].Name = "Lap";
+            //// set column names
+            //dgvDriverList.Columns[0].Name = "Pos.";
+            //dgvDriverList.Columns[1].Name = "Car #";
+            //dgvDriverList.Columns[2].Name = "Name";
+            //dgvDriverList.Columns[3].Name = "Lap";
 
-            // set column widths
-            dgvDriverList.Columns[0].Width = 50;
-            dgvDriverList.Columns[1].Width = 56;
-            dgvDriverList.Columns[3].Width = 50;
-            #endregion
+            //// set column widths
+            //dgvDriverList.Columns[0].Width = 50;
+            //dgvDriverList.Columns[1].Width = 56;
+            //dgvDriverList.Columns[3].Width = 50;
+            //#endregion
 
             #region dgvSeg1Results
             dgvSeg1Results.RowHeadersVisible = false;  // hide left margin
@@ -74,6 +75,8 @@ namespace iRacingSegmentController
             // set column widths
             dgvSeg1Results.Columns[0].Width = 50;
             dgvSeg1Results.Columns[1].Width = 56;
+            dgvSeg1Results.Columns[2].Width = 179;
+
             #endregion
 
             #region dgvSeg2Results
@@ -88,6 +91,7 @@ namespace iRacingSegmentController
             // set column widths
             dgvSeg2Results.Columns[0].Width = 50;
             dgvSeg2Results.Columns[1].Width = 56;
+            dgvSeg2Results.Columns[2].Width = 179;
             #endregion
             #endregion
 
@@ -109,22 +113,29 @@ namespace iRacingSegmentController
             #endregion
         }
 
+        private void btnTestMacros_Click(object sender, EventArgs e)
+        {
+            wrapper.Chat.SendMacro(userSettings.ClosePitsMacro - 1);
+            System.Threading.Thread.Sleep(50);
+            wrapper.Chat.SendMacro(userSettings.ThrowCautionMacro - 1);
+        }
+
         private void nudClosePitsMacro_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ClosePitsMacro = (int)nudClosePitsMacro.Value;
-            Properties.Settings.Default.Save();
+            userSettings.ClosePitsMacro = (int)nudClosePitsMacro.Value;
+            userSettings.Save();
         }
 
         private void nudThrowCautionMacro_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ThrowCautionMacro = (int)nudThrowCautionMacro.Value;
-            Properties.Settings.Default.Save();
+            userSettings.ThrowCautionMacro = (int)nudThrowCautionMacro.Value;
+            userSettings.Save();
         }
 
         private void nudClosePits_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ClosePitsLap = (int)nudClosePits.Value;
-            Properties.Settings.Default.Save();
+            userSettings.ClosePitsLap = (int)nudClosePits.Value;
+            userSettings.Save();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)  // when close button is clicked, stop wrapper and close the rest of the program 
@@ -145,26 +156,6 @@ namespace iRacingSegmentController
         {
             nudSegmentEnd2.Value = (int)Math.Round(nudSegmentEnd2.Value);  // round value to the nearest whole number
             segment2EndLap = (int)nudSegmentEnd2.Value - 1;  // store value
-        }
-
-        private void btnGoToP10_Click(object sender, EventArgs e)
-        {
-            wrapper.Camera.SwitchToPosition(10);
-        }
-
-        private void dgvDriverList_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            wrapper.Camera.SwitchToCar(driversInSession[currentPositions[e.RowIndex].CarIdx].CarNumber);
-        }
-
-        private void btnSetToNextLap_Click(object sender, EventArgs e)  // debug thing, TODO: delete before release
-        {
-            if (!isSegment1Ended)
-            {
-                nudSegmentEnd1.Value = (currentLapRace + 1);  // round value to the nearest whole number
-            }
-
-            nudSegmentEnd2.Value = (currentLapRace + 2);  // round value to the nearest whole number
         }
         #endregion  
 
@@ -188,12 +179,25 @@ namespace iRacingSegmentController
 
             if (currentFlag != newFlag) // if this is true, the flag state has changed
             {
-                if (newFlag.Contains("Caution"))
+                if (newFlag.Contains("Caution"))  // caution is out
                 {
                     currentFlag = "Caution";
                     isYellowOut = true;
+                    isPitsClosed = false;
+
+                    #region Segment Checking
+                    if (!isSegment1Ended && currentLapRace >= segment1EndLap - 5) // if caution comes out with 5 laps or less away from the segment end (seg 1)
+                    {
+                        GetSegmentResults(true);
+                    }
+                    else if (!isSegment2Ended && currentLapRace >= segment2EndLap - 5)  // same for seg 2
+                    {
+                        GetSegmentResults(true);
+                    }
+                    #endregion
+
                 }
-                else if (newFlag.Contains("Green"))
+                else if (newFlag.Contains("Green")) // caution is not out
                 {
                     currentFlag = "Green";
                     isYellowOut = false;
@@ -247,18 +251,18 @@ namespace iRacingSegmentController
                     lblCurrentLap.Text = $"Current Lap: {currentLapRace + 1} of {raceSession.SessionLaps}";  // update current lap label
 
                     #region close pits
-                    if (isPitsClosed)  // make sure pits are open
+                    if (!isPitsClosed)  // make sure pits are open
                     {
                         if (!isSegment1Ended)  // check if segment 1 is ended
                         { // if not, we're in segment 1
-                            if (currentLapRace >= segment1EndLap - Properties.Settings.Default.ClosePitsLap) // if it's 5 laps or less away from segment 1
+                            if (currentLapRace >= segment1EndLap - userSettings.ClosePitsLap) // if it's 5 laps or less away from segment 1
                             {
                                 ClosePits();  // close pits
                             }
                         }
                         else
                         {  // otherwise we're in segment 2
-                            if (currentLapRace >= segment2EndLap - Properties.Settings.Default.ClosePitsLap) // 5 laps or less
+                            if (currentLapRace >= segment2EndLap - userSettings.ClosePitsLap) // 5 laps or less
                             {
                                 ClosePits(); // close pits
                             }
@@ -270,12 +274,12 @@ namespace iRacingSegmentController
 
                     if (currentPositions != null) // make sure currentPositions list is not null, otherwise program will crash
                     {
-                        dgvDriverList.Rows.Clear(); // clear dvg so we don't have a bunch of duplicates
-                        foreach (Positions p in currentPositions) // for each position in current positions
-                        {
-                            dgvDriverList.Rows.Add(p.Position, p.CarIdx, driversInSession[p.CarIdx].UserName,
-                                p.LapsComplete + 1); // add position to datagridview
-                        }
+                        //dgvDriverList.Rows.Clear(); // clear dvg so we don't have a bunch of duplicates
+                        //foreach (Positions p in currentPositions) // for each position in current positions
+                        //{
+                        //    dgvDriverList.Rows.Add(p.Position, p.CarIdx, driversInSession[p.CarIdx].UserName,
+                        //        p.LapsComplete + 1); // add position to datagridview
+                        //}
 
 
                         IEnumerable<Positions> carsOnLeadLapQuery =
@@ -293,11 +297,11 @@ namespace iRacingSegmentController
                             {  // if we're on the lap of a segment end, start checking if we should throw caution
                                 if (!isYellowOut) // make sure yellow hasn't come out
                                 {
-                                    CheckForSegmentEnd(false);
+                                    GetSegmentResults(false);
                                 }
                                 else // if it has
                                 {
-                                    CheckForSegmentEnd(true);
+                                    GetSegmentResults(true);
                                 }
                             }
                         }
@@ -319,12 +323,12 @@ namespace iRacingSegmentController
             }
         }
 
-        private void CheckForSegmentEnd(bool _isYellowOut)
+        private void GetSegmentResults(bool _isYellowOut)
         {
             if (!_isYellowOut)  // caution is not out
             {
+                #region Yellow not out
                 #region P10 on lead lap
-
                 if (carsOnLeadLap.Count() > 9
                 ) // if there are more than 9 cars on the lead lap, we know p10 is on lead lap
                 {
@@ -375,11 +379,8 @@ namespace iRacingSegmentController
                         }
                     }
                 }
-
                 #endregion
-
                 #region P10 not on lead lap
-
                 else // if there are less than 10 cars on the lead lap
                 {
                     if (!isSegment1Ended)
@@ -455,6 +456,7 @@ namespace iRacingSegmentController
                 }
 
                 #endregion
+                #endregion
             }
             else  // caution is out
             {
@@ -513,7 +515,8 @@ namespace iRacingSegmentController
         {
             if (!isPitsClosed) // make sure pits are not closed
             {
-                wrapper.Chat.SendMacro(Properties.Settings.Default.ClosePitsMacro - 1);
+                Console.WriteLine("Pits are closed!");
+                //wrapper.Chat.SendMacro(userSettings.ClosePitsMacro - 1);
                 isPitsClosed = true;
             }
         }
@@ -531,7 +534,9 @@ namespace iRacingSegmentController
                 nudSegmentEnd2.Enabled = false;
             }
 
-            wrapper.Chat.SendMacro(Properties.Settings.Default.ThrowCautionMacro - 1);
+            // wrapper.Chat.SendMacro(userSettings.ThrowCautionMacro - 1);
+
+            Console.WriteLine("Throw caution!");
 
             isPitsClosed = false;  // open pits
         }
