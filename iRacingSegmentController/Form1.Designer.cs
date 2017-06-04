@@ -51,6 +51,7 @@
             this.nudThrowCautionMacro = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.btnTestMacros = new System.Windows.Forms.Button();
+            this.btnOutputResults = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSegmentEnd2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSeg2Results)).BeginInit();
@@ -85,7 +86,7 @@
             this.lvlVersion.Name = "lvlVersion";
             this.lvlVersion.Size = new System.Drawing.Size(34, 13);
             this.lvlVersion.TabIndex = 3;
-            this.lvlVersion.Text = "v1.00";
+            this.lvlVersion.Text = "v1.01";
             // 
             // lblCurrentLap
             // 
@@ -320,11 +321,22 @@
             this.btnTestMacros.UseVisualStyleBackColor = true;
             this.btnTestMacros.Click += new System.EventHandler(this.btnTestMacros_Click);
             // 
+            // btnOutputResults
+            // 
+            this.btnOutputResults.Location = new System.Drawing.Point(689, 4);
+            this.btnOutputResults.Name = "btnOutputResults";
+            this.btnOutputResults.Size = new System.Drawing.Size(94, 23);
+            this.btnOutputResults.TabIndex = 23;
+            this.btnOutputResults.Text = "Output Results";
+            this.btnOutputResults.UseVisualStyleBackColor = true;
+            this.btnOutputResults.Click += new System.EventHandler(this.btnOutputResults_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(795, 292);
+            this.Controls.Add(this.btnOutputResults);
             this.Controls.Add(this.btnTestMacros);
             this.Controls.Add(this.nudThrowCautionMacro);
             this.Controls.Add(this.label2);
@@ -387,6 +399,7 @@
         private System.Windows.Forms.NumericUpDown nudThrowCautionMacro;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnTestMacros;
+        private System.Windows.Forms.Button btnOutputResults;
     }
 }
 

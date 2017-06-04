@@ -150,6 +150,68 @@ namespace iRacingSegmentController
             nudSegmentEnd2.Value = (int)Math.Round(nudSegmentEnd2.Value);  // round value to the nearest whole number
             segment2EndLap = (int)nudSegmentEnd2.Value - 1;  // store value
         }
+
+        private void btnOutputResults_Click(object sender, EventArgs e) // when clicked, program will output the results of both segments to a csv file
+        {
+            try
+            {
+                string newFilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/" + DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + ".csv";
+
+                if (segment1Top10[9].CarIdx == -1 || segment2Top10[9].CarIdx == -1)
+                {
+                    var response = MessageBox.Show("One or both segments are not completed,\ncontinuing will only get partial results, if any.\n\nClick OK to continue", "Warning", MessageBoxButtons.OKCancel);
+
+                    if (response == DialogResult.OK)
+                    {
+                        using (StreamWriter sw = File.CreateText(newFilePath))
+                        {
+                            sw.WriteLine("Segment - Position,Car #,Name"); // create header
+
+                            if (segment1Top10[9].CarIdx != -1)
+                            {
+                                foreach (var p in segment1Top10)  // seg 1
+                                {
+                                    var driver = driversInSession[p.CarIdx];
+                                    sw.WriteLine($"1_{p.Position},{driver.CarNumber},{driver.UserName}");
+                                }
+                            }
+
+                            if (segment2Top10[9].CarIdx != -1)
+                            {
+                                foreach (var p in segment1Top10)  // seg 2
+                                {
+                                    var driver = driversInSession[p.CarIdx];
+                                    sw.WriteLine($"2_{p.Position},{driver.CarNumber},{driver.UserName}");
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    using (StreamWriter sw = File.CreateText(newFilePath))
+                    {
+                        sw.WriteLine("Segment - Position,Car #,Name"); // create header
+
+                        foreach (var p in segment1Top10)  // seg 1
+                        {
+                            var driver = driversInSession[p.CarIdx];
+                            sw.WriteLine($"1_{p.Position},{driver.CarNumber},{driver.UserName}");
+                        }
+
+                        foreach (var p in segment2Top10)  // seg 2
+                        {
+                            var driver = driversInSession[p.CarIdx];
+                            sw.WriteLine($"2_{p.Position},{driver.CarNumber},{driver.UserName}");
+                        }
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine(exc.Message.ToString());
+            }
+        }
         #endregion  
 
 
