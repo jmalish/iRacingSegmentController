@@ -6,3 +6,10 @@ E:\My Projects\iRacing_Caution_Clock\References\irsdkSharp\bin\Release\YamlDotNe
 E:\My Projects\iRacing_Caution_Clock\References\irsdkSharp\bin\Release\YamlDotNet.pdb
 E:\My Projects\iRacing_Caution_Clock\References\irsdkSharp\bin\Release\YamlDotNet.xml
 E:\My Projects\iRacing_Caution_Clock\References\irsdkSharp\obj\Release\iRSDKSharp.csprojResolveAssemblyReference.cache
+D:\projects\iRacingSegmentController\References\irsdkSharp\bin\Release\iRSDKSharp.dll
+D:\projects\iRacingSegmentController\References\irsdkSharp\bin\Release\iRSDKSharp.pdb
+D:\projects\iRacingSegmentController\References\irsdkSharp\bin\Release\YamlDotNet.dll
+D:\projects\iRacingSegmentController\References\irsdkSharp\bin\Release\YamlDotNet.pdb
+D:\projects\iRacingSegmentController\References\irsdkSharp\bin\Release\YamlDotNet.xml
+D:\projects\iRacingSegmentController\References\irsdkSharp\obj\Release\iRSDKSharp.dll
+D:\projects\iRacingSegmentController\References\irsdkSharp\obj\Release\iRSDKSharp.pdb

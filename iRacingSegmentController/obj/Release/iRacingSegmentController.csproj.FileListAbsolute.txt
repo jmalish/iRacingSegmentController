@@ -1,0 +1,16 @@
+D:\projects\iRacingSegmentController\iRacingSegmentController\bin\Release\iRacingSegmentController.exe.config
+D:\projects\iRacingSegmentController\iRacingSegmentController\bin\Release\iRacingSegmentController.exe
+D:\projects\iRacingSegmentController\iRacingSegmentController\bin\Release\iRacingSegmentController.pdb
+D:\projects\iRacingSegmentController\iRacingSegmentController\bin\Release\iRacingSdkWrapper.dll
+D:\projects\iRacingSegmentController\iRacingSegmentController\bin\Release\iRSDKSharp.dll
+D:\projects\iRacingSegmentController\iRacingSegmentController\bin\Release\YamlDotNet.dll
+D:\projects\iRacingSegmentController\iRacingSegmentController\bin\Release\iRacingSdkWrapper.pdb
+D:\projects\iRacingSegmentController\iRacingSegmentController\bin\Release\iRSDKSharp.pdb
+D:\projects\iRacingSegmentController\iRacingSegmentController\bin\Release\YamlDotNet.pdb
+D:\projects\iRacingSegmentController\iRacingSegmentController\bin\Release\YamlDotNet.xml
+D:\projects\iRacingSegmentController\iRacingSegmentController\obj\Release\iRacingSegmentController.csprojResolveAssemblyReference.cache
+D:\projects\iRacingSegmentController\iRacingSegmentController\obj\Release\iRacingSegmentController.Form1.resources
+D:\projects\iRacingSegmentController\iRacingSegmentController\obj\Release\iRacingSegmentController.Properties.Resources.resources
+D:\projects\iRacingSegmentController\iRacingSegmentController\obj\Release\iRacingSegmentController.csproj.GenerateResource.Cache
+D:\projects\iRacingSegmentController\iRacingSegmentController\obj\Release\iRacingSegmentController.exe
+D:\projects\iRacingSegmentController\iRacingSegmentController\obj\Release\iRacingSegmentController.pdb

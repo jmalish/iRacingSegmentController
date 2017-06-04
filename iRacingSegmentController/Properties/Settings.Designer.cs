@@ -25,7 +25,7 @@ namespace iRacingSegmentController.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
         public int ClosePitsMacro {
             get {
                 return ((int)(this["ClosePitsMacro"]));
@@ -37,7 +37,7 @@ namespace iRacingSegmentController.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
         public int ThrowCautionMacro {
             get {
                 return ((int)(this["ThrowCautionMacro"]));

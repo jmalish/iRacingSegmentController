@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.lblIsConnected = new System.Windows.Forms.Label();
             this.lblCurrentFlag = new System.Windows.Forms.Label();
             this.lvlVersion = new System.Windows.Forms.Label();
@@ -82,9 +83,9 @@
             this.lvlVersion.AutoSize = true;
             this.lvlVersion.Location = new System.Drawing.Point(16, 267);
             this.lvlVersion.Name = "lvlVersion";
-            this.lvlVersion.Size = new System.Drawing.Size(28, 13);
+            this.lvlVersion.Size = new System.Drawing.Size(34, 13);
             this.lvlVersion.TabIndex = 3;
-            this.lvlVersion.Text = "v.01";
+            this.lvlVersion.Text = "v1.00";
             // 
             // lblCurrentLap
             // 
@@ -257,7 +258,7 @@
             1,
             0,
             0,
-            0});
+            -2147483648});
             this.nudClosePitsMacro.Name = "nudClosePitsMacro";
             this.nudClosePitsMacro.Size = new System.Drawing.Size(32, 20);
             this.nudClosePitsMacro.TabIndex = 6;
@@ -265,7 +266,7 @@
             1,
             0,
             0,
-            0});
+            -2147483648});
             this.nudClosePitsMacro.ValueChanged += new System.EventHandler(this.nudClosePitsMacro_ValueChanged);
             // 
             // lblClosePitsMacro
@@ -289,15 +290,15 @@
             1,
             0,
             0,
-            0});
+            -2147483648});
             this.nudThrowCautionMacro.Name = "nudThrowCautionMacro";
             this.nudThrowCautionMacro.Size = new System.Drawing.Size(32, 20);
             this.nudThrowCautionMacro.TabIndex = 7;
             this.nudThrowCautionMacro.Value = new decimal(new int[] {
-            2,
+            1,
             0,
             0,
-            0});
+            -2147483648});
             this.nudThrowCautionMacro.ValueChanged += new System.EventHandler(this.nudThrowCautionMacro_ValueChanged);
             // 
             // label2
@@ -346,6 +347,7 @@
             this.Controls.Add(this.lvlVersion);
             this.Controls.Add(this.lblCurrentFlag);
             this.Controls.Add(this.lblIsConnected);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "iRacing Segment Controller";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

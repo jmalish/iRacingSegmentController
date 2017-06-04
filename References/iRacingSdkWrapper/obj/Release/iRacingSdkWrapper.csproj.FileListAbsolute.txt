@@ -8,3 +8,13 @@ E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Release\Ya
 E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\bin\Release\YamlDotNet.xml
 E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\obj\Release\iRacingSdkWrapper.dll
 E:\My Projects\iRacing_Caution_Clock\References\iRacingSdkWrapper\obj\Release\iRacingSdkWrapper.pdb
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\bin\Release\iRacingSdkWrapper.dll
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\bin\Release\iRacingSdkWrapper.pdb
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\bin\Release\iRSDKSharp.dll
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\bin\Release\YamlDotNet.dll
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\bin\Release\iRSDKSharp.pdb
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\bin\Release\YamlDotNet.pdb
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\bin\Release\YamlDotNet.xml
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\obj\Release\iRacingSdkWrapper.csprojResolveAssemblyReference.cache
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\obj\Release\iRacingSdkWrapper.dll
+D:\projects\iRacingSegmentController\References\iRacingSdkWrapper\obj\Release\iRacingSdkWrapper.pdb

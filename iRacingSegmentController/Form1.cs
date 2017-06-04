@@ -33,8 +33,6 @@ namespace iRacingSegmentController
         #region Form Stuff
         public Form1()  // this is run when the program is first started, it's essentially the same as form load for the primary form
         {
-            TopMost = true;  // TODO: delete before release
-
             InitializeComponent();  // do magic stuff
 
             InitializeSegmentTop10S();
@@ -45,24 +43,7 @@ namespace iRacingSegmentController
             nudClosePits.Value = userSettings.ClosePitsLap;
             #endregion
 
-
             #region Data Grid Views setup
-            //#region dgvDriverList
-            //dgvDriverList.RowHeadersVisible = false;  // hide left margin
-            //dgvDriverList.ColumnCount = 4; // set number of columns
-
-            //// set column names
-            //dgvDriverList.Columns[0].Name = "Pos.";
-            //dgvDriverList.Columns[1].Name = "Car #";
-            //dgvDriverList.Columns[2].Name = "Name";
-            //dgvDriverList.Columns[3].Name = "Lap";
-
-            //// set column widths
-            //dgvDriverList.Columns[0].Width = 50;
-            //dgvDriverList.Columns[1].Width = 56;
-            //dgvDriverList.Columns[3].Width = 50;
-            //#endregion
-
             #region dgvSeg1Results
             dgvSeg1Results.RowHeadersVisible = false;  // hide left margin
             dgvSeg1Results.ColumnCount = 3; // set number of columns
@@ -115,9 +96,21 @@ namespace iRacingSegmentController
 
         private void btnTestMacros_Click(object sender, EventArgs e)
         {
-            wrapper.Chat.SendMacro(userSettings.ClosePitsMacro - 1);
-            System.Threading.Thread.Sleep(50);
-            wrapper.Chat.SendMacro(userSettings.ThrowCautionMacro - 1);
+            if (userSettings.ClosePitsMacro == -1 || userSettings.ThrowCautionMacro == -1)
+            {
+                MessageBox.Show("One or both of the macro keys are set to -1, so they will be ignored.", "Notification");
+            }
+
+            if (userSettings.ClosePitsMacro != -1)
+            {
+                wrapper.Chat.SendMacro(userSettings.ClosePitsMacro - 1);
+                System.Threading.Thread.Sleep(50);
+            }
+
+            if (userSettings.ThrowCautionMacro != -1)
+            {
+                wrapper.Chat.SendMacro(userSettings.ThrowCautionMacro - 1);
+            }
         }
 
         private void nudClosePitsMacro_ValueChanged(object sender, EventArgs e)
@@ -274,20 +267,12 @@ namespace iRacingSegmentController
 
                     if (currentPositions != null) // make sure currentPositions list is not null, otherwise program will crash
                     {
-                        //dgvDriverList.Rows.Clear(); // clear dvg so we don't have a bunch of duplicates
-                        //foreach (Positions p in currentPositions) // for each position in current positions
-                        //{
-                        //    dgvDriverList.Rows.Add(p.Position, p.CarIdx, driversInSession[p.CarIdx].UserName,
-                        //        p.LapsComplete + 1); // add position to datagridview
-                        //}
-
-
-                        IEnumerable<Positions> carsOnLeadLapQuery =
+                        IEnumerable<Positions> carsOnLeadLapQuery =  // get cars on lead lap
                             from position in currentPositions
                             where position.Lap == 0
                             select position;
 
-                        lblCarsOnLead.Text = $"Cars on Lead Lap: {carsOnLeadLap.Count()} of {currentPositions.Count}";
+                        lblCarsOnLead.Text = $"Cars on Lead Lap: {carsOnLeadLap.Count()} of {currentPositions.Count}"; // update label
 
                         carsOnLeadLap = carsOnLeadLapQuery.ToList();  // convert cars on lead query lap to list
 
@@ -513,11 +498,13 @@ namespace iRacingSegmentController
 
         private void ClosePits()
         {
-            if (!isPitsClosed) // make sure pits are not closed
+            if (!isPitsClosed && !isYellowOut) // make sure pits are not closed and caution flag is not out
             {
-                Console.WriteLine("Pits are closed!");
-                //wrapper.Chat.SendMacro(userSettings.ClosePitsMacro - 1);
-                isPitsClosed = true;
+                if (userSettings.ClosePitsMacro != -1)
+                {
+                    wrapper.Chat.SendMacro(userSettings.ClosePitsMacro - 1);  // send macro command
+                }
+                isPitsClosed = true;  // tell program pits are closed
             }
         }
 
@@ -534,9 +521,10 @@ namespace iRacingSegmentController
                 nudSegmentEnd2.Enabled = false;
             }
 
-            // wrapper.Chat.SendMacro(userSettings.ThrowCautionMacro - 1);
-
-            Console.WriteLine("Throw caution!");
+            if (userSettings.ThrowCautionMacro != -1)
+            {
+                wrapper.Chat.SendMacro(userSettings.ThrowCautionMacro - 1);  // send macro to throw caution
+            }
 
             isPitsClosed = false;  // open pits
         }
