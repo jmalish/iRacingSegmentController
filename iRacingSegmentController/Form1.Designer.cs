@@ -86,7 +86,7 @@
             this.lvlVersion.Name = "lvlVersion";
             this.lvlVersion.Size = new System.Drawing.Size(34, 13);
             this.lvlVersion.TabIndex = 3;
-            this.lvlVersion.Text = "v1.01";
+            this.lvlVersion.Text = "v1.02";
             // 
             // lblCurrentLap
             // 
