@@ -17,7 +17,6 @@ E:\My Projects\iRacing_Caution_Clock\References\irsdkSharp\bin\Debug\YamlDotNet.
 D:\projects\iRacingSegmentController\References\irsdkSharp\bin\Debug\iRSDKSharp.dll
 D:\projects\iRacingSegmentController\References\irsdkSharp\bin\Debug\iRSDKSharp.pdb
 D:\projects\iRacingSegmentController\References\irsdkSharp\bin\Debug\YamlDotNet.dll
-D:\projects\iRacingSegmentController\References\irsdkSharp\bin\Debug\YamlDotNet.pdb
 D:\projects\iRacingSegmentController\References\irsdkSharp\bin\Debug\YamlDotNet.xml
 D:\projects\iRacingSegmentController\References\irsdkSharp\obj\Debug\iRSDKSharp.dll
 D:\projects\iRacingSegmentController\References\irsdkSharp\obj\Debug\iRSDKSharp.pdb

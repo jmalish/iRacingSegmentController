@@ -37,34 +37,6 @@
             Defines constants thar relate to the YAML specification.
             </summary>
         </member>
-        <member name="T:YamlDotNet.Core.DuplicateAnchorException">
-            <summary>
-            The exception that is thrown when a duplicate anchor is detected.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.DuplicateAnchorException.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.DuplicateAnchorException"/> class.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.DuplicateAnchorException.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.DuplicateAnchorException"/> class.
-            </summary>
-            <param name="message">The message.</param>
-        </member>
-        <member name="M:YamlDotNet.Core.DuplicateAnchorException.#ctor(YamlDotNet.Core.Mark,YamlDotNet.Core.Mark,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.DuplicateAnchorException"/> class.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.DuplicateAnchorException.#ctor(System.String,System.Exception)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.DuplicateAnchorException"/> class.
-            </summary>
-            <param name="message">The message.</param>
-            <param name="inner">The inner.</param>
-        </member>
         <member name="T:YamlDotNet.Core.Emitter">
             <summary>
             Emits YAML streams.
@@ -200,59 +172,6 @@
             Check if the next node can be expressed as a simple key.
             </summary>
         </member>
-        <member name="T:YamlDotNet.Core.EventReader">
-            <summary>
-            Reads events from a sequence of <see cref="T:YamlDotNet.Core.Events.ParsingEvent" />.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.EventReader.#ctor(YamlDotNet.Core.IParser)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.EventReader"/> class.
-            </summary>
-            <param name="parser">The parser that provides the events.</param>
-        </member>
-        <member name="P:YamlDotNet.Core.EventReader.Parser">
-            <summary>
-            Gets the underlying parser.
-            </summary>
-            <value>The parser.</value>
-        </member>
-        <member name="M:YamlDotNet.Core.EventReader.Expect``1">
-            <summary>
-            Ensures that the current event is of the specified type, returns it and moves to the next event.
-            </summary>
-            <typeparam name="T">Type of the <see cref="T:YamlDotNet.Core.Events.ParsingEvent"/>.</typeparam>
-            <returns>Returns the current event.</returns>
-            <exception cref="T:YamlDotNet.Core.YamlException">If the current event is not of the specified type.</exception>
-        </member>
-        <member name="M:YamlDotNet.Core.EventReader.Accept``1">
-            <summary>
-            Checks whether the current event is of the specified type.
-            </summary>
-            <typeparam name="T">Type of the event.</typeparam>
-            <returns>Returns true if the current event is of type <typeparamref name="T"/>. Otherwise returns false.</returns>
-        </member>
-        <member name="M:YamlDotNet.Core.EventReader.Allow``1">
-            <summary>
-            Checks whether the current event is of the specified type.
-            If the event is of the specified type, returns it and moves to the next event.
-            Otherwise retruns null.
-            </summary>
-            <typeparam name="T">Type of the <see cref="T:YamlDotNet.Core.Events.ParsingEvent"/>.</typeparam>
-            <returns>Returns the current event if it is of type T; otherwise returns null.</returns>
-        </member>
-        <member name="M:YamlDotNet.Core.EventReader.Peek``1">
-            <summary>
-            Gets the next event without consuming it.
-            </summary>
-            <typeparam name="T">Type of the <see cref="T:YamlDotNet.Core.Events.ParsingEvent"/>.</typeparam>
-            <returns>Returns the current event if it is of type T; otherwise returns null.</returns>
-        </member>
-        <member name="M:YamlDotNet.Core.EventReader.SkipThisAndNestedEvents">
-            <summary>
-            Skips the current event and any nested event.
-            </summary>
-        </member>
         <member name="T:YamlDotNet.Core.Events.AnchorAlias">
             <summary>
             Represents an alias event.
@@ -295,6 +214,14 @@
             Invokes run-time type specific Visit() method of the specified visitor.
             </summary>
             <param name="visitor">visitor, may not be null.</param>
+        </member>
+        <member name="M:YamlDotNet.Core.Events.Comment.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </returns>
         </member>
         <member name="T:YamlDotNet.Core.Events.DocumentEnd">
             <summary>
@@ -435,103 +362,6 @@
             Callback interface for external event Visitor.
             </summary>
         </member>
-        <member name="T:YamlDotNet.Core.Events.MappingStyle">
-            <summary>
-            Specifies the style of a mapping.
-            </summary>
-        </member>
-        <member name="F:YamlDotNet.Core.Events.MappingStyle.Any">
-            <summary>
-            Let the emitter choose the style.
-            </summary>
-        </member>
-        <member name="F:YamlDotNet.Core.Events.MappingStyle.Block">
-            <summary>
-            The block mapping style.
-            </summary>
-        </member>
-        <member name="F:YamlDotNet.Core.Events.MappingStyle.Flow">
-            <summary>
-            The flow mapping style.
-            </summary>
-        </member>
-        <member name="T:YamlDotNet.Core.Events.NodeEvent">
-            <summary>
-            Contains the behavior that is common between node events.
-            </summary>
-        </member>
-        <member name="P:YamlDotNet.Core.Events.NodeEvent.Anchor">
-            <summary>
-            Gets the anchor.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:YamlDotNet.Core.Events.NodeEvent.Tag">
-            <summary>
-            Gets the tag.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:YamlDotNet.Core.Events.NodeEvent.IsCanonical">
-            <summary>
-            Gets a value indicating whether this instance is canonical.
-            </summary>
-            <value></value>
-        </member>
-        <member name="M:YamlDotNet.Core.Events.NodeEvent.#ctor(System.String,System.String,YamlDotNet.Core.Mark,YamlDotNet.Core.Mark)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Events.NodeEvent"/> class.
-            </summary>
-            <param name="anchor">The anchor.</param>
-            <param name="tag">The tag.</param>
-            <param name="start">The start position of the event.</param>
-            <param name="end">The end position of the event.</param>
-        </member>
-        <member name="M:YamlDotNet.Core.Events.NodeEvent.#ctor(System.String,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Events.NodeEvent"/> class.
-            </summary>
-        </member>
-        <member name="T:YamlDotNet.Core.Events.ParsingEvent">
-            <summary>
-            Base class for parsing events.
-            </summary>
-        </member>
-        <member name="P:YamlDotNet.Core.Events.ParsingEvent.NestingIncrease">
-            <summary>
-            Gets a value indicating the variation of depth caused by this event.
-            The value can be either -1, 0 or 1. For start events, it will be 1,
-            for end events, it will be -1, and for the remaining events, it will be 0.
-            </summary>
-        </member>
-        <member name="P:YamlDotNet.Core.Events.ParsingEvent.Type">
-            <summary>
-            Gets the event type, which allows for simpler type comparisons.
-            </summary>
-        </member>
-        <member name="P:YamlDotNet.Core.Events.ParsingEvent.Start">
-            <summary>
-            Gets the position in the input stream where the event starts.
-            </summary>
-        </member>
-        <member name="P:YamlDotNet.Core.Events.ParsingEvent.End">
-            <summary>
-            Gets the position in the input stream where the event ends.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Events.ParsingEvent.Accept(YamlDotNet.Core.Events.IParsingEventVisitor)">
-            <summary>
-            Accepts the specified visitor.
-            </summary>
-            <param name="visitor">Visitor to accept, may not be null</param>
-        </member>
-        <member name="M:YamlDotNet.Core.Events.ParsingEvent.#ctor(YamlDotNet.Core.Mark,YamlDotNet.Core.Mark)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Events.ParsingEvent"/> class.
-            </summary>
-            <param name="start">The start position of the event.</param>
-            <param name="end">The end position of the event.</param>
-        </member>
         <member name="T:YamlDotNet.Core.Events.MappingEnd">
             <summary>
             Represents a mapping end event.
@@ -649,6 +479,103 @@
             Invokes run-time type specific Visit() method of the specified visitor.
             </summary>
             <param name="visitor">visitor, may not be null.</param>
+        </member>
+        <member name="T:YamlDotNet.Core.Events.MappingStyle">
+            <summary>
+            Specifies the style of a mapping.
+            </summary>
+        </member>
+        <member name="F:YamlDotNet.Core.Events.MappingStyle.Any">
+            <summary>
+            Let the emitter choose the style.
+            </summary>
+        </member>
+        <member name="F:YamlDotNet.Core.Events.MappingStyle.Block">
+            <summary>
+            The block mapping style.
+            </summary>
+        </member>
+        <member name="F:YamlDotNet.Core.Events.MappingStyle.Flow">
+            <summary>
+            The flow mapping style.
+            </summary>
+        </member>
+        <member name="T:YamlDotNet.Core.Events.NodeEvent">
+            <summary>
+            Contains the behavior that is common between node events.
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Core.Events.NodeEvent.Anchor">
+            <summary>
+            Gets the anchor.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:YamlDotNet.Core.Events.NodeEvent.Tag">
+            <summary>
+            Gets the tag.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:YamlDotNet.Core.Events.NodeEvent.IsCanonical">
+            <summary>
+            Gets a value indicating whether this instance is canonical.
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:YamlDotNet.Core.Events.NodeEvent.#ctor(System.String,System.String,YamlDotNet.Core.Mark,YamlDotNet.Core.Mark)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Events.NodeEvent"/> class.
+            </summary>
+            <param name="anchor">The anchor.</param>
+            <param name="tag">The tag.</param>
+            <param name="start">The start position of the event.</param>
+            <param name="end">The end position of the event.</param>
+        </member>
+        <member name="M:YamlDotNet.Core.Events.NodeEvent.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Events.NodeEvent"/> class.
+            </summary>
+        </member>
+        <member name="T:YamlDotNet.Core.Events.ParsingEvent">
+            <summary>
+            Base class for parsing events.
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Core.Events.ParsingEvent.NestingIncrease">
+            <summary>
+            Gets a value indicating the variation of depth caused by this event.
+            The value can be either -1, 0 or 1. For start events, it will be 1,
+            for end events, it will be -1, and for the remaining events, it will be 0.
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Core.Events.ParsingEvent.Type">
+            <summary>
+            Gets the event type, which allows for simpler type comparisons.
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Core.Events.ParsingEvent.Start">
+            <summary>
+            Gets the position in the input stream where the event starts.
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Core.Events.ParsingEvent.End">
+            <summary>
+            Gets the position in the input stream where the event ends.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Events.ParsingEvent.Accept(YamlDotNet.Core.Events.IParsingEventVisitor)">
+            <summary>
+            Accepts the specified visitor.
+            </summary>
+            <param name="visitor">Visitor to accept, may not be null</param>
+        </member>
+        <member name="M:YamlDotNet.Core.Events.ParsingEvent.#ctor(YamlDotNet.Core.Mark,YamlDotNet.Core.Mark)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Events.ParsingEvent"/> class.
+            </summary>
+            <param name="start">The start position of the event.</param>
+            <param name="end">The end position of the event.</param>
         </member>
         <member name="T:YamlDotNet.Core.Events.Scalar">
             <summary>
@@ -1090,7 +1017,8 @@
         </member>
         <member name="P:YamlDotNet.Core.IParser.Current">
             <summary>
-            Gets the current event.
+            Gets the current event. Returns null before the first call to <see cref="M:YamlDotNet.Core.IParser.MoveNext" />,
+            and also after <see cref="M:YamlDotNet.Core.IParser.MoveNext" /> returns false.
             </summary>
         </member>
         <member name="M:YamlDotNet.Core.IParser.MoveNext">
@@ -1223,6 +1151,34 @@
         </member>
         <member name="M:YamlDotNet.Core.Mark.CompareTo(YamlDotNet.Core.Mark)">
             <summary />
+        </member>
+        <member name="T:YamlDotNet.Core.MaximumRecursionLevelReachedException">
+            <summary>
+            Exception that is thrown when an infinite recursion is detected.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.MaximumRecursionLevelReachedException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/> class.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.MaximumRecursionLevelReachedException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:YamlDotNet.Core.MaximumRecursionLevelReachedException.#ctor(YamlDotNet.Core.Mark,YamlDotNet.Core.Mark,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/> class.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.MaximumRecursionLevelReachedException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="inner">The inner.</param>
         </member>
         <member name="T:YamlDotNet.Core.MergingParser">
             <summary>
@@ -1426,54 +1382,418 @@
                                               *                  ***** *
             </summary>
         </member>
-        <member name="T:YamlDotNet.Core.Tokens.Comment">
+        <member name="T:YamlDotNet.Core.ParserExtensions">
             <summary>
-            Represents a comment
+            Extension methods that provide useful abstractions over <see cref="T:YamlDotNet.Core.IParser"/>.
             </summary>
         </member>
-        <member name="P:YamlDotNet.Core.Tokens.Comment.Value">
+        <member name="M:YamlDotNet.Core.ParserExtensions.Expect``1(YamlDotNet.Core.IParser)">
             <summary>
-            Gets the value of the comment
+            Ensures that the current event is of the specified type, returns it and moves to the next event.
+            </summary>
+            <typeparam name="T">Type of the <see cref="T:YamlDotNet.Core.Events.ParsingEvent"/>.</typeparam>
+            <returns>Returns the current event.</returns>
+            <exception cref="T:YamlDotNet.Core.YamlException">If the current event is not of the specified type.</exception>
+        </member>
+        <member name="M:YamlDotNet.Core.ParserExtensions.Accept``1(YamlDotNet.Core.IParser)">
+            <summary>
+            Checks whether the current event is of the specified type.
+            </summary>
+            <typeparam name="T">Type of the event.</typeparam>
+            <returns>Returns true if the current event is of type <typeparamref name="T"/>. Otherwise returns false.</returns>
+        </member>
+        <member name="M:YamlDotNet.Core.ParserExtensions.Allow``1(YamlDotNet.Core.IParser)">
+            <summary>
+            Checks whether the current event is of the specified type.
+            If the event is of the specified type, returns it and moves to the next event.
+            Otherwise retruns null.
+            </summary>
+            <typeparam name="T">Type of the <see cref="T:YamlDotNet.Core.Events.ParsingEvent"/>.</typeparam>
+            <returns>Returns the current event if it is of type T; otherwise returns null.</returns>
+        </member>
+        <member name="M:YamlDotNet.Core.ParserExtensions.Peek``1(YamlDotNet.Core.IParser)">
+            <summary>
+            Gets the next event without consuming it.
+            </summary>
+            <typeparam name="T">Type of the <see cref="T:YamlDotNet.Core.Events.ParsingEvent"/>.</typeparam>
+            <returns>Returns the current event if it is of type T; otherwise returns null.</returns>
+        </member>
+        <member name="M:YamlDotNet.Core.ParserExtensions.SkipThisAndNestedEvents(YamlDotNet.Core.IParser)">
+            <summary>
+            Skips the current event and any nested event.
             </summary>
         </member>
-        <member name="P:YamlDotNet.Core.Tokens.Comment.IsInline">
+        <member name="T:YamlDotNet.Core.RecursionLevel">
             <summary>
-            Gets a value indicating whether the comment appears other tokens on that line.
+            Keeps track of the <see cref="F:YamlDotNet.Core.RecursionLevel.current"/> recursion level,
+            and throws <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/>
+            whenever <see cref="P:YamlDotNet.Core.RecursionLevel.Maximum"/> is reached.
             </summary>
         </member>
-        <member name="M:YamlDotNet.Core.Tokens.Comment.#ctor(System.String,System.Boolean)">
+        <member name="M:YamlDotNet.Core.RecursionLevel.Increment">
             <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Tokens.Comment"/> class.
+            Increments the <see cref="F:YamlDotNet.Core.RecursionLevel.current"/> recursion level,
+            and throws <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/>
+            if <see cref="P:YamlDotNet.Core.RecursionLevel.Maximum"/> is reached.
             </summary>
         </member>
-        <member name="M:YamlDotNet.Core.Tokens.Comment.#ctor(System.String,System.Boolean,YamlDotNet.Core.Mark,YamlDotNet.Core.Mark)">
+        <member name="M:YamlDotNet.Core.RecursionLevel.TryIncrement">
             <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Tokens.Comment"/> class.
+            Increments the <see cref="F:YamlDotNet.Core.RecursionLevel.current"/> recursion level,
+            and returns whether <see cref="F:YamlDotNet.Core.RecursionLevel.current"/> is still less than <see cref="P:YamlDotNet.Core.RecursionLevel.Maximum"/>.
             </summary>
         </member>
-        <member name="T:YamlDotNet.Core.Tokens.AnchorAlias">
+        <member name="M:YamlDotNet.Core.RecursionLevel.Decrement">
             <summary>
-            Represents an alias token.
+            Decrements the <see cref="F:YamlDotNet.Core.RecursionLevel.current"/> recursion level.
             </summary>
         </member>
-        <member name="P:YamlDotNet.Core.Tokens.AnchorAlias.Value">
+        <member name="T:YamlDotNet.Core.ScalarStyle">
             <summary>
-            Gets the value of the alias.
+            Specifies the style of a YAML scalar.
             </summary>
         </member>
-        <member name="M:YamlDotNet.Core.Tokens.AnchorAlias.#ctor(System.String)">
+        <member name="F:YamlDotNet.Core.ScalarStyle.Any">
             <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Tokens.AnchorAlias"/> class.
+            Let the emitter choose the style.
             </summary>
-            <param name="value">The value of the anchor.</param>
         </member>
-        <member name="M:YamlDotNet.Core.Tokens.AnchorAlias.#ctor(System.String,YamlDotNet.Core.Mark,YamlDotNet.Core.Mark)">
+        <member name="F:YamlDotNet.Core.ScalarStyle.Plain">
             <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Tokens.AnchorAlias"/> class.
+            The plain scalar style.
             </summary>
-            <param name="value">The value of the anchor.</param>
-            <param name="start">The start position of the event.</param>
-            <param name="end">The end position of the event.</param>
+        </member>
+        <member name="F:YamlDotNet.Core.ScalarStyle.SingleQuoted">
+            <summary>
+            The single-quoted scalar style.
+            </summary>
+        </member>
+        <member name="F:YamlDotNet.Core.ScalarStyle.DoubleQuoted">
+            <summary>
+            The double-quoted scalar style.
+            </summary>
+        </member>
+        <member name="F:YamlDotNet.Core.ScalarStyle.Literal">
+            <summary>
+            The literal scalar style.
+            </summary>
+        </member>
+        <member name="F:YamlDotNet.Core.ScalarStyle.Folded">
+            <summary>
+            The folded scalar style.
+            </summary>
+        </member>
+        <member name="T:YamlDotNet.Core.Scanner">
+            <summary>
+            Converts a sequence of characters into a sequence of YAML tokens.
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Core.Scanner.Current">
+            <summary>
+            Gets the current token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.#ctor(System.IO.TextReader,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Scanner"/> class.
+            </summary>
+            <param name="input">The input.</param>
+            <param name="skipComments">Indicates whether comments should be ignored</param>
+        </member>
+        <member name="P:YamlDotNet.Core.Scanner.CurrentPosition">
+            <summary>
+            Gets the current position inside the input stream.
+            </summary>
+            <value>The current position.</value>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.MoveNext">
+            <summary>
+            Moves to the next token.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ConsumeCurrent">
+            <summary>
+            Consumes the current token and increments the parsed token count
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.StaleSimpleKeys">
+            <summary>
+            Check the list of potential simple keys and remove the positions that
+            cannot contain simple keys anymore.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.UnrollIndent(System.Int32)">
+            <summary>
+            Pop indentation levels from the indents stack until the current level
+            becomes less or equal to the column.  For each intendation level, append
+            the BLOCK-END token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchStreamEnd">
+            <summary>
+            Produce the STREAM-END token and shut down the scanner.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanDirective">
+             <summary>
+             Scan a YAML-DIRECTIVE or TAG-DIRECTIVE token.
+            
+             Scope:
+                  %YAML    1.1    # a comment \n
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                  %TAG    !yaml!  tag:yaml.org,2002:  \n
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+             </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchDocumentIndicator(System.Boolean)">
+            <summary>
+            Produce the DOCUMENT-START or DOCUMENT-END token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchFlowCollectionStart(System.Boolean)">
+            <summary>
+            Produce the FLOW-SEQUENCE-START or FLOW-MAPPING-START token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.IncreaseFlowLevel">
+            <summary>
+            Increase the flow level and resize the simple key list if needed.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchFlowCollectionEnd(System.Boolean)">
+            <summary>
+            Produce the FLOW-SEQUENCE-END or FLOW-MAPPING-END token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.DecreaseFlowLevel">
+            <summary>
+            Decrease the flow level.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchFlowEntry">
+            <summary>
+            Produce the FLOW-ENTRY token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchBlockEntry">
+            <summary>
+            Produce the BLOCK-ENTRY token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchKey">
+            <summary>
+            Produce the KEY token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchValue">
+            <summary>
+            Produce the VALUE token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.RollIndent(System.Int32,System.Int32,System.Boolean,YamlDotNet.Core.Mark)">
+            <summary>
+            Push the current indentation level to the stack and set the new level
+            the current column is greater than the indentation level.  In this case,
+            append or insert the specified token into the token queue.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchAnchor(System.Boolean)">
+            <summary>
+            Produce the ALIAS or ANCHOR token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchTag">
+            <summary>
+            Produce the TAG token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanTag">
+            <summary>
+            Scan a TAG token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchBlockScalar(System.Boolean)">
+            <summary>
+            Produce the SCALAR(...,literal) or SCALAR(...,folded) tokens.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanBlockScalar(System.Boolean)">
+            <summary>
+            Scan a block scalar.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanBlockScalarBreaks(System.Int32,System.Text.StringBuilder,YamlDotNet.Core.Mark,YamlDotNet.Core.Mark@)">
+            <summary>
+            Scan intendation spaces and line breaks for a block scalar.  Determine the
+            intendation level if needed.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchFlowScalar(System.Boolean)">
+            <summary>
+            Produce the SCALAR(...,single-quoted) or SCALAR(...,double-quoted) tokens.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanFlowScalar(System.Boolean)">
+            <summary>
+            Scan a quoted scalar.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchPlainScalar">
+            <summary>
+            Produce the SCALAR(...,plain) token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanPlainScalar">
+            <summary>
+            Scan a plain scalar.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.RemoveSimpleKey">
+            <summary>
+            Remove a potential simple key at the current flow level.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanDirectiveName(YamlDotNet.Core.Mark)">
+             <summary>
+             Scan the directive name.
+            
+             Scope:
+                  %YAML   1.1     # a comment \n
+                   ^^^^
+                  %TAG    !yaml!  tag:yaml.org,2002:  \n
+                   ^^^
+             </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanVersionDirectiveValue(YamlDotNet.Core.Mark)">
+             <summary>
+             Scan the value of VERSION-DIRECTIVE.
+            
+             Scope:
+                  %YAML   1.1     # a comment \n
+                       ^^^^^^
+             </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanTagDirectiveValue(YamlDotNet.Core.Mark)">
+             <summary>
+             Scan the value of a TAG-DIRECTIVE token.
+            
+             Scope:
+                  %TAG    !yaml!  tag:yaml.org,2002:  \n
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+             </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanTagUri(System.String,YamlDotNet.Core.Mark)">
+            <summary>
+            Scan a tag.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanUriEscapes(YamlDotNet.Core.Mark)">
+            <summary>
+            Decode an URI-escape sequence corresponding to a single UTF-8 character.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanTagHandle(System.Boolean,YamlDotNet.Core.Mark)">
+            <summary>
+            Scan a tag handle.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanVersionDirectiveNumber(YamlDotNet.Core.Mark)">
+             <summary>
+             Scan the version number of VERSION-DIRECTIVE.
+            
+             Scope:
+                  %YAML   1.1     # a comment \n
+                          ^
+                  %YAML   1.1     # a comment \n
+                            ^
+             </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.SaveSimpleKey">
+            <summary>
+            Check if a simple key may start at the current position and add it if
+            needed.
+            </summary>
+        </member>
+        <member name="T:YamlDotNet.Core.SemanticErrorException">
+            <summary>
+            Exception that is thrown when a semantic error is detected on a YAML stream.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.SemanticErrorException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SemanticErrorException"/> class.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.SemanticErrorException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SemanticErrorException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:YamlDotNet.Core.SemanticErrorException.#ctor(YamlDotNet.Core.Mark,YamlDotNet.Core.Mark,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SemanticErrorException"/> class.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.SemanticErrorException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SemanticErrorException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="inner">The inner.</param>
+        </member>
+        <member name="T:YamlDotNet.Core.SyntaxErrorException">
+            <summary>
+            Exception that is thrown when a syntax error is detected on a YAML stream.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.SyntaxErrorException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SyntaxErrorException"/> class.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.SyntaxErrorException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SyntaxErrorException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:YamlDotNet.Core.SyntaxErrorException.#ctor(YamlDotNet.Core.Mark,YamlDotNet.Core.Mark,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SyntaxErrorException"/> class.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.SyntaxErrorException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SyntaxErrorException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="inner">The inner.</param>
+        </member>
+        <member name="T:YamlDotNet.Core.TagDirectiveCollection">
+            <summary>
+            Collection of <see cref="T:YamlDotNet.Core.Tokens.TagDirective"/>.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.TagDirectiveCollection.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.TagDirectiveCollection"/> class.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.TagDirectiveCollection.#ctor(System.Collections.Generic.IEnumerable{YamlDotNet.Core.Tokens.TagDirective})">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.TagDirectiveCollection"/> class.
+            </summary>
+            <param name="tagDirectives">Initial content of the collection.</param>
+        </member>
+        <member name="M:YamlDotNet.Core.TagDirectiveCollection.GetKeyForItem(YamlDotNet.Core.Tokens.TagDirective)">
+            <summary/>
+        </member>
+        <member name="M:YamlDotNet.Core.TagDirectiveCollection.Contains(YamlDotNet.Core.Tokens.TagDirective)">
+            <summary>
+            Gets a value indicating whether the collection contains a directive with the same handle
+            </summary>
         </member>
         <member name="T:YamlDotNet.Core.Tokens.Anchor">
             <summary>
@@ -1499,6 +1819,30 @@
             <param name="value">The value.</param>
             <param name="start">The start position of the token.</param>
             <param name="end">The end position of the token.</param>
+        </member>
+        <member name="T:YamlDotNet.Core.Tokens.AnchorAlias">
+            <summary>
+            Represents an alias token.
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Core.Tokens.AnchorAlias.Value">
+            <summary>
+            Gets the value of the alias.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Tokens.AnchorAlias.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Tokens.AnchorAlias"/> class.
+            </summary>
+            <param name="value">The value of the anchor.</param>
+        </member>
+        <member name="M:YamlDotNet.Core.Tokens.AnchorAlias.#ctor(System.String,YamlDotNet.Core.Mark,YamlDotNet.Core.Mark)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Tokens.AnchorAlias"/> class.
+            </summary>
+            <param name="value">The value of the anchor.</param>
+            <param name="start">The start position of the event.</param>
+            <param name="end">The end position of the event.</param>
         </member>
         <member name="T:YamlDotNet.Core.Tokens.BlockEnd">
             <summary>
@@ -1567,6 +1911,31 @@
             </summary>
             <param name="start">The start position of the token.</param>
             <param name="end">The end position of the token.</param>
+        </member>
+        <member name="T:YamlDotNet.Core.Tokens.Comment">
+            <summary>
+            Represents a comment
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Core.Tokens.Comment.Value">
+            <summary>
+            Gets the value of the comment
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Core.Tokens.Comment.IsInline">
+            <summary>
+            Gets a value indicating whether the comment appears other tokens on that line.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Tokens.Comment.#ctor(System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Tokens.Comment"/> class.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Tokens.Comment.#ctor(System.String,System.Boolean,YamlDotNet.Core.Mark,YamlDotNet.Core.Mark)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Tokens.Comment"/> class.
+            </summary>
         </member>
         <member name="T:YamlDotNet.Core.Tokens.DocumentEnd">
             <summary>
@@ -1944,353 +2313,6 @@
             A hash code for the current <see cref="T:System.Object"/>.
             </returns>
         </member>
-        <member name="T:YamlDotNet.Core.Scanner">
-            <summary>
-            Converts a sequence of characters into a sequence of YAML tokens.
-            </summary>
-        </member>
-        <member name="P:YamlDotNet.Core.Scanner.Current">
-            <summary>
-            Gets the current token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.#ctor(System.IO.TextReader,System.Boolean)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Scanner"/> class.
-            </summary>
-            <param name="input">The input.</param>
-            <param name="skipComments">Indicates whether comments should be ignored</param>
-        </member>
-        <member name="P:YamlDotNet.Core.Scanner.CurrentPosition">
-            <summary>
-            Gets the current position inside the input stream.
-            </summary>
-            <value>The current position.</value>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.MoveNext">
-            <summary>
-            Moves to the next token.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ConsumeCurrent">
-            <summary>
-            Consumes the current token and increments the parsed token count
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.StaleSimpleKeys">
-            <summary>
-            Check the list of potential simple keys and remove the positions that
-            cannot contain simple keys anymore.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.UnrollIndent(System.Int32)">
-            <summary>
-            Pop indentation levels from the indents stack until the current level
-            becomes less or equal to the column.  For each intendation level, append
-            the BLOCK-END token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchStreamEnd">
-            <summary>
-            Produce the STREAM-END token and shut down the scanner.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanDirective">
-             <summary>
-             Scan a YAML-DIRECTIVE or TAG-DIRECTIVE token.
-            
-             Scope:
-                  %YAML    1.1    # a comment \n
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                  %TAG    !yaml!  tag:yaml.org,2002:  \n
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-             </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchDocumentIndicator(System.Boolean)">
-            <summary>
-            Produce the DOCUMENT-START or DOCUMENT-END token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchFlowCollectionStart(System.Boolean)">
-            <summary>
-            Produce the FLOW-SEQUENCE-START or FLOW-MAPPING-START token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.IncreaseFlowLevel">
-            <summary>
-            Increase the flow level and resize the simple key list if needed.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchFlowCollectionEnd(System.Boolean)">
-            <summary>
-            Produce the FLOW-SEQUENCE-END or FLOW-MAPPING-END token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.DecreaseFlowLevel">
-            <summary>
-            Decrease the flow level.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchFlowEntry">
-            <summary>
-            Produce the FLOW-ENTRY token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchBlockEntry">
-            <summary>
-            Produce the BLOCK-ENTRY token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchKey">
-            <summary>
-            Produce the KEY token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchValue">
-            <summary>
-            Produce the VALUE token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.RollIndent(System.Int32,System.Int32,System.Boolean,YamlDotNet.Core.Mark)">
-            <summary>
-            Push the current indentation level to the stack and set the new level
-            the current column is greater than the indentation level.  In this case,
-            append or insert the specified token into the token queue.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchAnchor(System.Boolean)">
-            <summary>
-            Produce the ALIAS or ANCHOR token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchTag">
-            <summary>
-            Produce the TAG token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanTag">
-            <summary>
-            Scan a TAG token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchBlockScalar(System.Boolean)">
-            <summary>
-            Produce the SCALAR(...,literal) or SCALAR(...,folded) tokens.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanBlockScalar(System.Boolean)">
-            <summary>
-            Scan a block scalar.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanBlockScalarBreaks(System.Int32,System.Text.StringBuilder,YamlDotNet.Core.Mark,YamlDotNet.Core.Mark@)">
-            <summary>
-            Scan intendation spaces and line breaks for a block scalar.  Determine the
-            intendation level if needed.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchFlowScalar(System.Boolean)">
-            <summary>
-            Produce the SCALAR(...,single-quoted) or SCALAR(...,double-quoted) tokens.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanFlowScalar(System.Boolean)">
-            <summary>
-            Scan a quoted scalar.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchPlainScalar">
-            <summary>
-            Produce the SCALAR(...,plain) token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanPlainScalar">
-            <summary>
-            Scan a plain scalar.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.RemoveSimpleKey">
-            <summary>
-            Remove a potential simple key at the current flow level.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanDirectiveName(YamlDotNet.Core.Mark)">
-             <summary>
-             Scan the directive name.
-            
-             Scope:
-                  %YAML   1.1     # a comment \n
-                   ^^^^
-                  %TAG    !yaml!  tag:yaml.org,2002:  \n
-                   ^^^
-             </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanVersionDirectiveValue(YamlDotNet.Core.Mark)">
-             <summary>
-             Scan the value of VERSION-DIRECTIVE.
-            
-             Scope:
-                  %YAML   1.1     # a comment \n
-                       ^^^^^^
-             </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanTagDirectiveValue(YamlDotNet.Core.Mark)">
-             <summary>
-             Scan the value of a TAG-DIRECTIVE token.
-            
-             Scope:
-                  %TAG    !yaml!  tag:yaml.org,2002:  \n
-                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-             </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanTagUri(System.String,YamlDotNet.Core.Mark)">
-            <summary>
-            Scan a tag.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanUriEscapes(YamlDotNet.Core.Mark)">
-            <summary>
-            Decode an URI-escape sequence corresponding to a single UTF-8 character.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanTagHandle(System.Boolean,YamlDotNet.Core.Mark)">
-            <summary>
-            Scan a tag handle.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanVersionDirectiveNumber(YamlDotNet.Core.Mark)">
-             <summary>
-             Scan the version number of VERSION-DIRECTIVE.
-            
-             Scope:
-                  %YAML   1.1     # a comment \n
-                          ^
-                  %YAML   1.1     # a comment \n
-                            ^
-             </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.SaveSimpleKey">
-            <summary>
-            Check if a simple key may start at the current position and add it if
-            needed.
-            </summary>
-        </member>
-        <member name="T:YamlDotNet.Core.SemanticErrorException">
-            <summary>
-            Exception that is thrown when a semantic error is detected on a YAML stream.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.SemanticErrorException.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SemanticErrorException"/> class.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.SemanticErrorException.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SemanticErrorException"/> class.
-            </summary>
-            <param name="message">The message.</param>
-        </member>
-        <member name="M:YamlDotNet.Core.SemanticErrorException.#ctor(YamlDotNet.Core.Mark,YamlDotNet.Core.Mark,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SemanticErrorException"/> class.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.SemanticErrorException.#ctor(System.String,System.Exception)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SemanticErrorException"/> class.
-            </summary>
-            <param name="message">The message.</param>
-            <param name="inner">The inner.</param>
-        </member>
-        <member name="T:YamlDotNet.Core.SyntaxErrorException">
-            <summary>
-            Exception that is thrown when a syntax error is detected on a YAML stream.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.SyntaxErrorException.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SyntaxErrorException"/> class.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.SyntaxErrorException.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SyntaxErrorException"/> class.
-            </summary>
-            <param name="message">The message.</param>
-        </member>
-        <member name="M:YamlDotNet.Core.SyntaxErrorException.#ctor(YamlDotNet.Core.Mark,YamlDotNet.Core.Mark,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SyntaxErrorException"/> class.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.SyntaxErrorException.#ctor(System.String,System.Exception)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SyntaxErrorException"/> class.
-            </summary>
-            <param name="message">The message.</param>
-            <param name="inner">The inner.</param>
-        </member>
-        <member name="T:YamlDotNet.Core.TagDirectiveCollection">
-            <summary>
-            Collection of <see cref="T:YamlDotNet.Core.Tokens.TagDirective"/>.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.TagDirectiveCollection.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.TagDirectiveCollection"/> class.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.TagDirectiveCollection.#ctor(System.Collections.Generic.IEnumerable{YamlDotNet.Core.Tokens.TagDirective})">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.TagDirectiveCollection"/> class.
-            </summary>
-            <param name="tagDirectives">Initial content of the collection.</param>
-        </member>
-        <member name="M:YamlDotNet.Core.TagDirectiveCollection.GetKeyForItem(YamlDotNet.Core.Tokens.TagDirective)">
-            <summary/>
-        </member>
-        <member name="M:YamlDotNet.Core.TagDirectiveCollection.Contains(YamlDotNet.Core.Tokens.TagDirective)">
-            <summary>
-            Gets a value indicating whether the collection contains a directive with the same handle
-            </summary>
-        </member>
-        <member name="T:YamlDotNet.Core.ScalarStyle">
-            <summary>
-            Specifies the style of a YAML scalar.
-            </summary>
-        </member>
-        <member name="F:YamlDotNet.Core.ScalarStyle.Any">
-            <summary>
-            Let the emitter choose the style.
-            </summary>
-        </member>
-        <member name="F:YamlDotNet.Core.ScalarStyle.Plain">
-            <summary>
-            The plain scalar style.
-            </summary>
-        </member>
-        <member name="F:YamlDotNet.Core.ScalarStyle.SingleQuoted">
-            <summary>
-            The single-quoted scalar style.
-            </summary>
-        </member>
-        <member name="F:YamlDotNet.Core.ScalarStyle.DoubleQuoted">
-            <summary>
-            The double-quoted scalar style.
-            </summary>
-        </member>
-        <member name="F:YamlDotNet.Core.ScalarStyle.Literal">
-            <summary>
-            The literal scalar style.
-            </summary>
-        </member>
-        <member name="F:YamlDotNet.Core.ScalarStyle.Folded">
-            <summary>
-            The folded scalar style.
-            </summary>
-        </member>
         <member name="T:YamlDotNet.Core.Version">
             <summary>
             Specifies the version of the YAML language.
@@ -2372,6 +2394,27 @@
             </summary>
             <param name="message">The message.</param>
             <param name="inner">The inner.</param>
+        </member>
+        <member name="M:YamlDotNet.Helpers.ExpressionExtensions.AsProperty(System.Linq.Expressions.LambdaExpression)">
+            <summary>
+            Returns the <see cref="T:System.Reflection.PropertyInfo" /> that describes the property that
+            is being returned in an expression in the form:
+            <code>
+              x => x.SomeProperty
+            </code>
+            </summary>
+        </member>
+        <member name="T:YamlDotNet.Helpers.GenericCollectionToNonGenericAdapter">
+            <summary>
+            Adapts an <see cref="T:System.Collections.Generic.ICollection`1" /> to <see cref="T:System.Collections.IList" />
+            because not all generic collections implement <see cref="T:System.Collections.IList" />.
+            </summary>
+        </member>
+        <member name="T:YamlDotNet.Helpers.GenericDictionaryToNonGenericAdapter">
+            <summary>
+            Adapts an <see cref="T:System.Collections.Generic.IDictionary`2" /> to <see cref="T:System.Collections.IDictionary" />
+            because not all generic dictionaries implement <see cref="T:System.Collections.IDictionary" />.
+            </summary>
         </member>
         <member name="M:YamlDotNet.ReflectionExtensions.HasDefaultConstructor(System.Type)">
             <summary>
@@ -2515,7 +2558,7 @@
             A hash code for the current <see cref="T:System.Object"/>.
             </returns>
         </member>
-        <member name="M:YamlDotNet.RepresentationModel.YamlAliasNode.ToString">
+        <member name="M:YamlDotNet.RepresentationModel.YamlAliasNode.ToString(YamlDotNet.Core.RecursionLevel)">
             <summary>
             Returns a <see cref="T:System.String"/> that represents this instance.
             </summary>
@@ -2523,9 +2566,11 @@
             A <see cref="T:System.String"/> that represents this instance.
             </returns>
         </member>
-        <member name="P:YamlDotNet.RepresentationModel.YamlAliasNode.AllNodes">
+        <member name="M:YamlDotNet.RepresentationModel.YamlAliasNode.SafeAllNodes(YamlDotNet.Core.RecursionLevel)">
             <summary>
-            Gets all nodes from the document, starting on the current node.
+            Recursively enumerates all the nodes from the document, starting on the current node,
+            and throwing <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/>
+            if <see cref="P:YamlDotNet.Core.RecursionLevel.Maximum"/> is reached.
             </summary>
         </member>
         <member name="P:YamlDotNet.RepresentationModel.YamlAliasNode.NodeType">
@@ -2554,15 +2599,25 @@
             Initializes a new instance of the <see cref="T:YamlDotNet.RepresentationModel.YamlDocument"/> class with a single scalar node.
             </summary>
         </member>
-        <member name="M:YamlDotNet.RepresentationModel.YamlDocument.#ctor(YamlDotNet.Core.EventReader)">
+        <member name="M:YamlDotNet.RepresentationModel.YamlDocument.#ctor(YamlDotNet.Core.IParser)">
             <summary>
             Initializes a new instance of the <see cref="T:YamlDotNet.RepresentationModel.YamlDocument"/> class.
             </summary>
-            <param name="events">The events.</param>
         </member>
         <member name="T:YamlDotNet.RepresentationModel.YamlDocument.AnchorAssigningVisitor">
             <summary>
-            Visitor that assigns anchors to nodes that are referenced more than once but have no anchor.
+            Visitor that assigns anchors to nodes that are referenced more than once.
+            Existing anchors are preserved as much as possible.
+            </summary>
+        </member>
+        <member name="F:YamlDotNet.RepresentationModel.YamlDocument.AnchorAssigningVisitor.visitedNodes">
+            <summary>
+            Key: Node, Value: IsDuplicate
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.RepresentationModel.YamlDocument.AnchorAssigningVisitor.VisitNodeAndFindDuplicates(YamlDotNet.RepresentationModel.YamlNode)">
+            <summary>
+            Returns whether the visited node is a duplicate.
             </summary>
         </member>
         <member name="M:YamlDotNet.RepresentationModel.YamlDocument.Accept(YamlDotNet.RepresentationModel.IYamlVisitor)">
@@ -2576,6 +2631,7 @@
         <member name="P:YamlDotNet.RepresentationModel.YamlDocument.AllNodes">
             <summary>
             Gets all nodes from the document.
+            <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/> is thrown if an infinite recursion is detected.
             </summary>
         </member>
         <member name="T:YamlDotNet.RepresentationModel.YamlMappingNode">
@@ -2595,12 +2651,10 @@
             </summary>
             <value>The style.</value>
         </member>
-        <member name="M:YamlDotNet.RepresentationModel.YamlMappingNode.#ctor(YamlDotNet.Core.EventReader,YamlDotNet.RepresentationModel.DocumentLoadingState)">
+        <member name="M:YamlDotNet.RepresentationModel.YamlMappingNode.#ctor(YamlDotNet.Core.IParser,YamlDotNet.RepresentationModel.DocumentLoadingState)">
             <summary>
             Initializes a new instance of the <see cref="T:YamlDotNet.RepresentationModel.YamlMappingNode"/> class.
             </summary>
-            <param name="events">The events.</param>
-            <param name="state">The state.</param>
         </member>
         <member name="M:YamlDotNet.RepresentationModel.YamlMappingNode.#ctor">
             <summary>
@@ -2689,9 +2743,11 @@
             A hash code for the current <see cref="T:System.Object"/>.
             </returns>
         </member>
-        <member name="P:YamlDotNet.RepresentationModel.YamlMappingNode.AllNodes">
+        <member name="M:YamlDotNet.RepresentationModel.YamlMappingNode.SafeAllNodes(YamlDotNet.Core.RecursionLevel)">
             <summary>
-            Gets all nodes from the document, starting on the current node.
+            Recursively enumerates all the nodes from the document, starting on the current node,
+            and throwing <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/>
+            if <see cref="P:YamlDotNet.Core.RecursionLevel.Maximum"/> is reached.
             </summary>
         </member>
         <member name="P:YamlDotNet.RepresentationModel.YamlMappingNode.NodeType">
@@ -2699,7 +2755,7 @@
             Gets the type of node.
             </summary>
         </member>
-        <member name="M:YamlDotNet.RepresentationModel.YamlMappingNode.ToString">
+        <member name="M:YamlDotNet.RepresentationModel.YamlMappingNode.ToString(YamlDotNet.Core.RecursionLevel)">
             <summary>
             Returns a <see cref="T:System.String"/> that represents this instance.
             </summary>
@@ -2709,6 +2765,11 @@
         </member>
         <member name="M:YamlDotNet.RepresentationModel.YamlMappingNode.GetEnumerator">
             <summary />
+        </member>
+        <member name="M:YamlDotNet.RepresentationModel.YamlMappingNode.FromObject(System.Object)">
+            <summary>
+            Creates a <see cref="T:YamlDotNet.RepresentationModel.YamlMappingNode" /> containing a key-value pair for each property of the specified object.
+            </summary>
         </member>
         <member name="T:YamlDotNet.RepresentationModel.YamlNode">
             <summary>
@@ -2744,12 +2805,10 @@
             <param name="yamlEvent">The event.</param>
             <param name="state">The state of the document.</param>
         </member>
-        <member name="M:YamlDotNet.RepresentationModel.YamlNode.ParseNode(YamlDotNet.Core.EventReader,YamlDotNet.RepresentationModel.DocumentLoadingState)">
+        <member name="M:YamlDotNet.RepresentationModel.YamlNode.ParseNode(YamlDotNet.Core.IParser,YamlDotNet.RepresentationModel.DocumentLoadingState)">
             <summary>
-            Parses the node represented by the next event in <paramref name="events" />.
+            Parses the node represented by the next event in <paramref name="parser" />.
             </summary>
-            <param name="events">The events.</param>
-            <param name="state">The state.</param>
             <returns>Returns the node that has been parsed.</returns>
         </member>
         <member name="M:YamlDotNet.RepresentationModel.YamlNode.ResolveAliases(YamlDotNet.RepresentationModel.DocumentLoadingState)">
@@ -2811,11 +2870,48 @@
         <member name="P:YamlDotNet.RepresentationModel.YamlNode.AllNodes">
             <summary>
             Gets all nodes from the document, starting on the current node.
+            <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/> is thrown if an infinite recursion is detected.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.RepresentationModel.YamlNode.SafeAllNodes(YamlDotNet.Core.RecursionLevel)">
+            <summary>
+            When implemented, recursively enumerates all the nodes from the document, starting on the current node.
+            If <see cref="P:YamlDotNet.Core.RecursionLevel.Maximum"/> is reached, a <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/> is thrown
+            instead of continuing and crashing with a <see cref="T:System.StackOverflowException"/>.
             </summary>
         </member>
         <member name="P:YamlDotNet.RepresentationModel.YamlNode.NodeType">
             <summary>
             Gets the type of node.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.RepresentationModel.YamlNode.op_Implicit(System.String)~YamlDotNet.RepresentationModel.YamlNode">
+            <summary>
+            Performs an implicit conversion from <see cref="T:System.String"/> to <see cref="T:YamlDotNet.RepresentationModel.YamlNode"/>.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>The result of the conversion.</returns>
+        </member>
+        <member name="M:YamlDotNet.RepresentationModel.YamlNode.op_Implicit(System.String[])~YamlDotNet.RepresentationModel.YamlNode">
+            <summary>
+            Performs an implicit conversion from string[] to <see cref="T:YamlDotNet.RepresentationModel.YamlNode"/>.
+            </summary>
+            <param name="sequence">The value.</param>
+            <returns>The result of the conversion.</returns>
+        </member>
+        <member name="M:YamlDotNet.RepresentationModel.YamlNode.op_Explicit(YamlDotNet.RepresentationModel.YamlNode)~System.String">
+            <summary>
+            Converts a <see cref="T:YamlDotNet.RepresentationModel.YamlScalarNode" /> to a string by returning its value.
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.RepresentationModel.YamlNode.Item(System.Int32)">
+            <summary>
+            Gets the nth element in a <see cref="T:YamlDotNet.RepresentationModel.YamlSequenceNode" />.
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.RepresentationModel.YamlNode.Item(YamlDotNet.RepresentationModel.YamlNode)">
+            <summary>
+            Gets the value associated with a key in a <see cref="T:YamlDotNet.RepresentationModel.YamlMappingNode" />.
             </summary>
         </member>
         <member name="T:YamlDotNet.RepresentationModel.YamlNodeIdentityEqualityComparer">
@@ -2871,12 +2967,10 @@
             </summary>
             <value>The style.</value>
         </member>
-        <member name="M:YamlDotNet.RepresentationModel.YamlScalarNode.#ctor(YamlDotNet.Core.EventReader,YamlDotNet.RepresentationModel.DocumentLoadingState)">
+        <member name="M:YamlDotNet.RepresentationModel.YamlScalarNode.#ctor(YamlDotNet.Core.IParser,YamlDotNet.RepresentationModel.DocumentLoadingState)">
             <summary>
             Initializes a new instance of the <see cref="T:YamlDotNet.RepresentationModel.YamlScalarNode"/> class.
             </summary>
-            <param name="events">The events.</param>
-            <param name="state">The state.</param>
         </member>
         <member name="M:YamlDotNet.RepresentationModel.YamlScalarNode.#ctor">
             <summary>
@@ -2921,13 +3015,6 @@
             A hash code for the current <see cref="T:System.Object"/>.
             </returns>
         </member>
-        <member name="M:YamlDotNet.RepresentationModel.YamlScalarNode.op_Implicit(System.String)~YamlDotNet.RepresentationModel.YamlScalarNode">
-            <summary>
-            Performs an implicit conversion from <see cref="T:System.String"/> to <see cref="T:YamlDotNet.RepresentationModel.YamlScalarNode"/>.
-            </summary>
-            <param name="value">The value.</param>
-            <returns>The result of the conversion.</returns>
-        </member>
         <member name="M:YamlDotNet.RepresentationModel.YamlScalarNode.op_Explicit(YamlDotNet.RepresentationModel.YamlScalarNode)~System.String">
             <summary>
             Performs an explicit conversion from <see cref="T:YamlDotNet.RepresentationModel.YamlScalarNode"/> to <see cref="T:System.String"/>.
@@ -2935,7 +3022,7 @@
             <param name="value">The value.</param>
             <returns>The result of the conversion.</returns>
         </member>
-        <member name="M:YamlDotNet.RepresentationModel.YamlScalarNode.ToString">
+        <member name="M:YamlDotNet.RepresentationModel.YamlScalarNode.ToString(YamlDotNet.Core.RecursionLevel)">
             <summary>
             Returns a <see cref="T:System.String"/> that represents this instance.
             </summary>
@@ -2943,9 +3030,11 @@
             A <see cref="T:System.String"/> that represents this instance.
             </returns>
         </member>
-        <member name="P:YamlDotNet.RepresentationModel.YamlScalarNode.AllNodes">
+        <member name="M:YamlDotNet.RepresentationModel.YamlScalarNode.SafeAllNodes(YamlDotNet.Core.RecursionLevel)">
             <summary>
-            Gets all nodes from the document, starting on the current node.
+            Recursively enumerates all the nodes from the document, starting on the current node,
+            and throwing <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/>
+            if <see cref="P:YamlDotNet.Core.RecursionLevel.Maximum"/> is reached.
             </summary>
         </member>
         <member name="P:YamlDotNet.RepresentationModel.YamlScalarNode.NodeType">
@@ -2970,12 +3059,10 @@
             </summary>
             <value>The style.</value>
         </member>
-        <member name="M:YamlDotNet.RepresentationModel.YamlSequenceNode.#ctor(YamlDotNet.Core.EventReader,YamlDotNet.RepresentationModel.DocumentLoadingState)">
+        <member name="M:YamlDotNet.RepresentationModel.YamlSequenceNode.#ctor(YamlDotNet.Core.IParser,YamlDotNet.RepresentationModel.DocumentLoadingState)">
             <summary>
             Initializes a new instance of the <see cref="T:YamlDotNet.RepresentationModel.YamlSequenceNode"/> class.
             </summary>
-            <param name="events">The events.</param>
-            <param name="state">The state.</param>
         </member>
         <member name="M:YamlDotNet.RepresentationModel.YamlSequenceNode.#ctor">
             <summary>
@@ -3036,9 +3123,11 @@
             A hash code for the current <see cref="T:System.Object"/>.
             </returns>
         </member>
-        <member name="P:YamlDotNet.RepresentationModel.YamlSequenceNode.AllNodes">
+        <member name="M:YamlDotNet.RepresentationModel.YamlSequenceNode.SafeAllNodes(YamlDotNet.Core.RecursionLevel)">
             <summary>
-            Gets all nodes from the document, starting on the current node.
+            Recursively enumerates all the nodes from the document, starting on the current node,
+            and throwing <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/>
+            if <see cref="P:YamlDotNet.Core.RecursionLevel.Maximum"/> is reached.
             </summary>
         </member>
         <member name="P:YamlDotNet.RepresentationModel.YamlSequenceNode.NodeType">
@@ -3046,7 +3135,7 @@
             Gets the type of node.
             </summary>
         </member>
-        <member name="M:YamlDotNet.RepresentationModel.YamlSequenceNode.ToString">
+        <member name="M:YamlDotNet.RepresentationModel.YamlSequenceNode.ToString(YamlDotNet.Core.RecursionLevel)">
             <summary>
             Returns a <see cref="T:System.String"/> that represents this instance.
             </summary>
@@ -3095,9 +3184,9 @@
             </summary>
             <param name="input">The input.</param>
         </member>
-        <member name="M:YamlDotNet.RepresentationModel.YamlStream.Load(YamlDotNet.Core.EventReader)">
+        <member name="M:YamlDotNet.RepresentationModel.YamlStream.Load(YamlDotNet.Core.IParser)">
             <summary>
-            Loads the stream from the specified <see cref="T:YamlDotNet.Core.EventReader"/>.
+            Loads the stream from the specified <see cref="T:YamlDotNet.Core.IParser"/>.
             </summary>
         </member>
         <member name="M:YamlDotNet.RepresentationModel.YamlStream.Save(System.IO.TextWriter)">
@@ -3241,6 +3330,237 @@
             The <see cref="T:YamlDotNet.RepresentationModel.YamlMappingNode"/> that is being visited.
             </param>
         </member>
+        <member name="T:YamlDotNet.RepresentationModel.YamlVisitorBase">
+            <summary>
+            Abstract implementation of <see cref="T:YamlDotNet.RepresentationModel.IYamlVisitor"/> that knows how to walk a complete YAML object model.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.RepresentationModel.YamlVisitorBase.Visit(YamlDotNet.RepresentationModel.YamlStream)">
+            <summary>
+            Called when this object is visiting a <see cref="T:YamlDotNet.RepresentationModel.YamlStream"/>.
+            </summary>
+            <param name="stream">
+            The <see cref="T:YamlDotNet.RepresentationModel.YamlStream"/> that is being visited.
+            </param>
+        </member>
+        <member name="M:YamlDotNet.RepresentationModel.YamlVisitorBase.Visit(YamlDotNet.RepresentationModel.YamlDocument)">
+            <summary>
+            Called when this object is visiting a <see cref="T:YamlDotNet.RepresentationModel.YamlDocument"/>.
+            </summary>
+            <param name="document">
+            The <see cref="T:YamlDotNet.RepresentationModel.YamlDocument"/> that is being visited.
+            </param>
+        </member>
+        <member name="M:YamlDotNet.RepresentationModel.YamlVisitorBase.Visit(YamlDotNet.RepresentationModel.YamlScalarNode)">
+            <summary>
+            Called when this object is visiting a <see cref="T:YamlDotNet.RepresentationModel.YamlScalarNode"/>.
+            </summary>
+            <param name="scalar">
+            The <see cref="T:YamlDotNet.RepresentationModel.YamlScalarNode"/> that is being visited.
+            </param>
+        </member>
+        <member name="M:YamlDotNet.RepresentationModel.YamlVisitorBase.Visit(YamlDotNet.RepresentationModel.YamlSequenceNode)">
+            <summary>
+            Called when this object is visiting a <see cref="T:YamlDotNet.RepresentationModel.YamlSequenceNode"/>.
+            </summary>
+            <param name="sequence">
+            The <see cref="T:YamlDotNet.RepresentationModel.YamlSequenceNode"/> that is being visited.
+            </param>
+        </member>
+        <member name="M:YamlDotNet.RepresentationModel.YamlVisitorBase.Visit(YamlDotNet.RepresentationModel.YamlMappingNode)">
+            <summary>
+            Called when this object is visiting a <see cref="T:YamlDotNet.RepresentationModel.YamlMappingNode"/>.
+            </summary>
+            <param name="mapping">
+            The <see cref="T:YamlDotNet.RepresentationModel.YamlMappingNode"/> that is being visited.
+            </param>
+        </member>
+        <member name="M:YamlDotNet.RepresentationModel.YamlVisitorBase.VisitPair(YamlDotNet.RepresentationModel.YamlNode,YamlDotNet.RepresentationModel.YamlNode)">
+            <summary>
+            Called when this object is visiting a key-value pair.
+            </summary>
+            <param name="key">The left (key) <see cref="T:YamlDotNet.RepresentationModel.YamlNode"/> that is being visited.</param>
+            <param name="value">The right (value) <see cref="T:YamlDotNet.RepresentationModel.YamlNode"/> that is being visited.</param>
+        </member>
+        <member name="M:YamlDotNet.RepresentationModel.YamlVisitorBase.VisitChildren(YamlDotNet.RepresentationModel.YamlStream)">
+            <summary>
+            Visits every child of a <see cref="T:YamlDotNet.RepresentationModel.YamlStream"/>.
+            </summary>
+            <param name="stream">
+            The <see cref="T:YamlDotNet.RepresentationModel.YamlStream"/> that is being visited.
+            </param>
+        </member>
+        <member name="M:YamlDotNet.RepresentationModel.YamlVisitorBase.VisitChildren(YamlDotNet.RepresentationModel.YamlDocument)">
+            <summary>
+            Visits every child of a <see cref="T:YamlDotNet.RepresentationModel.YamlDocument"/>.
+            </summary>
+            <param name="document">
+            The <see cref="T:YamlDotNet.RepresentationModel.YamlDocument"/> that is being visited.
+            </param>
+        </member>
+        <member name="M:YamlDotNet.RepresentationModel.YamlVisitorBase.VisitChildren(YamlDotNet.RepresentationModel.YamlSequenceNode)">
+            <summary>
+            Visits every child of a <see cref="T:YamlDotNet.RepresentationModel.YamlSequenceNode"/>.
+            </summary>
+            <param name="sequence">
+            The <see cref="T:YamlDotNet.RepresentationModel.YamlSequenceNode"/> that is being visited.
+            </param>
+        </member>
+        <member name="M:YamlDotNet.RepresentationModel.YamlVisitorBase.VisitChildren(YamlDotNet.RepresentationModel.YamlMappingNode)">
+            <summary>
+            Visits every child of a <see cref="T:YamlDotNet.RepresentationModel.YamlMappingNode"/>.
+            </summary>
+            <param name="mapping">
+            The <see cref="T:YamlDotNet.RepresentationModel.YamlMappingNode"/> that is being visited.
+            </param>
+        </member>
+        <member name="T:YamlDotNet.Serialization.BuilderSkeleton`1">
+            <summary>
+            Common implementation of <see cref="T:YamlDotNet.Serialization.SerializerBuilder" /> and <see cref="T:YamlDotNet.Serialization.DeserializerBuilder" />.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.BuilderSkeleton`1.WithNamingConvention(YamlDotNet.Serialization.INamingConvention)">
+            <summary>
+            Sets the <see cref="T:YamlDotNet.Serialization.INamingConvention" /> that will be used by the (de)serializer.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.BuilderSkeleton`1.WithTypeResolver(YamlDotNet.Serialization.ITypeResolver)">
+            <summary>
+            Sets the <see cref="T:YamlDotNet.Serialization.ITypeResolver" /> that will be used by the (de)serializer.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.BuilderSkeleton`1.WithAttributeOverride``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Attribute)">
+            <summary>
+            Register an <see cref="T:System.Attribute"/> for for a given property.
+            </summary>
+            <typeparam name="TClass"></typeparam>
+            <param name="propertyAccessor">An expression in the form: x => x.SomeProperty</param>
+            <param name="attribute">The attribute to register.</param>
+            <returns></returns>
+        </member>
+        <member name="M:YamlDotNet.Serialization.BuilderSkeleton`1.WithAttributeOverride(System.Type,System.String,System.Attribute)">
+            <summary>
+            Register an <see cref="T:System.Attribute"/> for for a given property.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.BuilderSkeleton`1.WithTypeConverter(YamlDotNet.Serialization.IYamlTypeConverter)">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.IYamlTypeConverter" /> to be used by the (de)serializer.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.BuilderSkeleton`1.WithTypeConverter(YamlDotNet.Serialization.IYamlTypeConverter,System.Action{YamlDotNet.Serialization.IRegistrationLocationSelectionSyntax{YamlDotNet.Serialization.IYamlTypeConverter}})">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.IYamlTypeConverter" /> to be used by the (de)serializer.
+            </summary>
+            <param name="typeConverter"></param>
+            <param name="where">Configures the location where to insert the <see cref="T:YamlDotNet.Serialization.IYamlTypeConverter" /></param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.BuilderSkeleton`1.WithTypeConverter``1(YamlDotNet.Serialization.WrapperFactory{YamlDotNet.Serialization.IYamlTypeConverter,YamlDotNet.Serialization.IYamlTypeConverter},System.Action{YamlDotNet.Serialization.ITrackingRegistrationLocationSelectionSyntax{YamlDotNet.Serialization.IYamlTypeConverter}})">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.IYamlTypeConverter" /> to be used by the (de)serializer.
+            </summary>
+            <param name="typeConverterFactory">A factory that creates the <see cref="T:YamlDotNet.Serialization.IYamlTypeConverter" /> based on a previously registered <see cref="T:YamlDotNet.Serialization.IYamlTypeConverter" />.</param>
+            <param name="where">Configures the location where to insert the <see cref="T:YamlDotNet.Serialization.IYamlTypeConverter" /></param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.BuilderSkeleton`1.WithoutTypeConverter``1">
+            <summary>
+            Unregisters an existing <see cref="T:YamlDotNet.Serialization.IYamlTypeConverter" /> of type <typeparam name="TYamlTypeConverter" />.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.BuilderSkeleton`1.WithoutTypeConverter(System.Type)">
+            <summary>
+            Unregisters an existing <see cref="T:YamlDotNet.Serialization.IYamlTypeConverter" /> of type <param name="converterType" />.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.BuilderSkeleton`1.WithTypeInspector``1(System.Func{YamlDotNet.Serialization.ITypeInspector,``0})">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.ITypeInspector" /> to be used by the (de)serializer.
+            </summary>
+            <param name="typeInspectorFactory">A function that instantiates the type inspector.</param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.BuilderSkeleton`1.WithTypeInspector``1(System.Func{YamlDotNet.Serialization.ITypeInspector,``0},System.Action{YamlDotNet.Serialization.IRegistrationLocationSelectionSyntax{YamlDotNet.Serialization.ITypeInspector}})">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.ITypeInspector" /> to be used by the (de)serializer.
+            </summary>
+            <param name="typeInspectorFactory">A function that instantiates the type inspector.</param>
+            <param name="where">Configures the location where to insert the <see cref="T:YamlDotNet.Serialization.ITypeInspector" /></param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.BuilderSkeleton`1.WithTypeInspector``1(YamlDotNet.Serialization.WrapperFactory{YamlDotNet.Serialization.ITypeInspector,YamlDotNet.Serialization.ITypeInspector,``0},System.Action{YamlDotNet.Serialization.ITrackingRegistrationLocationSelectionSyntax{YamlDotNet.Serialization.ITypeInspector}})">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.ITypeInspector" /> to be used by the (de)serializer.
+            </summary>
+            <param name="typeInspectorFactory">A function that instantiates the type inspector based on a previously registered <see cref="T:YamlDotNet.Serialization.ITypeInspector" />..</param>
+            <param name="where">Configures the location where to insert the <see cref="T:YamlDotNet.Serialization.ITypeInspector" /></param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.BuilderSkeleton`1.WithoutTypeInspector``1">
+            <summary>
+            Unregisters an existing <see cref="T:YamlDotNet.Serialization.ITypeInspector" /> of type <typeparam name="TTypeInspector" />.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.BuilderSkeleton`1.WithoutTypeInspector(System.Type)">
+            <summary>
+            Unregisters an existing <see cref="T:YamlDotNet.Serialization.ITypeInspector" /> of type <param name="inspectorType" />.
+            </summary>
+        </member>
+        <member name="T:YamlDotNet.Serialization.WrapperFactory`2">
+            <summary>
+            A factory that creates instances of <typeparamref name="TComponent" /> based on an existing <typeparamref name="TComponentBase" />.
+            </summary>
+            <typeparam name="TComponentBase">The type of the wrapped component.</typeparam>
+            <typeparam name="TComponent">The type of the component that this factory creates.</typeparam>
+            <param name="wrapped">The component that is to be wrapped.</param>
+            <returns>Returns a new instance of <typeparamref name="TComponent" /> that is based on <paramref name="wrapped" />.</returns>
+        </member>
+        <member name="T:YamlDotNet.Serialization.WrapperFactory`3">
+            <summary>
+            A factory that creates instances of <typeparamref name="TComponent" /> based on an existing <typeparamref name="TComponentBase" /> and an argument.
+            </summary>
+            <typeparam name="TArgument">The type of the argument.</typeparam>
+            <typeparam name="TComponentBase">The type of the wrapped component.</typeparam>
+            <typeparam name="TComponent">The type of the component that this factory creates.</typeparam>
+            <param name="wrapped">The component that is to be wrapped.</param>
+            <param name="argument">The argument of the factory.</param>
+            <returns>Returns a new instance of <typeparamref name="TComponent" /> that is based on <paramref name="wrapped" /> and <paramref name="argument" />.</returns>
+        </member>
+        <member name="T:YamlDotNet.Serialization.Converters.DateTimeConverter">
+            <summary>
+            This represents the YAML converter entity for <see cref="T:System.DateTime"/>.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.Converters.DateTimeConverter.#ctor(System.DateTimeKind,System.IFormatProvider,System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Serialization.Converters.DateTimeConverter"/> class.
+            </summary>
+            <param name="kind"><see cref="T:System.DateTimeKind"/> value. Default value is <see cref="F:System.DateTimeKind.Utc"/>. <see cref="F:System.DateTimeKind.Unspecified"/> is considered as <see cref="F:System.DateTimeKind.Utc"/>.</param>
+            <param name="provider"><see cref="T:System.IFormatProvider"/> instance. Default value is <see cref="P:System.Globalization.CultureInfo.InvariantCulture"/>.</param>
+            <param name="formats">List of date/time formats for parsing. Default value is "<c>G</c>".</param>
+            <remarks>On deserializing, all formats in the list are used for conversion, while on serializing, the first format in the list is used.</remarks>
+        </member>
+        <member name="M:YamlDotNet.Serialization.Converters.DateTimeConverter.Accepts(System.Type)">
+            <summary>
+            Gets a value indicating whether the current converter supports converting the specified type.
+            </summary>
+            <param name="type"><see cref="T:System.Type"/> to check.</param>
+            <returns>Returns <c>True</c>, if the current converter supports; otherwise returns <c>False</c>.</returns>
+        </member>
+        <member name="M:YamlDotNet.Serialization.Converters.DateTimeConverter.ReadYaml(YamlDotNet.Core.IParser,System.Type)">
+            <summary>
+            Reads an object's state from a YAML parser.
+            </summary>
+            <param name="parser"><see cref="T:YamlDotNet.Core.IParser"/> instance.</param>
+            <param name="type"><see cref="T:System.Type"/> to convert.</param>
+            <returns>Returns the <see cref="T:System.DateTime"/> instance converted.</returns>
+            <remarks>On deserializing, all formats in the list are used for conversion.</remarks>
+        </member>
+        <member name="M:YamlDotNet.Serialization.Converters.DateTimeConverter.WriteYaml(YamlDotNet.Core.IEmitter,System.Object,System.Type)">
+            <summary>
+            Writes the specified object's state to a YAML emitter.
+            </summary>
+            <param name="emitter"><see cref="T:YamlDotNet.Core.IEmitter"/> instance.</param>
+            <param name="value">Value to write.</param>
+            <param name="type"><see cref="T:System.Type"/> to convert.</param>
+            <remarks>On serializing, the first format in the list is used.</remarks>
+        </member>
         <member name="T:YamlDotNet.Serialization.Converters.GuidConverter">
             <summary>
             Converter for System.Guid.
@@ -3248,16 +3568,173 @@
         </member>
         <member name="T:YamlDotNet.Serialization.Deserializer">
             <summary>
-            A façade for the YAML library with the standard configuration.
+            Deserializes objects from the YAML format.
+            To customize the behavior of <see cref="T:YamlDotNet.Serialization.Deserializer" />,
+            use the <see cref="T:YamlDotNet.Serialization.DeserializerBuilder" /> class.
             </summary>
         </member>
-        <member name="M:YamlDotNet.Serialization.Deserializer.Deserialize(YamlDotNet.Core.EventReader,System.Type)">
+        <member name="M:YamlDotNet.Serialization.Deserializer.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:YamlDotNet.Serialization.Deserializer" /> using the default configuration.
+            </summary>
+            <remarks>
+            To customize the bahavior of the deserializer, use <see cref="T:YamlDotNet.Serialization.DeserializerBuilder" />.
+            </remarks>
+        </member>
+        <member name="M:YamlDotNet.Serialization.Deserializer.#ctor(YamlDotNet.Serialization.IValueDeserializer)">
+            <remarks>
+            This constructor is private to discourage its use.
+            To invoke it, call the <see cref="M:YamlDotNet.Serialization.Deserializer.FromValueDeserializer(YamlDotNet.Serialization.IValueDeserializer)"/> method.
+            </remarks>
+        </member>
+        <member name="M:YamlDotNet.Serialization.Deserializer.FromValueDeserializer(YamlDotNet.Serialization.IValueDeserializer)">
+            <summary>
+            Creates a new <see cref="T:YamlDotNet.Serialization.Deserializer" /> that uses the specified <see cref="T:YamlDotNet.Serialization.IValueDeserializer" />.
+            This method is available for advanced scenarios. The preferred way to customize the bahavior of the
+            deserializer is to use <see cref="T:YamlDotNet.Serialization.DeserializerBuilder" />.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.Deserializer.Deserialize(YamlDotNet.Core.IParser,System.Type)">
             <summary>
             Deserializes an object of the specified type.
             </summary>
-            <param name="reader">The <see cref="T:YamlDotNet.Core.EventReader" /> where to deserialize the object.</param>
+            <param name="parser">The <see cref="T:YamlDotNet.Core.IParser" /> from where to deserialize the object.</param>
             <param name="type">The static type of the object to deserialize.</param>
             <returns>Returns the deserialized object.</returns>
+        </member>
+        <member name="T:YamlDotNet.Serialization.DeserializerBuilder">
+            <summary>
+            Creates and configures instances of <see cref="T:YamlDotNet.Serialization.Deserializer" />.
+            This class is used to customize the behavior of <see cref="T:YamlDotNet.Serialization.Deserializer" />. Use the relevant methods
+            to apply customizations, then call <see cref="M:YamlDotNet.Serialization.DeserializerBuilder.Build" /> to create an instance of the deserializer
+            with the desired customizations.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.DeserializerBuilder.#ctor">
+            <summary>
+            Initializes a new <see cref="T:YamlDotNet.Serialization.DeserializerBuilder" /> using the default component registrations.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.DeserializerBuilder.WithObjectFactory(YamlDotNet.Serialization.IObjectFactory)">
+            <summary>
+            Sets the <see cref="T:YamlDotNet.Serialization.IObjectFactory" /> that will be used by the deserializer.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.DeserializerBuilder.WithObjectFactory(System.Func{System.Type,System.Object})">
+            <summary>
+            Sets the <see cref="T:YamlDotNet.Serialization.IObjectFactory" /> that will be used by the deserializer.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.DeserializerBuilder.WithNodeDeserializer(YamlDotNet.Serialization.INodeDeserializer)">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.INodeDeserializer" /> to be used by the deserializer.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.DeserializerBuilder.WithNodeDeserializer(YamlDotNet.Serialization.INodeDeserializer,System.Action{YamlDotNet.Serialization.IRegistrationLocationSelectionSyntax{YamlDotNet.Serialization.INodeDeserializer}})">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.INodeDeserializer" /> to be used by the deserializer.
+            </summary>
+            <param name="nodeDeserializer"></param>
+            <param name="where">Configures the location where to insert the <see cref="T:YamlDotNet.Serialization.INodeDeserializer" /></param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.DeserializerBuilder.WithNodeDeserializer``1(YamlDotNet.Serialization.WrapperFactory{YamlDotNet.Serialization.INodeDeserializer,``0},System.Action{YamlDotNet.Serialization.ITrackingRegistrationLocationSelectionSyntax{YamlDotNet.Serialization.INodeDeserializer}})">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.INodeDeserializer" /> to be used by the deserializer.
+            </summary>
+            <param name="nodeDeserializerFactory">A factory that creates the <see cref="T:YamlDotNet.Serialization.INodeDeserializer" /> based on a previously registered <see cref="T:YamlDotNet.Serialization.INodeDeserializer" />.</param>
+            <param name="where">Configures the location where to insert the <see cref="T:YamlDotNet.Serialization.INodeDeserializer" /></param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.DeserializerBuilder.WithoutNodeDeserializer``1">
+            <summary>
+            Unregisters an existing <see cref="T:YamlDotNet.Serialization.INodeDeserializer" /> of type <typeparam name="TNodeDeserializer" />.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.DeserializerBuilder.WithoutNodeDeserializer(System.Type)">
+            <summary>
+            Unregisters an existing <see cref="T:YamlDotNet.Serialization.INodeDeserializer" /> of type <param name="nodeDeserializerType" />.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.DeserializerBuilder.WithNodeTypeResolver(YamlDotNet.Serialization.INodeTypeResolver)">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.INodeTypeResolver" /> to be used by the deserializer.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.DeserializerBuilder.WithNodeTypeResolver(YamlDotNet.Serialization.INodeTypeResolver,System.Action{YamlDotNet.Serialization.IRegistrationLocationSelectionSyntax{YamlDotNet.Serialization.INodeTypeResolver}})">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.INodeTypeResolver" /> to be used by the deserializer.
+            </summary>
+            <param name="nodeTypeResolver"></param>
+            <param name="where">Configures the location where to insert the <see cref="T:YamlDotNet.Serialization.INodeTypeResolver" /></param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.DeserializerBuilder.WithNodeTypeResolver``1(YamlDotNet.Serialization.WrapperFactory{YamlDotNet.Serialization.INodeTypeResolver,``0},System.Action{YamlDotNet.Serialization.ITrackingRegistrationLocationSelectionSyntax{YamlDotNet.Serialization.INodeTypeResolver}})">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.INodeTypeResolver" /> to be used by the deserializer.
+            </summary>
+            <param name="nodeTypeResolverFactory">A factory that creates the <see cref="T:YamlDotNet.Serialization.INodeTypeResolver" /> based on a previously registered <see cref="T:YamlDotNet.Serialization.INodeTypeResolver" />.</param>
+            <param name="where">Configures the location where to insert the <see cref="T:YamlDotNet.Serialization.INodeTypeResolver" /></param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.DeserializerBuilder.WithoutNodeTypeResolver``1">
+            <summary>
+            Unregisters an existing <see cref="T:YamlDotNet.Serialization.INodeTypeResolver" /> of type <typeparam name="TNodeTypeResolver" />.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.DeserializerBuilder.WithoutNodeTypeResolver(System.Type)">
+            <summary>
+            Unregisters an existing <see cref="T:YamlDotNet.Serialization.INodeTypeResolver" /> of type <param name="nodeTypeResolverType" />.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.DeserializerBuilder.WithTagMapping(System.String,System.Type)">
+            <summary>
+            Registers a tag mapping.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.DeserializerBuilder.WithoutTagMapping(System.String)">
+            <summary>
+            Unregisters an existing tag mapping.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.DeserializerBuilder.IgnoreUnmatchedProperties">
+            <summary>
+            Instructs the deserializer to ignore unmatched properties instead of throwing an exception.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.DeserializerBuilder.Build">
+            <summary>
+            Creates a new <see cref="T:YamlDotNet.Serialization.Deserializer" /> according to the current configuration.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.DeserializerBuilder.BuildValueDeserializer">
+            <summary>
+            Creates a new <see cref="T:YamlDotNet.Serialization.IValueDeserializer" /> that implements the current configuration.
+            This method is available for advanced scenarios. The preferred way to customize the bahavior of the
+            deserializer is to use the <see cref="M:YamlDotNet.Serialization.DeserializerBuilder.Build" /> method.
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Serialization.EmissionPhaseObjectGraphVisitorArgs.InnerVisitor">
+            <summary>
+            Gets the next visitor that should be called by the current visitor.
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Serialization.EmissionPhaseObjectGraphVisitorArgs.EventEmitter">
+            <summary>
+            Gets the <see cref="T:YamlDotNet.Serialization.IEventEmitter" /> that is to be used for serialization.
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Serialization.EmissionPhaseObjectGraphVisitorArgs.NestedObjectSerializer">
+            <summary>
+            Gets a function that, when called, serializes the specified object.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.EmissionPhaseObjectGraphVisitorArgs.GetPreProcessingPhaseObjectGraphVisitor``1">
+            <summary>
+            Gets the visitor of type <typeparamref name="T" /> that was used during the pre-processig phase.
+            </summary>
+            <typeparam name="T">The type of the visitor.s</typeparam>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException">
+            No visitor of that type has been registered,
+            or ore than one visitors registered are of type <typeparamref name="T"/>.
+            </exception>
         </member>
         <member name="T:YamlDotNet.Serialization.EventEmitters.ChainedEventEmitter">
             <summary>
@@ -3324,36 +3801,39 @@
             Defines a strategy that walks through an object graph.
             </summary>
         </member>
-        <member name="M:YamlDotNet.Serialization.IObjectGraphTraversalStrategy.Traverse(YamlDotNet.Serialization.IObjectDescriptor,YamlDotNet.Serialization.IObjectGraphVisitor)">
+        <member name="M:YamlDotNet.Serialization.IObjectGraphTraversalStrategy.Traverse``1(YamlDotNet.Serialization.IObjectDescriptor,YamlDotNet.Serialization.IObjectGraphVisitor{``0},``0)">
             <summary>
             Traverses the specified object graph.
             </summary>
             <param name="graph">The graph.</param>
-            <param name="visitor">An <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor"/> that is to be notified during the traversal.</param>
+            <param name="visitor">An <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor`1"/> that is to be notified during the traversal.</param>
+            <param name="context">A <typeparamref name="TContext" /> that will be passed to the <paramref name="visitor" />.</param>
         </member>
-        <member name="T:YamlDotNet.Serialization.IObjectGraphVisitor">
+        <member name="T:YamlDotNet.Serialization.IObjectGraphVisitor`1">
             <summary>
             Defined the interface of a type that can be notified during an object graph traversal.
             </summary>
         </member>
-        <member name="M:YamlDotNet.Serialization.IObjectGraphVisitor.Enter(YamlDotNet.Serialization.IObjectDescriptor)">
+        <member name="M:YamlDotNet.Serialization.IObjectGraphVisitor`1.Enter(YamlDotNet.Serialization.IObjectDescriptor,`0)">
             <summary>
             Indicates whether the specified value should be entered. This allows the visitor to
             override the handling of a particular object or type.
             </summary>
             <param name="value">The value that is about to be entered.</param>
+            <param name="context">The context that this implementation depend on.</param>
             <returns>If the value is to be entered, returns true; otherwise returns false;</returns>
         </member>
-        <member name="M:YamlDotNet.Serialization.IObjectGraphVisitor.EnterMapping(YamlDotNet.Serialization.IObjectDescriptor,YamlDotNet.Serialization.IObjectDescriptor)">
+        <member name="M:YamlDotNet.Serialization.IObjectGraphVisitor`1.EnterMapping(YamlDotNet.Serialization.IObjectDescriptor,YamlDotNet.Serialization.IObjectDescriptor,`0)">
             <summary>
             Indicates whether the specified mapping should be entered. This allows the visitor to
             override the handling of a particular pair.
             </summary>
             <param name="key">The key of the mapping that is about to be entered.</param>
             <param name="value">The value of the mapping that is about to be entered.</param>
+            <param name="context">The context that this implementation depend on.</param>
             <returns>If the mapping is to be entered, returns true; otherwise returns false;</returns>
         </member>
-        <member name="M:YamlDotNet.Serialization.IObjectGraphVisitor.EnterMapping(YamlDotNet.Serialization.IPropertyDescriptor,YamlDotNet.Serialization.IObjectDescriptor)">
+        <member name="M:YamlDotNet.Serialization.IObjectGraphVisitor`1.EnterMapping(YamlDotNet.Serialization.IPropertyDescriptor,YamlDotNet.Serialization.IObjectDescriptor,`0)">
             <summary>
             Indicates whether the specified mapping should be entered. This allows the visitor to
             override the handling of a particular pair. This overload should be invoked when the
@@ -3361,40 +3841,76 @@
             </summary>
             <param name="key">The <see cref="T:YamlDotNet.Serialization.IPropertyDescriptor"/> that provided access to <paramref name="value"/>.</param>
             <param name="value">The value of the mapping that is about to be entered.</param>
+            <param name="context">The context that this implementation depend on.</param>
             <returns>If the mapping is to be entered, returns true; otherwise returns false;</returns>
         </member>
-        <member name="M:YamlDotNet.Serialization.IObjectGraphVisitor.VisitScalar(YamlDotNet.Serialization.IObjectDescriptor)">
+        <member name="M:YamlDotNet.Serialization.IObjectGraphVisitor`1.VisitScalar(YamlDotNet.Serialization.IObjectDescriptor,`0)">
             <summary>
             Notifies the visitor that a scalar value has been encountered.
             </summary>
             <param name="scalar">The value of the scalar.</param>
+            <param name="context">The context that this implementation depend on.</param>
         </member>
-        <member name="M:YamlDotNet.Serialization.IObjectGraphVisitor.VisitMappingStart(YamlDotNet.Serialization.IObjectDescriptor,System.Type,System.Type)">
+        <member name="M:YamlDotNet.Serialization.IObjectGraphVisitor`1.VisitMappingStart(YamlDotNet.Serialization.IObjectDescriptor,System.Type,System.Type,`0)">
             <summary>
             Notifies the visitor that the traversal of a mapping is about to begin.
             </summary>
             <param name="mapping">The value that corresponds to the mapping.</param>
             <param name="keyType">The static type of the keys of the mapping.</param>
             <param name="valueType">The static type of the values of the mapping.</param>
+            <param name="context">The context that this implementation depend on.</param>
         </member>
-        <member name="M:YamlDotNet.Serialization.IObjectGraphVisitor.VisitMappingEnd(YamlDotNet.Serialization.IObjectDescriptor)">
+        <member name="M:YamlDotNet.Serialization.IObjectGraphVisitor`1.VisitMappingEnd(YamlDotNet.Serialization.IObjectDescriptor,`0)">
             <summary>
             Notifies the visitor that the traversal of a mapping has ended.
             </summary>
             <param name="mapping">The value that corresponds to the mapping.</param>
+            <param name="context">The context that this implementation depend on.</param>
         </member>
-        <member name="M:YamlDotNet.Serialization.IObjectGraphVisitor.VisitSequenceStart(YamlDotNet.Serialization.IObjectDescriptor,System.Type)">
+        <member name="M:YamlDotNet.Serialization.IObjectGraphVisitor`1.VisitSequenceStart(YamlDotNet.Serialization.IObjectDescriptor,System.Type,`0)">
             <summary>
             Notifies the visitor that the traversal of a sequence is about to begin.
             </summary>
             <param name="sequence">The value that corresponds to the sequence.</param>
             <param name="elementType">The static type of the elements of the sequence.</param>
+            <param name="context">The context that this implementation depend on.</param>
         </member>
-        <member name="M:YamlDotNet.Serialization.IObjectGraphVisitor.VisitSequenceEnd(YamlDotNet.Serialization.IObjectDescriptor)">
+        <member name="M:YamlDotNet.Serialization.IObjectGraphVisitor`1.VisitSequenceEnd(YamlDotNet.Serialization.IObjectDescriptor,`0)">
             <summary>
             Notifies the visitor that the traversal of a sequence has ended.
             </summary>
             <param name="sequence">The value that corresponds to the sequence.</param>
+            <param name="context">The context that this implementation depend on.</param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.IRegistrationLocationSelectionSyntax`1.InsteadOf``1">
+            <summary>
+            Registers the component in place of the already registered component of type <typeparamref name="TRegistrationType" />.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.IRegistrationLocationSelectionSyntax`1.Before``1">
+            <summary>
+            Registers the component before the already registered component of type <typeparamref name="TRegistrationType" />.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.IRegistrationLocationSelectionSyntax`1.After``1">
+            <summary>
+            Registers the component after the already registered component of type <typeparamref name="TRegistrationType" />.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.IRegistrationLocationSelectionSyntax`1.OnTop">
+            <summary>
+            Registers the component before every other previously registered component.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.IRegistrationLocationSelectionSyntax`1.OnBottom">
+            <summary>
+            Registers the component after every other previously registered component.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.ITrackingRegistrationLocationSelectionSyntax`1.InsteadOf``1">
+            <summary>
+            Registers the component in place of the already registered component of type <typeparamref name="TRegistrationType" />.
+            </summary>
         </member>
         <member name="T:YamlDotNet.Serialization.ITypeInspector">
             <summary>
@@ -3426,6 +3942,46 @@
             <summary>
             Resolves the type of values.
             </summary>
+        </member>
+        <member name="T:YamlDotNet.Serialization.IYamlConvertible">
+            <summary>
+            Allows an object to customize how it is serialized and deserialized.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.IYamlConvertible.Read(YamlDotNet.Core.IParser,System.Type,YamlDotNet.Serialization.ObjectDeserializer)">
+            <summary>
+            Reads this object's state from a YAML parser.
+            </summary>
+            <param name="parser">The parser where the object's state should be read from.</param>
+            <param name="expectedType">The type that the deserializer is expecting.</param>
+            <param name="nestedObjectDeserializer">
+            A function that will use the current deserializer
+            to read an object of the given type from the parser.
+            </param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.IYamlConvertible.Write(YamlDotNet.Core.IEmitter,YamlDotNet.Serialization.ObjectSerializer)">
+            <summary>
+            Writes this object's state to a YAML emitter.
+            </summary>
+            <param name="emitter">The emitter where the object's state should be written to.</param>
+            <param name="nestedObjectSerializer">A function that will use the current serializer to write an object to the emitter.</param>
+        </member>
+        <member name="T:YamlDotNet.Serialization.ObjectDeserializer">
+            <summary>
+            Represents a function that is used to deserialize an object of the given type.
+            </summary>
+            <param name="type">The type that the deserializer should read.</param>
+            <returns>Returns the object that was deserialized.</returns>
+        </member>
+        <member name="T:YamlDotNet.Serialization.ObjectSerializer">
+            <summary>
+            Represents a function that is used to serialize an object of the given type.
+            </summary>
+            <param name="value">The object to be serialized.</param>
+            <param name="type">
+            The type that should be considered when emitting the object.
+            If null, the actual type of the <paramref name="value" /> is used.
+            </param>
         </member>
         <member name="T:YamlDotNet.Serialization.IYamlSerializable">
             <summary>
@@ -3491,6 +4047,11 @@
             Convert the string from camelcase (thisIsATest) to a underscored (this_is_a_test) string
             </summary>
         </member>
+        <member name="T:YamlDotNet.Serialization.Nothing">
+            <summary>
+            An empty type for cases where a type needs to be provided but won't be used.
+            </summary>
+        </member>
         <member name="T:YamlDotNet.Serialization.ObjectFactories.DefaultObjectFactory">
             <summary>
             Creates objects using Activator.CreateInstance.
@@ -3512,6 +4073,11 @@
             An implementation of <see cref="T:YamlDotNet.Serialization.IObjectGraphTraversalStrategy"/> that traverses
             properties that are read/write, collections and dictionaries, while ensuring that
             the graph can be regenerated from the resulting document.
+            </summary>
+        </member>
+        <member name="T:YamlDotNet.Serialization.ObjectGraphVisitors.PreProcessingPhaseObjectGraphVisitorSkeleton">
+            <summary>
+            A base class that simplifies the correct implementation of <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor`1" />.
             </summary>
         </member>
         <member name="T:YamlDotNet.Serialization.SerializationOptions">
@@ -3556,11 +4122,6 @@
             Use the static type of values instead of their actual type.
             </summary>
         </member>
-        <member name="T:YamlDotNet.Serialization.Serializer">
-            <summary>
-            Writes objects to YAML.
-            </summary>
-        </member>
         <member name="M:YamlDotNet.Serialization.Serializer.#ctor(YamlDotNet.Serialization.SerializationOptions,YamlDotNet.Serialization.INamingConvention,YamlDotNet.Serialization.YamlAttributeOverrides)">
             <summary>
             
@@ -3574,11 +4135,38 @@
             Registers a type converter to be used to serialize and deserialize specific types.
             </summary>
         </member>
+        <member name="M:YamlDotNet.Serialization.Serializer.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:YamlDotNet.Serialization.Serializer" /> using the default configuration.
+            </summary>
+            <remarks>
+            To customize the bahavior of the serializer, use <see cref="T:YamlDotNet.Serialization.SerializerBuilder" />.
+            </remarks>
+        </member>
+        <member name="M:YamlDotNet.Serialization.Serializer.#ctor(YamlDotNet.Serialization.IValueSerializer)">
+            <remarks>
+            This constructor is private to discourage its use.
+            To invoke it, call the <see cref="M:YamlDotNet.Serialization.Serializer.FromValueSerializer(YamlDotNet.Serialization.IValueSerializer)"/> method.
+            </remarks>
+        </member>
+        <member name="M:YamlDotNet.Serialization.Serializer.FromValueSerializer(YamlDotNet.Serialization.IValueSerializer)">
+            <summary>
+            Creates a new <see cref="T:YamlDotNet.Serialization.Serializer" /> that uses the specified <see cref="T:YamlDotNet.Serialization.IValueSerializer" />.
+            This method is available for advanced scenarios. The preferred way to customize the bahavior of the
+            deserializer is to use <see cref="T:YamlDotNet.Serialization.SerializerBuilder" />.
+            </summary>
+        </member>
         <member name="M:YamlDotNet.Serialization.Serializer.Serialize(System.IO.TextWriter,System.Object)">
             <summary>
             Serializes the specified object.
             </summary>
             <param name="writer">The <see cref="T:System.IO.TextWriter" /> where to serialize the object.</param>
+            <param name="graph">The object to serialize.</param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.Serializer.Serialize(System.Object)">
+            <summary>
+            Serializes the specified object into a string.
+            </summary>
             <param name="graph">The object to serialize.</param>
         </member>
         <member name="M:YamlDotNet.Serialization.Serializer.Serialize(System.IO.TextWriter,System.Object,System.Type)">
@@ -3604,6 +4192,175 @@
             <param name="graph">The object to serialize.</param>
             <param name="type">The static type of the object to serialize.</param>
         </member>
+        <member name="T:YamlDotNet.Serialization.SerializerBuilder">
+            <summary>
+            Creates and configures instances of <see cref="T:YamlDotNet.Serialization.Serializer" />.
+            This class is used to customize the behavior of <see cref="T:YamlDotNet.Serialization.Serializer" />. Use the relevant methods
+            to apply customizations, then call <see cref="M:YamlDotNet.Serialization.SerializerBuilder.Build" /> to create an instance of the serializer
+            with the desired customizations.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.WithEventEmitter``1(System.Func{YamlDotNet.Serialization.IEventEmitter,``0})">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.IEventEmitter" /> to be used by the serializer.
+            </summary>
+            <param name="eventEmitterFactory">A function that instantiates the event emitter.</param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.WithEventEmitter``1(System.Func{YamlDotNet.Serialization.IEventEmitter,``0},System.Action{YamlDotNet.Serialization.IRegistrationLocationSelectionSyntax{YamlDotNet.Serialization.IEventEmitter}})">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.IEventEmitter" /> to be used by the serializer.
+            </summary>
+            <param name="eventEmitterFactory">A function that instantiates the event emitter.</param>
+            <param name="where">Configures the location where to insert the <see cref="T:YamlDotNet.Serialization.IEventEmitter" /></param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.WithEventEmitter``1(YamlDotNet.Serialization.WrapperFactory{YamlDotNet.Serialization.IEventEmitter,YamlDotNet.Serialization.IEventEmitter,``0},System.Action{YamlDotNet.Serialization.ITrackingRegistrationLocationSelectionSyntax{YamlDotNet.Serialization.IEventEmitter}})">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.IEventEmitter" /> to be used by the serializer.
+            </summary>
+            <param name="eventEmitterFactory">A function that instantiates the event emitter based on a previously registered <see cref="T:YamlDotNet.Serialization.IEventEmitter" />.</param>
+            <param name="where">Configures the location where to insert the <see cref="T:YamlDotNet.Serialization.IEventEmitter" /></param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.WithoutEventEmitter``1">
+            <summary>
+            Unregisters an existing <see cref="T:YamlDotNet.Serialization.IEventEmitter" /> of type <typeparam name="TEventEmitter" />.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.WithoutEventEmitter(System.Type)">
+            <summary>
+            Unregisters an existing <see cref="T:YamlDotNet.Serialization.IEventEmitter" /> of type <param name="eventEmitterType" />.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.WithTagMapping(System.String,System.Type)">
+            <summary>
+            Registers a tag mapping.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.WithoutTagMapping(System.Type)">
+            <summary>
+            Unregisters an existing tag mapping.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.EnsureRoundtrip">
+            <summary>
+            Ensures that it will be possible to deserialize the serialized objects.
+            This option will force the emission of tags and emit only properties with setters.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.DisableAliases">
+            <summary>
+            Specifies that, if the same object appears more than once in the
+            serialization graph, it will be serialized each time instead of just once.
+            </summary>
+            <remarks>
+            If the serialization graph contains circular references and this flag is set,
+            a StackOverflowException will be thrown.
+            If this flag is not set, there is a performance penalty because the entire
+            object graph must be walked twice.
+            </remarks>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.EmitDefaults">
+            <summary>
+            Forces every value to be serialized, even if it is the default value for that type.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.JsonCompatible">
+            <summary>
+            Ensures that the result of the serialization is valid JSON.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.WithPreProcessingPhaseObjectGraphVisitor``1(``0)">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor`1" /> to be used by the serializer
+            before emitting an object graph.
+            </summary>
+            <remarks>
+            Registering a visitor in the pre-processing phase enables to traverse the object graph once
+            before actually emitting it. This allows a visitor to collect information about the graph that
+            can be used later by another visitor registered in the emission phase.
+            </remarks>
+            <param name="objectGraphVisitor">The type inspector.</param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.WithPreProcessingPhaseObjectGraphVisitor``1(``0,System.Action{YamlDotNet.Serialization.IRegistrationLocationSelectionSyntax{YamlDotNet.Serialization.IObjectGraphVisitor{YamlDotNet.Serialization.Nothing}}})">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor`1" /> to be used by the serializer
+            before emitting an object graph.
+            </summary>
+            <remarks>
+            Registering a visitor in the pre-processing phase enables to traverse the object graph once
+            before actually emitting it. This allows a visitor to collect information about the graph that
+            can be used later by another visitor registered in the emission phase.
+            </remarks>
+            <param name="objectGraphVisitor">The type inspector.</param>
+            <param name="where">Configures the location where to insert the <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor`1" /></param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.WithPreProcessingPhaseObjectGraphVisitor``1(YamlDotNet.Serialization.WrapperFactory{YamlDotNet.Serialization.IObjectGraphVisitor{YamlDotNet.Serialization.Nothing},``0},System.Action{YamlDotNet.Serialization.ITrackingRegistrationLocationSelectionSyntax{YamlDotNet.Serialization.IObjectGraphVisitor{YamlDotNet.Serialization.Nothing}}})">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor`1" /> to be used by the serializer
+            before emitting an object graph.
+            </summary>
+            <remarks>
+            Registering a visitor in the pre-processing phase enables to traverse the object graph once
+            before actually emitting it. This allows a visitor to collect information about the graph that
+            can be used later by another visitor registered in the emission phase.
+            </remarks>
+            <param name="objectGraphVisitorFactory">A factory that creates the <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor`1" /> based on a previously registered <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor`1" />.</param>
+            <param name="where">Configures the location where to insert the <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor`1" /></param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.WithoutPreProcessingPhaseObjectGraphVisitor``1">
+            <summary>
+            Unregisters an existing <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor`1" /> of type <typeparam name="TObjectGraphVisitor" />.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.WithoutPreProcessingPhaseObjectGraphVisitor(System.Type)">
+            <summary>
+            Unregisters an existing <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor`1" /> of type <param name="objectGraphVisitorType" />.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.WithEmissionPhaseObjectGraphVisitor``1(System.Func{YamlDotNet.Serialization.EmissionPhaseObjectGraphVisitorArgs,``0})">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor`1" /> to be used by the serializer
+            while emitting an object graph.
+            </summary>
+            <param name="objectGraphVisitorFactory">A function that instantiates the type inspector.</param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.WithEmissionPhaseObjectGraphVisitor``1(System.Func{YamlDotNet.Serialization.EmissionPhaseObjectGraphVisitorArgs,``0},System.Action{YamlDotNet.Serialization.IRegistrationLocationSelectionSyntax{YamlDotNet.Serialization.IObjectGraphVisitor{YamlDotNet.Core.IEmitter}}})">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor`1" /> to be used by the serializer
+            while emitting an object graph.
+            </summary>
+            <param name="objectGraphVisitorFactory">A function that instantiates the type inspector.</param>
+            <param name="where">Configures the location where to insert the <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor`1" /></param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.WithEmissionPhaseObjectGraphVisitor``1(YamlDotNet.Serialization.WrapperFactory{YamlDotNet.Serialization.EmissionPhaseObjectGraphVisitorArgs,YamlDotNet.Serialization.IObjectGraphVisitor{YamlDotNet.Core.IEmitter},``0},System.Action{YamlDotNet.Serialization.ITrackingRegistrationLocationSelectionSyntax{YamlDotNet.Serialization.IObjectGraphVisitor{YamlDotNet.Core.IEmitter}}})">
+            <summary>
+            Registers an additional <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor`1" /> to be used by the serializer
+            while emitting an object graph.
+            </summary>
+            <param name="objectGraphVisitorFactory">A function that instantiates the type inspector based on a previously registered <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor`1" />.</param>
+            <param name="where">Configures the location where to insert the <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor`1" /></param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.WithoutEmissionPhaseObjectGraphVisitor``1">
+            <summary>
+            Unregisters an existing <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor`1" /> of type <typeparam name="TObjectGraphVisitor" />.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.WithoutEmissionPhaseObjectGraphVisitor(System.Type)">
+            <summary>
+            Unregisters an existing <see cref="T:YamlDotNet.Serialization.IObjectGraphVisitor`1" /> of type <param name="objectGraphVisitorType" />.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.Build">
+            <summary>
+            Creates a new <see cref="T:YamlDotNet.Serialization.Serializer" /> according to the current configuration.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.SerializerBuilder.BuildValueSerializer">
+            <summary>
+            Creates a new <see cref="T:YamlDotNet.Serialization.IValueDeserializer" /> that implements the current configuration.
+            This method is available for advanced scenarios. The preferred way to customize the bahavior of the
+            deserializer is to use the <see cref="M:YamlDotNet.Serialization.SerializerBuilder.Build" /> method.
+            </summary>
+        </member>
         <member name="T:YamlDotNet.Serialization.StreamFragment">
             <summary>
             An object that contains part of a YAML stream.
@@ -3615,17 +4372,15 @@
             </summary>
             <value>The events.</value>
         </member>
-        <member name="M:YamlDotNet.Serialization.StreamFragment.YamlDotNet#Serialization#IYamlSerializable#ReadYaml(YamlDotNet.Core.IParser)">
+        <member name="M:YamlDotNet.Serialization.StreamFragment.YamlDotNet#Serialization#IYamlConvertible#Read(YamlDotNet.Core.IParser,System.Type,YamlDotNet.Serialization.ObjectDeserializer)">
             <summary>
             Reads this object's state from a YAML parser.
             </summary>
-            <param name="parser"></param>
         </member>
-        <member name="M:YamlDotNet.Serialization.StreamFragment.YamlDotNet#Serialization#IYamlSerializable#WriteYaml(YamlDotNet.Core.IEmitter)">
+        <member name="M:YamlDotNet.Serialization.StreamFragment.YamlDotNet#Serialization#IYamlConvertible#Write(YamlDotNet.Core.IEmitter,YamlDotNet.Serialization.ObjectSerializer)">
             <summary>
             Writes this object's state to a YAML emitter.
             </summary>
-            <param name="emitter"></param>
         </member>
         <member name="T:YamlDotNet.Serialization.TagMappings">
             <summary>
@@ -3816,39 +4571,34 @@
             <param name="culture">The culture.</param>
             <returns></returns>
         </member>
-        <member name="T:YamlDotNet.Serialization.YamlAliasAttribute">
-            <summary>
-            Instructs the <see cref="T:YamlDotNet.Serialization.Deserializer"/> to use a different field name for serialization.
-            </summary>
-        </member>
-        <member name="P:YamlDotNet.Serialization.YamlAliasAttribute.Alias">
-            <summary>
-            Gets or sets the alias name.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Serialization.YamlAliasAttribute.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Serialization.YamlAliasAttribute" /> class.
-            </summary>
-            <param name="alias">The alias to use for this field.</param>
-        </member>
         <member name="T:YamlDotNet.Serialization.YamlAttributeOverrides">
             <summary>
             Define a collection of YamlAttribute Overrides for pre-defined object types.
             </summary>
         </member>
-        <member name="M:YamlDotNet.Serialization.YamlAttributeOverrides.#ctor">
+        <member name="M:YamlDotNet.Serialization.YamlAttributeOverrides.AttributeMapping.Matches(System.Type)">
             <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Serialization.YamlAttributeOverrides"/> class.
+            Checks whether this mapping matches the specified type, and returns a value indicating the match priority.
             </summary>
+            <returns>The priority of the match. Higher values have more priority. Zero indicates no match.</returns>
         </member>
         <member name="M:YamlDotNet.Serialization.YamlAttributeOverrides.Add(System.Type,System.String,System.Attribute)">
             <summary>
-            Add a Member Attribute Override
+            Adds a Member Attribute Override
             </summary>
             <param name="type">Type</param>
             <param name="member">Class Member</param>
             <param name="attribute">Overriding Attribute</param>
+        </member>
+        <member name="M:YamlDotNet.Serialization.YamlAttributeOverrides.Add``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Attribute)">
+            <summary>
+            Adds a Member Attribute Override
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Serialization.YamlAttributeOverrides.Clone">
+            <summary>
+            Creates a copy of this instance.
+            </summary>
         </member>
         <member name="T:YamlDotNet.Serialization.YamlAttributeOverridesInspector">
             <summary>
@@ -3885,6 +4635,11 @@
             Instructs the <see cref="T:YamlDotNet.Serialization.Deserializer"/> to use a different field name for serialization.
             </summary>
         </member>
+        <member name="P:YamlDotNet.Serialization.YamlMemberAttribute.ApplyNamingConventions">
+            <summary>
+            When false, naming conventions will not be applied to this member. Defaults to true.
+            </summary>
+        </member>
         <member name="P:YamlDotNet.Serialization.YamlMemberAttribute.ScalarStyle">
             <summary>
             Specifies the scalar style of the property when serialized. This will only affect the serialization of scalar properties.
@@ -3900,18 +4655,6 @@
             Initializes a new instance of the <see cref="T:YamlDotNet.Serialization.YamlMemberAttribute" /> class.
             </summary>
             <param name="serializeAs">Specifies that this property should be serialized as the given type, rather than using the actual runtime value's type.</param>
-        </member>
-        <member name="T:YamlDotNet.Helpers.GenericCollectionToNonGenericAdapter">
-            <summary>
-            Adapts an <see cref="T:System.Collections.Generic.ICollection`1" /> to <see cref="T:System.Collections.IList" />
-            because not all generic collections implement <see cref="T:System.Collections.IList" />.
-            </summary>
-        </member>
-        <member name="T:YamlDotNet.Helpers.GenericDictionaryToNonGenericAdapter">
-            <summary>
-            Adapts an <see cref="T:System.Collections.Generic.IDictionary`2" /> to <see cref="T:System.Collections.IDictionary" />
-            because not all generic dictionaries implement <see cref="T:System.Collections.IDictionary" />.
-            </summary>
         </member>
     </members>
 </doc>

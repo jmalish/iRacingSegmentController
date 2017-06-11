@@ -6,7 +6,6 @@ D:\projects\iRacingSegmentController\iRacingSegmentController\bin\Debug\iRSDKSha
 D:\projects\iRacingSegmentController\iRacingSegmentController\bin\Debug\YamlDotNet.dll
 D:\projects\iRacingSegmentController\iRacingSegmentController\bin\Debug\iRacingSdkWrapper.pdb
 D:\projects\iRacingSegmentController\iRacingSegmentController\bin\Debug\iRSDKSharp.pdb
-D:\projects\iRacingSegmentController\iRacingSegmentController\bin\Debug\YamlDotNet.pdb
 D:\projects\iRacingSegmentController\iRacingSegmentController\bin\Debug\YamlDotNet.xml
 D:\projects\iRacingSegmentController\iRacingSegmentController\obj\Debug\iRacingSegmentController.csprojResolveAssemblyReference.cache
 D:\projects\iRacingSegmentController\iRacingSegmentController\obj\Debug\iRacingSegmentController.Form1.resources

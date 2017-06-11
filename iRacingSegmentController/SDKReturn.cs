@@ -4,7 +4,7 @@ namespace iRacingSegmentController
 {
     public partial class Form1 : Form
     {
-        public class SDKReturn  // TODO: move these off into their own file
+        public class SDKReturn
         {
             public SessionInfo SessionInfo { get; set; }
             public DriverInfo DriverInfo { get; set; }

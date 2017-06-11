@@ -13,7 +13,7 @@ namespace iRacingSegmentController
             public int UserID { get; set; }
             public int TeamID { get; set; }
             public string TeamName { get; set; }
-            public int CarNumber { get; set; }
+            public string CarNumber { get; set; }
             public int CarNumberRaw { get; set; }
             public string CarPath { get; set; }
             public int CarClassID { get; set; }

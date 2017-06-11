@@ -172,47 +172,6 @@
             Check if the next node can be expressed as a simple key.
             </summary>
         </member>
-        <member name="T:YamlDotNet.Core.ParserExtensions">
-            <summary>
-            Extension methods that provide useful abstractions over <see cref="T:YamlDotNet.Core.IParser"/>.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.ParserExtensions.Expect``1(YamlDotNet.Core.IParser)">
-            <summary>
-            Ensures that the current event is of the specified type, returns it and moves to the next event.
-            </summary>
-            <typeparam name="T">Type of the <see cref="T:YamlDotNet.Core.Events.ParsingEvent"/>.</typeparam>
-            <returns>Returns the current event.</returns>
-            <exception cref="T:YamlDotNet.Core.YamlException">If the current event is not of the specified type.</exception>
-        </member>
-        <member name="M:YamlDotNet.Core.ParserExtensions.Accept``1(YamlDotNet.Core.IParser)">
-            <summary>
-            Checks whether the current event is of the specified type.
-            </summary>
-            <typeparam name="T">Type of the event.</typeparam>
-            <returns>Returns true if the current event is of type <typeparamref name="T"/>. Otherwise returns false.</returns>
-        </member>
-        <member name="M:YamlDotNet.Core.ParserExtensions.Allow``1(YamlDotNet.Core.IParser)">
-            <summary>
-            Checks whether the current event is of the specified type.
-            If the event is of the specified type, returns it and moves to the next event.
-            Otherwise retruns null.
-            </summary>
-            <typeparam name="T">Type of the <see cref="T:YamlDotNet.Core.Events.ParsingEvent"/>.</typeparam>
-            <returns>Returns the current event if it is of type T; otherwise returns null.</returns>
-        </member>
-        <member name="M:YamlDotNet.Core.ParserExtensions.Peek``1(YamlDotNet.Core.IParser)">
-            <summary>
-            Gets the next event without consuming it.
-            </summary>
-            <typeparam name="T">Type of the <see cref="T:YamlDotNet.Core.Events.ParsingEvent"/>.</typeparam>
-            <returns>Returns the current event if it is of type T; otherwise returns null.</returns>
-        </member>
-        <member name="M:YamlDotNet.Core.ParserExtensions.SkipThisAndNestedEvents(YamlDotNet.Core.IParser)">
-            <summary>
-            Skips the current event and any nested event.
-            </summary>
-        </member>
         <member name="T:YamlDotNet.Core.Events.AnchorAlias">
             <summary>
             Represents an alias event.
@@ -255,6 +214,14 @@
             Invokes run-time type specific Visit() method of the specified visitor.
             </summary>
             <param name="visitor">visitor, may not be null.</param>
+        </member>
+        <member name="M:YamlDotNet.Core.Events.Comment.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </returns>
         </member>
         <member name="T:YamlDotNet.Core.Events.DocumentEnd">
             <summary>
@@ -395,103 +362,6 @@
             Callback interface for external event Visitor.
             </summary>
         </member>
-        <member name="T:YamlDotNet.Core.Events.MappingStyle">
-            <summary>
-            Specifies the style of a mapping.
-            </summary>
-        </member>
-        <member name="F:YamlDotNet.Core.Events.MappingStyle.Any">
-            <summary>
-            Let the emitter choose the style.
-            </summary>
-        </member>
-        <member name="F:YamlDotNet.Core.Events.MappingStyle.Block">
-            <summary>
-            The block mapping style.
-            </summary>
-        </member>
-        <member name="F:YamlDotNet.Core.Events.MappingStyle.Flow">
-            <summary>
-            The flow mapping style.
-            </summary>
-        </member>
-        <member name="T:YamlDotNet.Core.Events.NodeEvent">
-            <summary>
-            Contains the behavior that is common between node events.
-            </summary>
-        </member>
-        <member name="P:YamlDotNet.Core.Events.NodeEvent.Anchor">
-            <summary>
-            Gets the anchor.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:YamlDotNet.Core.Events.NodeEvent.Tag">
-            <summary>
-            Gets the tag.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:YamlDotNet.Core.Events.NodeEvent.IsCanonical">
-            <summary>
-            Gets a value indicating whether this instance is canonical.
-            </summary>
-            <value></value>
-        </member>
-        <member name="M:YamlDotNet.Core.Events.NodeEvent.#ctor(System.String,System.String,YamlDotNet.Core.Mark,YamlDotNet.Core.Mark)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Events.NodeEvent"/> class.
-            </summary>
-            <param name="anchor">The anchor.</param>
-            <param name="tag">The tag.</param>
-            <param name="start">The start position of the event.</param>
-            <param name="end">The end position of the event.</param>
-        </member>
-        <member name="M:YamlDotNet.Core.Events.NodeEvent.#ctor(System.String,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Events.NodeEvent"/> class.
-            </summary>
-        </member>
-        <member name="T:YamlDotNet.Core.Events.ParsingEvent">
-            <summary>
-            Base class for parsing events.
-            </summary>
-        </member>
-        <member name="P:YamlDotNet.Core.Events.ParsingEvent.NestingIncrease">
-            <summary>
-            Gets a value indicating the variation of depth caused by this event.
-            The value can be either -1, 0 or 1. For start events, it will be 1,
-            for end events, it will be -1, and for the remaining events, it will be 0.
-            </summary>
-        </member>
-        <member name="P:YamlDotNet.Core.Events.ParsingEvent.Type">
-            <summary>
-            Gets the event type, which allows for simpler type comparisons.
-            </summary>
-        </member>
-        <member name="P:YamlDotNet.Core.Events.ParsingEvent.Start">
-            <summary>
-            Gets the position in the input stream where the event starts.
-            </summary>
-        </member>
-        <member name="P:YamlDotNet.Core.Events.ParsingEvent.End">
-            <summary>
-            Gets the position in the input stream where the event ends.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Events.ParsingEvent.Accept(YamlDotNet.Core.Events.IParsingEventVisitor)">
-            <summary>
-            Accepts the specified visitor.
-            </summary>
-            <param name="visitor">Visitor to accept, may not be null</param>
-        </member>
-        <member name="M:YamlDotNet.Core.Events.ParsingEvent.#ctor(YamlDotNet.Core.Mark,YamlDotNet.Core.Mark)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Events.ParsingEvent"/> class.
-            </summary>
-            <param name="start">The start position of the event.</param>
-            <param name="end">The end position of the event.</param>
-        </member>
         <member name="T:YamlDotNet.Core.Events.MappingEnd">
             <summary>
             Represents a mapping end event.
@@ -609,6 +479,103 @@
             Invokes run-time type specific Visit() method of the specified visitor.
             </summary>
             <param name="visitor">visitor, may not be null.</param>
+        </member>
+        <member name="T:YamlDotNet.Core.Events.MappingStyle">
+            <summary>
+            Specifies the style of a mapping.
+            </summary>
+        </member>
+        <member name="F:YamlDotNet.Core.Events.MappingStyle.Any">
+            <summary>
+            Let the emitter choose the style.
+            </summary>
+        </member>
+        <member name="F:YamlDotNet.Core.Events.MappingStyle.Block">
+            <summary>
+            The block mapping style.
+            </summary>
+        </member>
+        <member name="F:YamlDotNet.Core.Events.MappingStyle.Flow">
+            <summary>
+            The flow mapping style.
+            </summary>
+        </member>
+        <member name="T:YamlDotNet.Core.Events.NodeEvent">
+            <summary>
+            Contains the behavior that is common between node events.
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Core.Events.NodeEvent.Anchor">
+            <summary>
+            Gets the anchor.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:YamlDotNet.Core.Events.NodeEvent.Tag">
+            <summary>
+            Gets the tag.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:YamlDotNet.Core.Events.NodeEvent.IsCanonical">
+            <summary>
+            Gets a value indicating whether this instance is canonical.
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:YamlDotNet.Core.Events.NodeEvent.#ctor(System.String,System.String,YamlDotNet.Core.Mark,YamlDotNet.Core.Mark)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Events.NodeEvent"/> class.
+            </summary>
+            <param name="anchor">The anchor.</param>
+            <param name="tag">The tag.</param>
+            <param name="start">The start position of the event.</param>
+            <param name="end">The end position of the event.</param>
+        </member>
+        <member name="M:YamlDotNet.Core.Events.NodeEvent.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Events.NodeEvent"/> class.
+            </summary>
+        </member>
+        <member name="T:YamlDotNet.Core.Events.ParsingEvent">
+            <summary>
+            Base class for parsing events.
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Core.Events.ParsingEvent.NestingIncrease">
+            <summary>
+            Gets a value indicating the variation of depth caused by this event.
+            The value can be either -1, 0 or 1. For start events, it will be 1,
+            for end events, it will be -1, and for the remaining events, it will be 0.
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Core.Events.ParsingEvent.Type">
+            <summary>
+            Gets the event type, which allows for simpler type comparisons.
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Core.Events.ParsingEvent.Start">
+            <summary>
+            Gets the position in the input stream where the event starts.
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Core.Events.ParsingEvent.End">
+            <summary>
+            Gets the position in the input stream where the event ends.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Events.ParsingEvent.Accept(YamlDotNet.Core.Events.IParsingEventVisitor)">
+            <summary>
+            Accepts the specified visitor.
+            </summary>
+            <param name="visitor">Visitor to accept, may not be null</param>
+        </member>
+        <member name="M:YamlDotNet.Core.Events.ParsingEvent.#ctor(YamlDotNet.Core.Mark,YamlDotNet.Core.Mark)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Events.ParsingEvent"/> class.
+            </summary>
+            <param name="start">The start position of the event.</param>
+            <param name="end">The end position of the event.</param>
         </member>
         <member name="T:YamlDotNet.Core.Events.Scalar">
             <summary>
@@ -1185,6 +1152,34 @@
         <member name="M:YamlDotNet.Core.Mark.CompareTo(YamlDotNet.Core.Mark)">
             <summary />
         </member>
+        <member name="T:YamlDotNet.Core.MaximumRecursionLevelReachedException">
+            <summary>
+            Exception that is thrown when an infinite recursion is detected.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.MaximumRecursionLevelReachedException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/> class.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.MaximumRecursionLevelReachedException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:YamlDotNet.Core.MaximumRecursionLevelReachedException.#ctor(YamlDotNet.Core.Mark,YamlDotNet.Core.Mark,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/> class.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.MaximumRecursionLevelReachedException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="inner">The inner.</param>
+        </member>
         <member name="T:YamlDotNet.Core.MergingParser">
             <summary>
             Simple implementation of <see cref="T:YamlDotNet.Core.IParser"/> that implements merging: http://yaml.org/type/merge.html
@@ -1387,82 +1382,418 @@
                                               *                  ***** *
             </summary>
         </member>
-        <member name="T:YamlDotNet.Core.MaximumRecursionLevelReachedException">
+        <member name="T:YamlDotNet.Core.ParserExtensions">
             <summary>
-            Exception that is thrown when an infinite recursion is detected.
+            Extension methods that provide useful abstractions over <see cref="T:YamlDotNet.Core.IParser"/>.
             </summary>
         </member>
-        <member name="M:YamlDotNet.Core.MaximumRecursionLevelReachedException.#ctor">
+        <member name="M:YamlDotNet.Core.ParserExtensions.Expect``1(YamlDotNet.Core.IParser)">
             <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/> class.
+            Ensures that the current event is of the specified type, returns it and moves to the next event.
+            </summary>
+            <typeparam name="T">Type of the <see cref="T:YamlDotNet.Core.Events.ParsingEvent"/>.</typeparam>
+            <returns>Returns the current event.</returns>
+            <exception cref="T:YamlDotNet.Core.YamlException">If the current event is not of the specified type.</exception>
+        </member>
+        <member name="M:YamlDotNet.Core.ParserExtensions.Accept``1(YamlDotNet.Core.IParser)">
+            <summary>
+            Checks whether the current event is of the specified type.
+            </summary>
+            <typeparam name="T">Type of the event.</typeparam>
+            <returns>Returns true if the current event is of type <typeparamref name="T"/>. Otherwise returns false.</returns>
+        </member>
+        <member name="M:YamlDotNet.Core.ParserExtensions.Allow``1(YamlDotNet.Core.IParser)">
+            <summary>
+            Checks whether the current event is of the specified type.
+            If the event is of the specified type, returns it and moves to the next event.
+            Otherwise retruns null.
+            </summary>
+            <typeparam name="T">Type of the <see cref="T:YamlDotNet.Core.Events.ParsingEvent"/>.</typeparam>
+            <returns>Returns the current event if it is of type T; otherwise returns null.</returns>
+        </member>
+        <member name="M:YamlDotNet.Core.ParserExtensions.Peek``1(YamlDotNet.Core.IParser)">
+            <summary>
+            Gets the next event without consuming it.
+            </summary>
+            <typeparam name="T">Type of the <see cref="T:YamlDotNet.Core.Events.ParsingEvent"/>.</typeparam>
+            <returns>Returns the current event if it is of type T; otherwise returns null.</returns>
+        </member>
+        <member name="M:YamlDotNet.Core.ParserExtensions.SkipThisAndNestedEvents(YamlDotNet.Core.IParser)">
+            <summary>
+            Skips the current event and any nested event.
             </summary>
         </member>
-        <member name="M:YamlDotNet.Core.MaximumRecursionLevelReachedException.#ctor(System.String)">
+        <member name="T:YamlDotNet.Core.RecursionLevel">
             <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/> class.
+            Keeps track of the <see cref="F:YamlDotNet.Core.RecursionLevel.current"/> recursion level,
+            and throws <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/>
+            whenever <see cref="P:YamlDotNet.Core.RecursionLevel.Maximum"/> is reached.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.RecursionLevel.Increment">
+            <summary>
+            Increments the <see cref="F:YamlDotNet.Core.RecursionLevel.current"/> recursion level,
+            and throws <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/>
+            if <see cref="P:YamlDotNet.Core.RecursionLevel.Maximum"/> is reached.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.RecursionLevel.TryIncrement">
+            <summary>
+            Increments the <see cref="F:YamlDotNet.Core.RecursionLevel.current"/> recursion level,
+            and returns whether <see cref="F:YamlDotNet.Core.RecursionLevel.current"/> is still less than <see cref="P:YamlDotNet.Core.RecursionLevel.Maximum"/>.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.RecursionLevel.Decrement">
+            <summary>
+            Decrements the <see cref="F:YamlDotNet.Core.RecursionLevel.current"/> recursion level.
+            </summary>
+        </member>
+        <member name="T:YamlDotNet.Core.ScalarStyle">
+            <summary>
+            Specifies the style of a YAML scalar.
+            </summary>
+        </member>
+        <member name="F:YamlDotNet.Core.ScalarStyle.Any">
+            <summary>
+            Let the emitter choose the style.
+            </summary>
+        </member>
+        <member name="F:YamlDotNet.Core.ScalarStyle.Plain">
+            <summary>
+            The plain scalar style.
+            </summary>
+        </member>
+        <member name="F:YamlDotNet.Core.ScalarStyle.SingleQuoted">
+            <summary>
+            The single-quoted scalar style.
+            </summary>
+        </member>
+        <member name="F:YamlDotNet.Core.ScalarStyle.DoubleQuoted">
+            <summary>
+            The double-quoted scalar style.
+            </summary>
+        </member>
+        <member name="F:YamlDotNet.Core.ScalarStyle.Literal">
+            <summary>
+            The literal scalar style.
+            </summary>
+        </member>
+        <member name="F:YamlDotNet.Core.ScalarStyle.Folded">
+            <summary>
+            The folded scalar style.
+            </summary>
+        </member>
+        <member name="T:YamlDotNet.Core.Scanner">
+            <summary>
+            Converts a sequence of characters into a sequence of YAML tokens.
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Core.Scanner.Current">
+            <summary>
+            Gets the current token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.#ctor(System.IO.TextReader,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Scanner"/> class.
+            </summary>
+            <param name="input">The input.</param>
+            <param name="skipComments">Indicates whether comments should be ignored</param>
+        </member>
+        <member name="P:YamlDotNet.Core.Scanner.CurrentPosition">
+            <summary>
+            Gets the current position inside the input stream.
+            </summary>
+            <value>The current position.</value>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.MoveNext">
+            <summary>
+            Moves to the next token.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ConsumeCurrent">
+            <summary>
+            Consumes the current token and increments the parsed token count
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.StaleSimpleKeys">
+            <summary>
+            Check the list of potential simple keys and remove the positions that
+            cannot contain simple keys anymore.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.UnrollIndent(System.Int32)">
+            <summary>
+            Pop indentation levels from the indents stack until the current level
+            becomes less or equal to the column.  For each intendation level, append
+            the BLOCK-END token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchStreamEnd">
+            <summary>
+            Produce the STREAM-END token and shut down the scanner.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanDirective">
+             <summary>
+             Scan a YAML-DIRECTIVE or TAG-DIRECTIVE token.
+            
+             Scope:
+                  %YAML    1.1    # a comment \n
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                  %TAG    !yaml!  tag:yaml.org,2002:  \n
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+             </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchDocumentIndicator(System.Boolean)">
+            <summary>
+            Produce the DOCUMENT-START or DOCUMENT-END token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchFlowCollectionStart(System.Boolean)">
+            <summary>
+            Produce the FLOW-SEQUENCE-START or FLOW-MAPPING-START token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.IncreaseFlowLevel">
+            <summary>
+            Increase the flow level and resize the simple key list if needed.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchFlowCollectionEnd(System.Boolean)">
+            <summary>
+            Produce the FLOW-SEQUENCE-END or FLOW-MAPPING-END token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.DecreaseFlowLevel">
+            <summary>
+            Decrease the flow level.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchFlowEntry">
+            <summary>
+            Produce the FLOW-ENTRY token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchBlockEntry">
+            <summary>
+            Produce the BLOCK-ENTRY token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchKey">
+            <summary>
+            Produce the KEY token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchValue">
+            <summary>
+            Produce the VALUE token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.RollIndent(System.Int32,System.Int32,System.Boolean,YamlDotNet.Core.Mark)">
+            <summary>
+            Push the current indentation level to the stack and set the new level
+            the current column is greater than the indentation level.  In this case,
+            append or insert the specified token into the token queue.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchAnchor(System.Boolean)">
+            <summary>
+            Produce the ALIAS or ANCHOR token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchTag">
+            <summary>
+            Produce the TAG token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanTag">
+            <summary>
+            Scan a TAG token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchBlockScalar(System.Boolean)">
+            <summary>
+            Produce the SCALAR(...,literal) or SCALAR(...,folded) tokens.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanBlockScalar(System.Boolean)">
+            <summary>
+            Scan a block scalar.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanBlockScalarBreaks(System.Int32,System.Text.StringBuilder,YamlDotNet.Core.Mark,YamlDotNet.Core.Mark@)">
+            <summary>
+            Scan intendation spaces and line breaks for a block scalar.  Determine the
+            intendation level if needed.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchFlowScalar(System.Boolean)">
+            <summary>
+            Produce the SCALAR(...,single-quoted) or SCALAR(...,double-quoted) tokens.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanFlowScalar(System.Boolean)">
+            <summary>
+            Scan a quoted scalar.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.FetchPlainScalar">
+            <summary>
+            Produce the SCALAR(...,plain) token.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanPlainScalar">
+            <summary>
+            Scan a plain scalar.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.RemoveSimpleKey">
+            <summary>
+            Remove a potential simple key at the current flow level.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanDirectiveName(YamlDotNet.Core.Mark)">
+             <summary>
+             Scan the directive name.
+            
+             Scope:
+                  %YAML   1.1     # a comment \n
+                   ^^^^
+                  %TAG    !yaml!  tag:yaml.org,2002:  \n
+                   ^^^
+             </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanVersionDirectiveValue(YamlDotNet.Core.Mark)">
+             <summary>
+             Scan the value of VERSION-DIRECTIVE.
+            
+             Scope:
+                  %YAML   1.1     # a comment \n
+                       ^^^^^^
+             </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanTagDirectiveValue(YamlDotNet.Core.Mark)">
+             <summary>
+             Scan the value of a TAG-DIRECTIVE token.
+            
+             Scope:
+                  %TAG    !yaml!  tag:yaml.org,2002:  \n
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+             </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanTagUri(System.String,YamlDotNet.Core.Mark)">
+            <summary>
+            Scan a tag.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanUriEscapes(YamlDotNet.Core.Mark)">
+            <summary>
+            Decode an URI-escape sequence corresponding to a single UTF-8 character.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanTagHandle(System.Boolean,YamlDotNet.Core.Mark)">
+            <summary>
+            Scan a tag handle.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.ScanVersionDirectiveNumber(YamlDotNet.Core.Mark)">
+             <summary>
+             Scan the version number of VERSION-DIRECTIVE.
+            
+             Scope:
+                  %YAML   1.1     # a comment \n
+                          ^
+                  %YAML   1.1     # a comment \n
+                            ^
+             </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Scanner.SaveSimpleKey">
+            <summary>
+            Check if a simple key may start at the current position and add it if
+            needed.
+            </summary>
+        </member>
+        <member name="T:YamlDotNet.Core.SemanticErrorException">
+            <summary>
+            Exception that is thrown when a semantic error is detected on a YAML stream.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.SemanticErrorException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SemanticErrorException"/> class.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.SemanticErrorException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SemanticErrorException"/> class.
             </summary>
             <param name="message">The message.</param>
         </member>
-        <member name="M:YamlDotNet.Core.MaximumRecursionLevelReachedException.#ctor(YamlDotNet.Core.Mark,YamlDotNet.Core.Mark,System.String)">
+        <member name="M:YamlDotNet.Core.SemanticErrorException.#ctor(YamlDotNet.Core.Mark,YamlDotNet.Core.Mark,System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/> class.
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SemanticErrorException"/> class.
             </summary>
         </member>
-        <member name="M:YamlDotNet.Core.MaximumRecursionLevelReachedException.#ctor(System.String,System.Exception)">
+        <member name="M:YamlDotNet.Core.SemanticErrorException.#ctor(System.String,System.Exception)">
             <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/> class.
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SemanticErrorException"/> class.
             </summary>
             <param name="message">The message.</param>
             <param name="inner">The inner.</param>
         </member>
-        <member name="T:YamlDotNet.Core.Tokens.Comment">
+        <member name="T:YamlDotNet.Core.SyntaxErrorException">
             <summary>
-            Represents a comment
+            Exception that is thrown when a syntax error is detected on a YAML stream.
             </summary>
         </member>
-        <member name="P:YamlDotNet.Core.Tokens.Comment.Value">
+        <member name="M:YamlDotNet.Core.SyntaxErrorException.#ctor">
             <summary>
-            Gets the value of the comment
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SyntaxErrorException"/> class.
             </summary>
         </member>
-        <member name="P:YamlDotNet.Core.Tokens.Comment.IsInline">
+        <member name="M:YamlDotNet.Core.SyntaxErrorException.#ctor(System.String)">
             <summary>
-            Gets a value indicating whether the comment appears other tokens on that line.
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SyntaxErrorException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:YamlDotNet.Core.SyntaxErrorException.#ctor(YamlDotNet.Core.Mark,YamlDotNet.Core.Mark,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SyntaxErrorException"/> class.
             </summary>
         </member>
-        <member name="M:YamlDotNet.Core.Tokens.Comment.#ctor(System.String,System.Boolean)">
+        <member name="M:YamlDotNet.Core.SyntaxErrorException.#ctor(System.String,System.Exception)">
             <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Tokens.Comment"/> class.
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SyntaxErrorException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="inner">The inner.</param>
+        </member>
+        <member name="T:YamlDotNet.Core.TagDirectiveCollection">
+            <summary>
+            Collection of <see cref="T:YamlDotNet.Core.Tokens.TagDirective"/>.
             </summary>
         </member>
-        <member name="M:YamlDotNet.Core.Tokens.Comment.#ctor(System.String,System.Boolean,YamlDotNet.Core.Mark,YamlDotNet.Core.Mark)">
+        <member name="M:YamlDotNet.Core.TagDirectiveCollection.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Tokens.Comment"/> class.
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.TagDirectiveCollection"/> class.
             </summary>
         </member>
-        <member name="T:YamlDotNet.Core.Tokens.AnchorAlias">
+        <member name="M:YamlDotNet.Core.TagDirectiveCollection.#ctor(System.Collections.Generic.IEnumerable{YamlDotNet.Core.Tokens.TagDirective})">
             <summary>
-            Represents an alias token.
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.TagDirectiveCollection"/> class.
             </summary>
+            <param name="tagDirectives">Initial content of the collection.</param>
         </member>
-        <member name="P:YamlDotNet.Core.Tokens.AnchorAlias.Value">
-            <summary>
-            Gets the value of the alias.
-            </summary>
+        <member name="M:YamlDotNet.Core.TagDirectiveCollection.GetKeyForItem(YamlDotNet.Core.Tokens.TagDirective)">
+            <summary/>
         </member>
-        <member name="M:YamlDotNet.Core.Tokens.AnchorAlias.#ctor(System.String)">
+        <member name="M:YamlDotNet.Core.TagDirectiveCollection.Contains(YamlDotNet.Core.Tokens.TagDirective)">
             <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Tokens.AnchorAlias"/> class.
+            Gets a value indicating whether the collection contains a directive with the same handle
             </summary>
-            <param name="value">The value of the anchor.</param>
-        </member>
-        <member name="M:YamlDotNet.Core.Tokens.AnchorAlias.#ctor(System.String,YamlDotNet.Core.Mark,YamlDotNet.Core.Mark)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Tokens.AnchorAlias"/> class.
-            </summary>
-            <param name="value">The value of the anchor.</param>
-            <param name="start">The start position of the event.</param>
-            <param name="end">The end position of the event.</param>
         </member>
         <member name="T:YamlDotNet.Core.Tokens.Anchor">
             <summary>
@@ -1488,6 +1819,30 @@
             <param name="value">The value.</param>
             <param name="start">The start position of the token.</param>
             <param name="end">The end position of the token.</param>
+        </member>
+        <member name="T:YamlDotNet.Core.Tokens.AnchorAlias">
+            <summary>
+            Represents an alias token.
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Core.Tokens.AnchorAlias.Value">
+            <summary>
+            Gets the value of the alias.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Tokens.AnchorAlias.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Tokens.AnchorAlias"/> class.
+            </summary>
+            <param name="value">The value of the anchor.</param>
+        </member>
+        <member name="M:YamlDotNet.Core.Tokens.AnchorAlias.#ctor(System.String,YamlDotNet.Core.Mark,YamlDotNet.Core.Mark)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Tokens.AnchorAlias"/> class.
+            </summary>
+            <param name="value">The value of the anchor.</param>
+            <param name="start">The start position of the event.</param>
+            <param name="end">The end position of the event.</param>
         </member>
         <member name="T:YamlDotNet.Core.Tokens.BlockEnd">
             <summary>
@@ -1556,6 +1911,31 @@
             </summary>
             <param name="start">The start position of the token.</param>
             <param name="end">The end position of the token.</param>
+        </member>
+        <member name="T:YamlDotNet.Core.Tokens.Comment">
+            <summary>
+            Represents a comment
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Core.Tokens.Comment.Value">
+            <summary>
+            Gets the value of the comment
+            </summary>
+        </member>
+        <member name="P:YamlDotNet.Core.Tokens.Comment.IsInline">
+            <summary>
+            Gets a value indicating whether the comment appears other tokens on that line.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Tokens.Comment.#ctor(System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Tokens.Comment"/> class.
+            </summary>
+        </member>
+        <member name="M:YamlDotNet.Core.Tokens.Comment.#ctor(System.String,System.Boolean,YamlDotNet.Core.Mark,YamlDotNet.Core.Mark)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Tokens.Comment"/> class.
+            </summary>
         </member>
         <member name="T:YamlDotNet.Core.Tokens.DocumentEnd">
             <summary>
@@ -1933,353 +2313,6 @@
             A hash code for the current <see cref="T:System.Object"/>.
             </returns>
         </member>
-        <member name="T:YamlDotNet.Core.Scanner">
-            <summary>
-            Converts a sequence of characters into a sequence of YAML tokens.
-            </summary>
-        </member>
-        <member name="P:YamlDotNet.Core.Scanner.Current">
-            <summary>
-            Gets the current token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.#ctor(System.IO.TextReader,System.Boolean)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.Scanner"/> class.
-            </summary>
-            <param name="input">The input.</param>
-            <param name="skipComments">Indicates whether comments should be ignored</param>
-        </member>
-        <member name="P:YamlDotNet.Core.Scanner.CurrentPosition">
-            <summary>
-            Gets the current position inside the input stream.
-            </summary>
-            <value>The current position.</value>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.MoveNext">
-            <summary>
-            Moves to the next token.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ConsumeCurrent">
-            <summary>
-            Consumes the current token and increments the parsed token count
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.StaleSimpleKeys">
-            <summary>
-            Check the list of potential simple keys and remove the positions that
-            cannot contain simple keys anymore.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.UnrollIndent(System.Int32)">
-            <summary>
-            Pop indentation levels from the indents stack until the current level
-            becomes less or equal to the column.  For each intendation level, append
-            the BLOCK-END token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchStreamEnd">
-            <summary>
-            Produce the STREAM-END token and shut down the scanner.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanDirective">
-             <summary>
-             Scan a YAML-DIRECTIVE or TAG-DIRECTIVE token.
-            
-             Scope:
-                  %YAML    1.1    # a comment \n
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                  %TAG    !yaml!  tag:yaml.org,2002:  \n
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-             </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchDocumentIndicator(System.Boolean)">
-            <summary>
-            Produce the DOCUMENT-START or DOCUMENT-END token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchFlowCollectionStart(System.Boolean)">
-            <summary>
-            Produce the FLOW-SEQUENCE-START or FLOW-MAPPING-START token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.IncreaseFlowLevel">
-            <summary>
-            Increase the flow level and resize the simple key list if needed.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchFlowCollectionEnd(System.Boolean)">
-            <summary>
-            Produce the FLOW-SEQUENCE-END or FLOW-MAPPING-END token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.DecreaseFlowLevel">
-            <summary>
-            Decrease the flow level.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchFlowEntry">
-            <summary>
-            Produce the FLOW-ENTRY token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchBlockEntry">
-            <summary>
-            Produce the BLOCK-ENTRY token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchKey">
-            <summary>
-            Produce the KEY token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchValue">
-            <summary>
-            Produce the VALUE token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.RollIndent(System.Int32,System.Int32,System.Boolean,YamlDotNet.Core.Mark)">
-            <summary>
-            Push the current indentation level to the stack and set the new level
-            the current column is greater than the indentation level.  In this case,
-            append or insert the specified token into the token queue.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchAnchor(System.Boolean)">
-            <summary>
-            Produce the ALIAS or ANCHOR token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchTag">
-            <summary>
-            Produce the TAG token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanTag">
-            <summary>
-            Scan a TAG token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchBlockScalar(System.Boolean)">
-            <summary>
-            Produce the SCALAR(...,literal) or SCALAR(...,folded) tokens.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanBlockScalar(System.Boolean)">
-            <summary>
-            Scan a block scalar.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanBlockScalarBreaks(System.Int32,System.Text.StringBuilder,YamlDotNet.Core.Mark,YamlDotNet.Core.Mark@)">
-            <summary>
-            Scan intendation spaces and line breaks for a block scalar.  Determine the
-            intendation level if needed.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchFlowScalar(System.Boolean)">
-            <summary>
-            Produce the SCALAR(...,single-quoted) or SCALAR(...,double-quoted) tokens.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanFlowScalar(System.Boolean)">
-            <summary>
-            Scan a quoted scalar.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.FetchPlainScalar">
-            <summary>
-            Produce the SCALAR(...,plain) token.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanPlainScalar">
-            <summary>
-            Scan a plain scalar.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.RemoveSimpleKey">
-            <summary>
-            Remove a potential simple key at the current flow level.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanDirectiveName(YamlDotNet.Core.Mark)">
-             <summary>
-             Scan the directive name.
-            
-             Scope:
-                  %YAML   1.1     # a comment \n
-                   ^^^^
-                  %TAG    !yaml!  tag:yaml.org,2002:  \n
-                   ^^^
-             </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanVersionDirectiveValue(YamlDotNet.Core.Mark)">
-             <summary>
-             Scan the value of VERSION-DIRECTIVE.
-            
-             Scope:
-                  %YAML   1.1     # a comment \n
-                       ^^^^^^
-             </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanTagDirectiveValue(YamlDotNet.Core.Mark)">
-             <summary>
-             Scan the value of a TAG-DIRECTIVE token.
-            
-             Scope:
-                  %TAG    !yaml!  tag:yaml.org,2002:  \n
-                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-             </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanTagUri(System.String,YamlDotNet.Core.Mark)">
-            <summary>
-            Scan a tag.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanUriEscapes(YamlDotNet.Core.Mark)">
-            <summary>
-            Decode an URI-escape sequence corresponding to a single UTF-8 character.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanTagHandle(System.Boolean,YamlDotNet.Core.Mark)">
-            <summary>
-            Scan a tag handle.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.ScanVersionDirectiveNumber(YamlDotNet.Core.Mark)">
-             <summary>
-             Scan the version number of VERSION-DIRECTIVE.
-            
-             Scope:
-                  %YAML   1.1     # a comment \n
-                          ^
-                  %YAML   1.1     # a comment \n
-                            ^
-             </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.Scanner.SaveSimpleKey">
-            <summary>
-            Check if a simple key may start at the current position and add it if
-            needed.
-            </summary>
-        </member>
-        <member name="T:YamlDotNet.Core.SemanticErrorException">
-            <summary>
-            Exception that is thrown when a semantic error is detected on a YAML stream.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.SemanticErrorException.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SemanticErrorException"/> class.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.SemanticErrorException.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SemanticErrorException"/> class.
-            </summary>
-            <param name="message">The message.</param>
-        </member>
-        <member name="M:YamlDotNet.Core.SemanticErrorException.#ctor(YamlDotNet.Core.Mark,YamlDotNet.Core.Mark,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SemanticErrorException"/> class.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.SemanticErrorException.#ctor(System.String,System.Exception)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SemanticErrorException"/> class.
-            </summary>
-            <param name="message">The message.</param>
-            <param name="inner">The inner.</param>
-        </member>
-        <member name="T:YamlDotNet.Core.SyntaxErrorException">
-            <summary>
-            Exception that is thrown when a syntax error is detected on a YAML stream.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.SyntaxErrorException.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SyntaxErrorException"/> class.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.SyntaxErrorException.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SyntaxErrorException"/> class.
-            </summary>
-            <param name="message">The message.</param>
-        </member>
-        <member name="M:YamlDotNet.Core.SyntaxErrorException.#ctor(YamlDotNet.Core.Mark,YamlDotNet.Core.Mark,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SyntaxErrorException"/> class.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.SyntaxErrorException.#ctor(System.String,System.Exception)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.SyntaxErrorException"/> class.
-            </summary>
-            <param name="message">The message.</param>
-            <param name="inner">The inner.</param>
-        </member>
-        <member name="T:YamlDotNet.Core.TagDirectiveCollection">
-            <summary>
-            Collection of <see cref="T:YamlDotNet.Core.Tokens.TagDirective"/>.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.TagDirectiveCollection.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.TagDirectiveCollection"/> class.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.TagDirectiveCollection.#ctor(System.Collections.Generic.IEnumerable{YamlDotNet.Core.Tokens.TagDirective})">
-            <summary>
-            Initializes a new instance of the <see cref="T:YamlDotNet.Core.TagDirectiveCollection"/> class.
-            </summary>
-            <param name="tagDirectives">Initial content of the collection.</param>
-        </member>
-        <member name="M:YamlDotNet.Core.TagDirectiveCollection.GetKeyForItem(YamlDotNet.Core.Tokens.TagDirective)">
-            <summary/>
-        </member>
-        <member name="M:YamlDotNet.Core.TagDirectiveCollection.Contains(YamlDotNet.Core.Tokens.TagDirective)">
-            <summary>
-            Gets a value indicating whether the collection contains a directive with the same handle
-            </summary>
-        </member>
-        <member name="T:YamlDotNet.Core.ScalarStyle">
-            <summary>
-            Specifies the style of a YAML scalar.
-            </summary>
-        </member>
-        <member name="F:YamlDotNet.Core.ScalarStyle.Any">
-            <summary>
-            Let the emitter choose the style.
-            </summary>
-        </member>
-        <member name="F:YamlDotNet.Core.ScalarStyle.Plain">
-            <summary>
-            The plain scalar style.
-            </summary>
-        </member>
-        <member name="F:YamlDotNet.Core.ScalarStyle.SingleQuoted">
-            <summary>
-            The single-quoted scalar style.
-            </summary>
-        </member>
-        <member name="F:YamlDotNet.Core.ScalarStyle.DoubleQuoted">
-            <summary>
-            The double-quoted scalar style.
-            </summary>
-        </member>
-        <member name="F:YamlDotNet.Core.ScalarStyle.Literal">
-            <summary>
-            The literal scalar style.
-            </summary>
-        </member>
-        <member name="F:YamlDotNet.Core.ScalarStyle.Folded">
-            <summary>
-            The folded scalar style.
-            </summary>
-        </member>
         <member name="T:YamlDotNet.Core.Version">
             <summary>
             Specifies the version of the YAML language.
@@ -2361,31 +2394,6 @@
             </summary>
             <param name="message">The message.</param>
             <param name="inner">The inner.</param>
-        </member>
-        <member name="T:YamlDotNet.Core.RecursionLevel">
-            <summary>
-            Keeps track of the <see cref="F:YamlDotNet.Core.RecursionLevel.current"/> recursion level,
-            and throws <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/>
-            whenever <see cref="P:YamlDotNet.Core.RecursionLevel.Maximum"/> is reached.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.RecursionLevel.Increment">
-            <summary>
-            Increments the <see cref="F:YamlDotNet.Core.RecursionLevel.current"/> recursion level,
-            and throws <see cref="T:YamlDotNet.Core.MaximumRecursionLevelReachedException"/>
-            if <see cref="P:YamlDotNet.Core.RecursionLevel.Maximum"/> is reached.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.RecursionLevel.TryIncrement">
-            <summary>
-            Increments the <see cref="F:YamlDotNet.Core.RecursionLevel.current"/> recursion level,
-            and returns whether <see cref="F:YamlDotNet.Core.RecursionLevel.current"/> is still less than <see cref="P:YamlDotNet.Core.RecursionLevel.Maximum"/>.
-            </summary>
-        </member>
-        <member name="M:YamlDotNet.Core.RecursionLevel.Decrement">
-            <summary>
-            Decrements the <see cref="F:YamlDotNet.Core.RecursionLevel.current"/> recursion level.
-            </summary>
         </member>
         <member name="M:YamlDotNet.Helpers.ExpressionExtensions.AsProperty(System.Linq.Expressions.LambdaExpression)">
             <summary>
@@ -3568,12 +3576,6 @@
             Converter for System.Guid.
             </summary>
         </member>
-        <member name="T:YamlDotNet.Serialization.EventEmitters.ChainedEventEmitter">
-            <summary>
-            Provided the base implementation for an IEventEmitter that is a
-            decorator for another IEventEmitter.
-            </summary>
-        </member>
         <member name="T:YamlDotNet.Serialization.Deserializer">
             <summary>
             Deserializes objects from the YAML format.
@@ -3743,6 +3745,12 @@
             No visitor of that type has been registered,
             or ore than one visitors registered are of type <typeparamref name="T"/>.
             </exception>
+        </member>
+        <member name="T:YamlDotNet.Serialization.EventEmitters.ChainedEventEmitter">
+            <summary>
+            Provided the base implementation for an IEventEmitter that is a
+            decorator for another IEventEmitter.
+            </summary>
         </member>
         <member name="T:YamlDotNet.Serialization.INamingConvention">
             <summary>

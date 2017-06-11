@@ -269,93 +269,100 @@ namespace iRacingSegmentController
             if (isClosing) return;  // if program is closing, just return so we don't waste time doing this stuff
             if (!sessionArgs.SessionInfo.IsValidYaml) return;  // if the yaml isn't valid, no reason to bother with the rest
 
-
-            // TODO: Fix this since it's deprecated, I doubt this will cause me issue, but better safe than sorry
-            Deserializer deserializer = new Deserializer(namingConvention: new PascalCaseNamingConvention(), ignoreUnmatched: true);  // create a deserializer
-            var input = new StringReader(sessionArgs.SessionInfo.Yaml);  // read the yaml
-            var sessionInfo = deserializer.Deserialize<SDKReturn>(input);  // deserialize the yaml
-
-            #region Radios
-            lblIsAdmin.Text = $"User is Admin: {isAdmin}"; // update label
-
-            foreach (Frequencies r in sessionInfo.RadioInfo.Radios[0].Frequencies)
+            try
             {
-                if (r.FrequencyName == "@ADMIN")
-                    isAdmin = true;  // if user has the ADMIN radio channel, we can safely assume they're an admin in the session
-            }
-            #endregion
+                //Deserializer deserializer = new Deserializer(namingConvention: new PascalCaseNamingConvention(), ignoreUnmatched: true);  // create a deserializer
+                DeserializerBuilder deserializerBuilder = new DeserializerBuilder();
+                deserializerBuilder.WithNamingConvention(new PascalCaseNamingConvention());
+                Deserializer deserializer = deserializerBuilder.Build();
 
+                var input = new StringReader(sessionArgs.SessionInfo.Yaml);  // read the yaml
+                var sessionInfo = deserializer.Deserialize<SDKReturn>(input);  // deserialize the yaml
 
-            #region Drivers Info
-            if ((driversInSession == null) || (driversInSession.Count != sessionInfo.DriverInfo.Drivers.Count)) // if driver list is empty, or one of the lists is longer than the other
-            {
-                driversInSession = sessionInfo.DriverInfo.Drivers; // set local driver list equal to drivers in the server
-            }
-            #endregion
+                #region Radios
+                lblIsAdmin.Text = $"User is Admin: {isAdmin}"; // update label
 
-
-            #region Race Session Info
-            foreach (var session in sessionInfo.SessionInfo.Sessions)  // look through all the sessions (normally they're Practice, Qualifying, and Race)
-            {
-                if (session.SessionType == "Race") // find the race part session (ignore qual and practice parts of the active server, if they exist)
+                foreach (Frequencies r in sessionInfo.RadioInfo.Radios[0].Frequencies)
                 {
-                    var raceSession = session; // the session we're dealing with is the race session, just using this to shorten the variable to less than 50 characters
+                    if (r.FrequencyName == "@ADMIN")
+                        isAdmin = true;  // if user has the ADMIN radio channel, we can safely assume they're an admin in the session
+                }
+                #endregion
 
-                    currentLapRace = raceSession.ResultsLapsComplete; // get the laps complete, this is helpful for when someone in top 10 is not on lead lap
+                #region Drivers Info
+                if ((driversInSession == null) || (driversInSession.Count != sessionInfo.DriverInfo.Drivers.Count)) // if driver list is empty, or one of the lists is longer than the other
+                {
+                    driversInSession = sessionInfo.DriverInfo.Drivers; // set local driver list equal to drivers in the server
+                }
+                #endregion
 
-                    lblCurrentLap.Text = $"Current Lap: {currentLapRace + 1} of {raceSession.SessionLaps}";  // update current lap label
-
-                    #region close pits
-                    if (!isPitsClosed)  // make sure pits are open
+                #region Race Session Info
+                foreach (var session in sessionInfo.SessionInfo.Sessions)  // look through all the sessions (normally they're Practice, Qualifying, and Race)
+                {
+                    if (session.SessionType == "Race") // find the race part session (ignore qual and practice parts of the active server, if they exist)
                     {
-                        if (!isSegment1Ended)  // check if segment 1 is ended
-                        { // if not, we're in segment 1
-                            if (currentLapRace >= segment1EndLap - userSettings.ClosePitsLap) // if it's 5 laps or less away from segment 1
-                            {
-                                ClosePits();  // close pits
-                            }
-                        }
-                        else
-                        {  // otherwise we're in segment 2
-                            if (currentLapRace >= segment2EndLap - userSettings.ClosePitsLap) // 5 laps or less
-                            {
-                                ClosePits(); // close pits
-                            }
-                        }
-                    }
-                    #endregion
+                        var raceSession = session; // the session we're dealing with is the race session, just using this to shorten the variable to less than 50 characters
 
-                    currentPositions = raceSession.ResultsPositions; // update positions to equal live results
+                        currentLapRace = raceSession.ResultsLapsComplete; // get the laps complete, this is helpful for when someone in top 10 is not on lead lap
 
-                    if (currentPositions != null) // make sure currentPositions list is not null, otherwise program will crash
-                    {
-                        IEnumerable<Positions> carsOnLeadLapQuery =  // get cars on lead lap
-                            from position in currentPositions
-                            where position.Lap == 0
-                            select position;
+                        lblCurrentLap.Text = $"Current Lap: {currentLapRace + 1} of {raceSession.SessionLaps}";  // update current lap label
 
-                        lblCarsOnLead.Text = $"Cars on Lead Lap: {carsOnLeadLap.Count()} of {currentPositions.Count}"; // update label
-
-                        carsOnLeadLap = carsOnLeadLapQuery.ToList();  // convert cars on lead query lap to list
-
-                        if (!isSegment1Ended || (isSegment1Ended && !isSegment2Ended))  // if segment 1 is not ended
+                        #region close pits
+                        if (!isPitsClosed)  // make sure pits are open
                         {
-                            if (currentLapRace >= segment1EndLap + 1 && segment1Top10[9].CarIdx == -1 || currentLapRace >= segment2EndLap + 1 && segment2Top10[9].CarIdx == -1)
-                            {  // if we're on the lap of a segment end, start checking if we should throw caution
-                                if (!isYellowOut) // make sure yellow hasn't come out
+                            if (!isSegment1Ended)  // check if segment 1 is ended
+                            { // if not, we're in segment 1
+                                if (currentLapRace >= segment1EndLap - userSettings.ClosePitsLap) // if it's 5 laps or less away from segment 1
                                 {
-                                    GetSegmentResults(false);
+                                    ClosePits();  // close pits
                                 }
-                                else // if it has
+                            }
+                            else
+                            {  // otherwise we're in segment 2
+                                if (currentLapRace >= segment2EndLap - userSettings.ClosePitsLap) // 5 laps or less
                                 {
-                                    GetSegmentResults(true);
+                                    ClosePits(); // close pits
+                                }
+                            }
+                        }
+                        #endregion
+
+                        currentPositions = raceSession.ResultsPositions; // update positions to equal live results
+
+                        if (currentPositions != null) // make sure currentPositions list is not null, otherwise program will crash
+                        {
+                            IEnumerable<Positions> carsOnLeadLapQuery =  // get cars on lead lap
+                                from position in currentPositions
+                                where position.Lap == 0
+                                select position;
+
+                            lblCarsOnLead.Text = $"Cars on Lead Lap: {carsOnLeadLap.Count()} of {currentPositions.Count}"; // update label
+
+                            carsOnLeadLap = carsOnLeadLapQuery.ToList();  // convert cars on lead query lap to list
+
+                            if (!isSegment1Ended || (isSegment1Ended && !isSegment2Ended))  // if segment 1 is not ended
+                            {
+                                if (currentLapRace >= segment1EndLap + 1 && segment1Top10[9].CarIdx == -1 || currentLapRace >= segment2EndLap + 1 && segment2Top10[9].CarIdx == -1)
+                                {  // if we're on the lap of a segment end, start checking if we should throw caution
+                                    if (!isYellowOut) // make sure yellow hasn't come out
+                                    {
+                                        GetSegmentResults(false);
+                                    }
+                                    else // if it has
+                                    {
+                                        GetSegmentResults(true);
+                                    }
                                 }
                             }
                         }
                     }
                 }
+                #endregion
             }
-            #endregion
+            catch (Exception exc)
+            {
+                Console.WriteLine(exc.Message.ToString());
+            }
         }
         #endregion
 
