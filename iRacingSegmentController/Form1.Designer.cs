@@ -84,9 +84,9 @@
             this.lvlVersion.AutoSize = true;
             this.lvlVersion.Location = new System.Drawing.Point(16, 267);
             this.lvlVersion.Name = "lvlVersion";
-            this.lvlVersion.Size = new System.Drawing.Size(34, 13);
+            this.lvlVersion.Size = new System.Drawing.Size(37, 13);
             this.lvlVersion.TabIndex = 3;
-            this.lvlVersion.Text = "v1.02";
+            this.lvlVersion.Text = "v1.0.3";
             // 
             // lblCurrentLap
             // 

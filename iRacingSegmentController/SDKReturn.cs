@@ -10,6 +10,9 @@ namespace iRacingSegmentController
             public DriverInfo DriverInfo { get; set; }
             public RadioInfo RadioInfo { get; set; }
             public WeekendInfo WeekendInfo { get; set; }
+            public QualifyResultsInfo QualifyResultsInfo { get; set; }
+            public CameraInfo CameraInfo { get; set; }
+            public SplitTimeInfo SplitTimeInfo { get; set; }
         }
     }
 }
