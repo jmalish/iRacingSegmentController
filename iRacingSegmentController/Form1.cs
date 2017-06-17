@@ -14,6 +14,7 @@ namespace iRacingSegmentController
         private bool isClosing = false;  // is the program closing?
         private readonly iRacingSdkWrapper.SdkWrapper wrapper;  // sdk wrapper, used to connect to live iRacing API
         private bool isYellowOut = false;  // is the yellow flag out?
+        private int cautionLap = -1; // keeps track of when the caution came out
         private string currentFlag = "";  // current flag
         private List<Driver> driversInSession = new List<Driver>(); // list of all drivers in server
         private List<Positions> currentPositions = new List<Positions>();  // Stores a list of the current standings
@@ -57,7 +58,6 @@ namespace iRacingSegmentController
             dgvSeg1Results.Columns[0].Width = 50;
             dgvSeg1Results.Columns[1].Width = 56;
             dgvSeg1Results.Columns[2].Width = 179;
-
             #endregion
 
             #region dgvSeg2Results
@@ -135,6 +135,9 @@ namespace iRacingSegmentController
         {
             isClosing = true;  // let everything else know program is closing
             wrapper.Stop();  // stop the wrapper since the form is being closed, otherwise we have a wild wrapper running free
+
+            wrapper.TelemetryUpdated -= OnTelemetryUpdated;  // stop listening to telemetry events
+            wrapper.SessionInfoUpdated -= OnSessionInfoUpdated;  // stop listening to session events
 
             Application.Exit();  // close program
         }
@@ -234,18 +237,23 @@ namespace iRacingSegmentController
 
             if (currentFlag != newFlag) // if this is true, the flag state has changed
             {
-                if (newFlag.Contains("Caution"))  // caution is out
+                if (newFlag.Contains("Caution") || newFlag.Contains("OneLapToGreen"))  // caution is out
                 {
-                    currentFlag = "Caution";
-                    isYellowOut = true;
-                    isPitsClosed = false;
+                    if (!isYellowOut) // yellow has already been out, so don't want to update this
+                    {
+                        cautionLap = currentLapRace; // tell program what lap the caution came out
+                    }
+
+                    currentFlag = "Caution";  // update label
+                    isYellowOut = true;  // tell program caution is now out
+                    isPitsClosed = false;  // pits are no longer closed, let iRacing handle that now
 
                     #region Segment Checking
-                    if (!isSegment1Ended && currentLapRace >= segment1EndLap - 5) // if caution comes out with 5 laps or less away from the segment end (seg 1)
+                    if (!isSegment1Ended && currentLapRace >= segment1EndLap - 4) // if caution comes out with 5 laps or less away from the segment end (seg 1)
                     {
                         GetSegmentResults(true);
                     }
-                    else if (!isSegment2Ended && currentLapRace >= segment2EndLap - 5)  // same for seg 2
+                    else if (!isSegment2Ended && currentLapRace >= segment2EndLap - 4)  // same for seg 2
                     {
                         GetSegmentResults(true);
                     }
@@ -254,8 +262,26 @@ namespace iRacingSegmentController
                 }
                 else if (newFlag.Contains("Green")) // caution is not out
                 {
-                    currentFlag = "Green";
-                    isYellowOut = false;
+                    currentFlag = "Green"; // update label
+                    isYellowOut = false; // yellow's not out
+                    cautionLap = -1; // reset caution lap
+
+                    /* The idea of this section here is that if a caution comes out with, say, 6 to go, as the race progresses
+                     * under yellow, the laps will continue on until it's 4 away from segment end, which would tell the program we need
+                     * to end the segment, but that's not always the wanted case, so if we go green again before the end of a segment,
+                     * i.e. caution comes out with 6 to go, caution continues until 2 to seg end, the program will have "ended" the segment, but now it will
+                     * see that we've gone green again before the seg cut off lap, so it will reset the top 10, and then go on as usual
+                     * 
+                     * It makes sense, I promise
+                     */
+                    if (!isSegment1Ended)  // if we go green before the end of a segment
+                    {
+                        InitializeSegmentTop10S(1); // reset top 10 of seg 1
+                    }
+                    else if (isSegment1Ended && !isSegment2Ended)
+                    {
+                        InitializeSegmentTop10S(2);  // reset top 10 of seg 2
+                    }
                 }
 
                 lblCurrentFlag.Text = "Current Flag: " + newFlag;
@@ -374,6 +400,24 @@ namespace iRacingSegmentController
             {
                 segment1Top10.Add(new Positions());
                 segment2Top10.Add(new Positions());
+            }
+        }
+
+        private void InitializeSegmentTop10S(int segNum)
+        {
+            if (segNum ==1)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    segment1Top10.Add(new Positions());
+                }
+            }
+            else if (segNum == 2)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    segment2Top10.Add(new Positions());
+                }
             }
         }
 
