@@ -39,7 +39,7 @@ namespace iRacingSegmentController
 
             InitializeComponent();  // do magic stuff
 
-            TopMost = true;
+            TopMost = true;  // TODO: remove this, debug thing
 
             InitializeSegmentTop10S();
 
